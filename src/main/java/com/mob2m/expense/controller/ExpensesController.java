@@ -22,7 +22,7 @@ public class ExpensesController {
 	//Get all expenses
 	@GetMapping("/")
 	public ModelAndView findAll() {
-		ModelAndView mv = new ModelAndView("/index");
+		ModelAndView mv = new ModelAndView("index");
 		mv.addObject("expensesAll", expensesService.findAll());
 		return mv;
 	}
