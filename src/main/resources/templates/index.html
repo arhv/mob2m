@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Mob2m</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
 <link rel="stylesheet" type="text/css"
 	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -16,10 +17,7 @@
 <body>
 
 	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<!--  <div class="navbar-header">
-				<a class="navbar-brand" href="#">Spring Boot</a>
-			</div>-->
+		<div class="container">			
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
@@ -29,19 +27,41 @@
 		</div>
 	</nav>
 	<div class="container">
-
-		<div class="starter-template">
-			<h1>Test Webpage - Content will be coming soon here...</h1>
-			<h2>
-				<span th:text="${message}"></span>
-			</h2>
+		<div class="panel-heading">
+				<strong>Gastos</strong>
+		</div>
+		<div class="table-responsive">
+				<table class="table table-sm table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Data</th>
+							<th>Item</th>
+							<th>Local</th>							
+							<th>Valor</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="expense : ${expensesAll}">
+							<td th:text="${expense.id}"></td>
+							<td th:text="${expense.purchase_date}"></td>							
+							<td th:text="${expense.item}"></td>
+							<td th:text="${expense.purchase_location}"></td>
+							<td th:text="${expense.amount}"></td>
+							<td>
+								<div class="btn-group pull-right">
+							   		<a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${expense.id})}" >Editar</a>
+							   		<a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${expense.id})}">Excluir</a>
+							   </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
-	</div>
-	<!-- /.container -->
-
-	<script type="text/javascript"
-		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 </html>

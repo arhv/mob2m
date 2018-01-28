@@ -1,4 +1,4 @@
-package com.mob2m.initial;
+package com.mob2m.expense;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
