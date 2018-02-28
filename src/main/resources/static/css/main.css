@@ -5,3 +5,14 @@ h1{
 h2{
 	color:#FF0000;
 } 
+
+li:hover{
+    background-color:#aaa;
+    color:white;
+}
+li:active{
+    background-color:#000;
+    color:white;
+}
+
+

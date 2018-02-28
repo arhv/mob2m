@@ -1,12 +1,12 @@
-package com.mob2m.expense.service;
+package com.mob2m.hairdressing.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mob2m.expense.model.ExpensesModel;
-import com.mob2m.expense.repository.ExpensesRepository;
+import com.mob2m.hairdressing.model.Expenses;
+import com.mob2m.hairdressing.repository.ExpensesRepository;
 
 @Service
 public class ExpensesService {
@@ -15,17 +15,17 @@ public class ExpensesService {
 	private ExpensesRepository expensesRepository;
 
 	//All expenses
-	public List<ExpensesModel> findAll() {
+	public List<Expenses> findAll() {
 		return expensesRepository.findAll();
 	}
 
 	//Query specific ID
-	public ExpensesModel findOne(Long id) {
+	public Expenses findOne(Long id) {
 		return expensesRepository.findOne(id);
 	}
 
 	//Add new or updated an expense 
-	public ExpensesModel save(ExpensesModel post) {
+	public Expenses save(Expenses post) {
 		return expensesRepository.saveAndFlush(post);
 	}
 

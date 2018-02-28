@@ -1,12 +1,15 @@
-package com.mob2m.expense;
+package com.mob2m.hairdressing;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 public class InitialApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InitialApplication.class, args);
+
 	}
 }

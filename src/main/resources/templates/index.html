@@ -4,7 +4,7 @@
 <title>Mob2m</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
+ 
 <link rel="stylesheet" type="text/css"
 	href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
@@ -36,6 +36,7 @@
 						<tr>
 							<th>ID</th>
 							<th>Data</th>
+							<th>Categoria</th>
 							<th>Item</th>
 							<th>Local</th>							
 							<th>Valor</th>
@@ -45,10 +46,12 @@
 					<tbody>
 						<tr th:each="expense : ${expensesAll}">
 							<td th:text="${expense.id}"></td>
-							<td th:text="${expense.purchase_date}"></td>							
+							<td th:text="${expense.purchase_date}"></td>
+							<td th:text="${expense.category}"></td>							
 							<td th:text="${expense.item}"></td>
 							<td th:text="${expense.purchase_location}"></td>
-							<td th:text="${expense.amount}"></td>
+							<!--  <td th:text="${expense.amount}"></td>-->
+							<td th:text="${#numbers.formatDecimal(expense.amount, 0, 'COMMA', 2, 'COMMA')}"></td>
 							<td>
 								<div class="btn-group pull-right">
 							   		<a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${expense.id})}" >Editar</a>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="headmeta">
+	<th:block th:include="/headmeta::headmeta"></th:block>		
+</head>
+<body>
+	<div class="container">
+		<section id="loginform" class="outer-wrapper">
+			<div class="inner-wrapper">
+				<div class="container">
+				  <div class="row">
+				    <div class="col-sm-4 col-sm-offset-4">
+				      <h2 class="text-center">Acesso ao Sistema</h2>
+				      <form role="form" name="f" th:action="@{/login}" method="post">
+						  <fieldset>
+							  <div th:if="${param.error}" class="alert alert-error">    
+				                   Usuário/Senha inválidos
+				              </div>
+				              <div th:if="${param.logout}" class="alert alert-success"> 
+				                   Você foi desconectado
+				              </div>
+							  <div class="form-group">
+							    <label for="username">Nome de usuário</label>
+							    <input type="text" class="form-control" id="username" name="username" placeholder="Digite o nome de usuário"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="password">Senha</label>
+							    <input type="password" class="form-control" id="password" name="password" placeholder="Digite a senha"/>
+							  </div>	  
+							  <button type="submit" class="btn btn-default">Enviar</button>
+						  </fieldset>
+					  </form>
+				    </div>
+				  </div>
+				</div>
+			</div>		
+		</section>
+	</div>
+</body>
+</html>
