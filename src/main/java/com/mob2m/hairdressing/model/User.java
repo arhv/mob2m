@@ -7,9 +7,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,10 +21,12 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "id")
+	@Id
+	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Id
+
 	@Column(name = "code_pk_tbl_user")
 	private String code_pk_tbl_user;
 
@@ -47,7 +50,7 @@ public class User implements Serializable {
 	@Column(name = "password")
 	//@Length(min = 5, message = "*Sua senha deve ter pelo menos 5 ")
 	@NotEmpty(message = "*Favor digitar sua senha")
-	@Transient
+	//@Transient
 	private String password;
 
 	@Column(name = "name")

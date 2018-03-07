@@ -30,8 +30,8 @@ public class UserService {
 	}
 
 	//Add new or updated an expense
-	public User save(User post) {
-		return UserRepository.saveAndFlush(post);
+	public User save(User userData) {
+		return UserRepository.saveAndFlush(userData);
 	}
 
 }

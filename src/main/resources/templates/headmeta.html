@@ -9,6 +9,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 	<div th:fragment="menuheader">
 		<nav class="navbar navbar-inverse navbar-fixed-top" >
@@ -26,41 +27,38 @@
 			      <li id="home" th:style="${styleValue}" class="active"><a th:href="@{${@environment.getProperty('url.home')}}">Home</a></li>
 			      <li id="agenda" ><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
 			      <li id="comandas"><a  th:href="@{${@environment.getProperty('url.comandas')}}">Comandas</a></li>	      
-			      <li id="cadastro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentRemove}">
+			      <li id="cadastro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentCadastro}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Cadastro<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="clientes" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>
-			          <!--  <li style="display:none" class="divider"></li>-->
-			          <li style="display:none"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>
-			          <!--  <li class="divider"></li>-->
+			          <li><a id="clientes" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>			          
+			          <li th:style="@{${@environment.getProperty('li.cadastro.fornecedores')}}"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>
+        
 			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.fornecedores')}}" >Fornecedores</a></li>	          
 			        </ul>
 			      </li>	 
-			      <li id="servicos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentRemove}">
+			      <li id="servicos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentServicos}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.servicos')}}">Serviços<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes</a></li>
-			          <li class="divider"></li>
+			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes</a></li>			          
 			          <li><a id="promocoes" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções</a></li>	                   
 			        </ul>
 			      </li>	    
-			      <li id="produtos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentRemove}">
+			      <li id="produtos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentProdutos}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="revenda" th:href="@{${@environment.getProperty('url.produtos.revenda')}}">Revenda</a></li>
-			          <li class="divider"></li>
+			          <li><a id="revenda" th:href="@{${@environment.getProperty('url.produtos.revenda')}}">Revenda</a></li>			          
 			          <li><a id="insumos" th:href="@{${@environment.getProperty('url.produtos.consumo')}}">Consumo</a></li>	                   
 			        </ul>
 			      </li>	
-			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentRemove}">
+			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentAdministrativo}">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>
-			          <li class="divider"></li>
-			          <li><a id="outros" th:href="@{${@environment.getProperty('url.outros')}}">Outros</a></li>	                   
+			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>			          
+			          <li><a id="outros" th:href="@{${@environment.getProperty('url.outros')}}">Outros</a></li>
+			          <li><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   
 			        </ul>
 			      </li>		            
-			      <li id="financeiro" th:style="${styleValue}" th:remove="${fragmentRemove}"><a th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro</a></li>
+			      <li id="financeiro" th:style="${styleValue}" th:remove="${fragmentFinanceiro}"><a th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro</a></li>
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="#"><span th:text="${userLogged}"></span ></a></li>
@@ -69,7 +67,147 @@
 			</div>  
 		  </div>
 		</nav>
-	</div>		
+	</div>	
 	
+	<div th:fragment="findAllUsers">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Usuários cadastrados</strong>
+	        </div>
+	        <div class="panel-body">
+	            <div class="table-responsive">
+	                <table class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>
+	                            <th>Ativo</th>
+	                            <th>Nome completo</th>
+	                            <th>Nome de usuário</th>
+	                            <th>Email</th>	                            
+	                            <th>Telefone</th>
+	                            <!--  <th>Endereço</th>                      
+	                            <th>CEP</th>
+	                            <th>Cidade</th>
+	                            <th>Estado</th> 
+	                            <th>Data de atualização</th>
+	                            <th>Atualização realizada por: </th> -->                
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="user : ${userList}">
+	                            <td th:text="${user.id}"></td>
+	                            <td ><input type="checkbox" name="mycheckbox" th:checked="${user.active}" disabled="disabled"/></td>
+	                            <td th:text="${user.name}"></td>
+	                            <td th:text="${user.username}"></td>
+	                            <td th:text="${user.email}"></td>	                            
+	                            <td th:text="${user.phonenumber}"></td>
+	                            <!-- <td th:text="${user.address}"></td>
+	                            <td th:text="${user.zipCode}"></td>
+	                            <td th:text="${user.city}"></td>
+	                            <td th:text="${user.state}"></td>
+	                            <td th:text="${#dates.format(user.insertdate, 'dd/MM/yyyy')}"></td>
+	                            <td th:text="${user.insertby}"></td> -->
+	                            <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/atualizarusuario/{id}(id=${user.id})}" >Detalhes</a>
+	                                    <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${user.id})}">Excluir</a>
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{${@environment.getProperty('url.usuarios.master.new.user')}}" >Adicionar</a>
+	        </div>
+	    </div>	
+	  </div>	
+	
+	<div th:fragment="addUsers">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Usuário</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${addUser}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--  <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>-->
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Nome completo</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{name}"/>
+	                            </div>
+	                        </div>                    
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                            	<label>Nome de usuário</label>
+	                                <input type="text" class="form-control input-sm" id="username" th:field="*{username}"/>
+	                            </div>
+	                         </div>
+	                        <div class="form-group row">                                                          
+	                            <div class="col-md-4" >
+	                                <label>Email</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{email}"/>
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label>Senha</label> 
+	                                <input type="password" class="form-control input-sm" th:field="*{password}"/>
+	                            </div>
+	                        </div>	                                              
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Telefone</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{phonenumber}"/>
+	                            </div>
+	                        </div> 
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label>Endereço</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{address}"/>
+	                            </div>
+	                        </div>  
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label>CEP</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{zipCode}"/>
+	                            </div>
+	                        </div>  
+	                         <div class="form-group row">
+	                            <div class="col-md-4"  >
+	                                <label>Cidade</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{city}"/>
+	                            </div>
+	                        </div>  
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label>Estado</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{state}"/>
+	                            </div>
+	                        </div>                       
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>
+    </div>
+	
+	<div th:fragment="verifyUsername">
+		
+	
+	</div>
 </body>
+
 </html>

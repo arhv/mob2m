@@ -14,6 +14,11 @@ public class ExpensesService {
 	@Autowired
 	private ExpensesRepository expensesRepository;
 
+	//Delete an expense
+	public void delete(Long id) {
+		expensesRepository.delete(id);
+	}
+
 	//All expenses
 	public List<Expenses> findAll() {
 		return expensesRepository.findAll();
@@ -25,13 +30,8 @@ public class ExpensesService {
 	}
 
 	//Add new or updated an expense 
-	public Expenses save(Expenses post) {
-		return expensesRepository.saveAndFlush(post);
-	}
-
-	//Delete an expense
-	public void delete(Long id) {
-		expensesRepository.delete(id);
+	public Expenses save(Expenses expenseData) {
+		return expensesRepository.saveAndFlush(expenseData);
 	}
 
 }

@@ -1,33 +1,74 @@
 package com.mob2m.hairdressing.controller;
 
+import java.util.Date;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mob2m.hairdressing.model.User;
+import com.mob2m.hairdressing.service.UserService;
 
 @RestController
 public class HairdressingController {
 
+	@Autowired
+	private UserService userService;
 
 
-	@RequestMapping("/")
+	@RequestMapping(path = "${url.usuarios.master.new.user}", method = RequestMethod.GET)
+	public ModelAndView addNewUser(User user) {
+
+
+		ModelAndView mv = new ModelAndView("usuariosmaster");
+		mv.addObject("addUser", user);
+		mv.addObject("removeFindAll", "all");
+		mv.addObject("removeAddUsers", "none");
+		return mv;
+	}
+
+	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView findAll() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//if (!(authentication instanceof AnonymousAuthenticationToken)) {
+		String currentUserName = authentication.getName();
+		if (currentUserName == "marcos") {
+			ModelAndView mv = new ModelAndView("home");
+			//mv.addObject("styleValue", "display:none");
+			//mv.addObject("fragmentRemove", "all");
+			mv.addObject("userLogged", currentUserName);
+			return mv;
+		}
+		ModelAndView mv = new ModelAndView("financeiro");
+		mv.addObject("styleValue", "display:none");
+		mv.addObject("fragmentRemove", "all");
+		mv.addObject("userLogged", currentUserName);
+		return mv;
+
+
 		//ModelAndView mv = new ModelAndView("home");
 		//mv.addObject("home", "<h2>Test h2 home</h2>");
-		ModelAndView mv = new ModelAndView("home");
+		//ModelAndView mv = new ModelAndView("home");
 		//mv.addObject("styleValue", "display:none");
-		return mv;
+		//return mv;
 	}
 
 	@RequestMapping(path = "${url.home}", method = RequestMethod.GET)
 	public ModelAndView findAllHome() {
-		//ModelAndView mv = new ModelAndView("home");
-		//mv.addObject("home", "<h2>Test h2 home</h2>");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = auth.getName();
 		ModelAndView mv = new ModelAndView("home");
 		mv.addObject("styleValue", "display:none");
+		mv.addObject("fragmentRemove", "all");
+		mv.addObject("userLogged", currentUserName);
+		mv.addObject("home", ",<br/><br/><h1>Test Home</h1>");
 		return mv;
 	}
 
@@ -71,6 +112,7 @@ public class HairdressingController {
 		return mv;
 	}
 
+
 	@RequestMapping(path = "${url.comandas}", method = RequestMethod.GET)
 	public ModelAndView goComandas() {
 		ModelAndView mv = new ModelAndView("comandas");
@@ -85,7 +127,6 @@ public class HairdressingController {
 		//mv.addObject("clientes", );
 		return mv;
 	}
-
 
 	@RequestMapping(path = "${url.login}", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
@@ -126,6 +167,31 @@ public class HairdressingController {
 		ModelAndView mv = new ModelAndView("servicospromocoes");
 		//mv.addObject("clientes", );
 		return mv;
+	}
+
+	@RequestMapping(path = "${url.usuarios.master}", method = RequestMethod.GET)
+	public ModelAndView goUsuariosMaster() {
+		ModelAndView mv = new ModelAndView("usuariosmaster");
+		mv.addObject("removeFindAll", "none");
+		mv.addObject("removeAddUsers", "all");
+		mv.addObject("userList", userService.findAll());
+		return mv;
+	}
+
+	@RequestMapping(path = "${url.usuarios.master.save}", method = RequestMethod.POST)
+	public ModelAndView save(@Valid User user, BindingResult result) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		user.setActive(true);
+		user.setInsertdate(new Date(System.currentTimeMillis()));
+		user.setInsertby(authentication.getName());
+
+		if (result.hasErrors()) {
+			return addNewUser(user);
+		}
+
+		userService.save(user);
+
+		return goUsuariosMaster();
 	}
 
 }
