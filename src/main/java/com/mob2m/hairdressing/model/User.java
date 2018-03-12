@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity(name = "tbl_user")
 @Table(schema = "hairdressing_master")
@@ -21,11 +21,15 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "id", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name = "code_pk_tbl_user")
 	private String code_pk_tbl_user;
@@ -39,26 +43,25 @@ public class User implements Serializable {
 	@Column(name = "insertby")
 	private String insertby;
 
-	@Column (name="username")
-	private String username;//Primary key
+	@Column(name = "username")
+	@NotBlank(message = "{username.validation.message}")
+	private String username;
 
 	@Column(name = "email")
-	@Email(message = "*Favor digitar um email válido")
-	@NotEmpty(message = "*Favor digitar seu email")
+	@Email(message = "Favor digitar um email válido")
+	@NotBlank(message = "Favor digitar seu email")
 	private String email;
 
 	@Column(name = "password")
-	//@Length(min = 5, message = "*Sua senha deve ter pelo menos 5 ")
-	@NotEmpty(message = "*Favor digitar sua senha")
-	//@Transient
+	@NotBlank(message = "Favor digitar sua senha")
 	private String password;
 
 	@Column(name = "name")
-	@NotEmpty(message = "*Favor digitar seu nome")
+	@NotBlank(message = "Favor digitar seu nome")
 	private String name;
 
 	@Column(name = "phonenumber")
-	@NotEmpty(message = "*Favor digitar um telefone para contato")
+	@NotBlank(message = "Favor digitar um telefone para contato")
 	private String phonenumber;
 
 	@Column (name = "address")
@@ -102,6 +105,13 @@ public class User implements Serializable {
 		} else if (!city.equals(other.city)) {
 			return false;
 		}
+		if (code_pk_tbl_user == null) {
+			if (other.code_pk_tbl_user != null) {
+				return false;
+			}
+		} else if (!code_pk_tbl_user.equals(other.code_pk_tbl_user)) {
+			return false;
+		}
 		if (email == null) {
 			if (other.email != null) {
 				return false;
@@ -109,7 +119,11 @@ public class User implements Serializable {
 		} else if (!email.equals(other.email)) {
 			return false;
 		}
-		if (id != other.id) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		if (insertby == null) {
@@ -179,11 +193,15 @@ public class User implements Serializable {
 		return city;
 	}
 
+	public String getCode_pk_tbl_user() {
+		return code_pk_tbl_user;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -219,7 +237,6 @@ public class User implements Serializable {
 		return zipCode;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -227,8 +244,9 @@ public class User implements Serializable {
 		result = prime * result + (active ? 1231 : 1237);
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((code_pk_tbl_user == null) ? 0 : code_pk_tbl_user.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((insertby == null) ? 0 : insertby.hashCode());
 		result = prime * result + ((insertdate == null) ? 0 : insertdate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -256,11 +274,15 @@ public class User implements Serializable {
 		this.city = city;
 	}
 
+	public void setCode_pk_tbl_user(String code_pk_tbl_user) {
+		this.code_pk_tbl_user = code_pk_tbl_user;
+	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -311,4 +333,3 @@ public class User implements Serializable {
 
 }
 
-//Getters and Setters
