@@ -21,8 +21,6 @@ public class HairdressingControllerAgenda {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName(); //get logged in username
 		ModelAndView mv = new ModelAndView("agenda");
-		mv.addObject("styleValue", "display:none");
-		mv.addObject("fragmentRemove", "all");
 		mv.addObject("userLogged", name);
 		mv.addObject("agenda", ",<br/><br/><h1>Test Agenda</h1>");
 
