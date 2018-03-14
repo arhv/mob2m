@@ -41,26 +41,32 @@
 			      <li id="servicos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentServicos}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.servicos')}}">Serviços<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes</a></li>			          
-			          <li><a id="promocoes" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções</a></li>	                   
+			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes por profissional</a></li>			          
+			          <li><a id="promocoes" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções (Pacotes)</a></li>	                   
 			        </ul>
 			      </li>	    
 			      <li id="produtos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentProdutos}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a id="revenda" th:href="@{${@environment.getProperty('url.produtos.revenda')}}">Revenda</a></li>			          
-			          <li><a id="insumos" th:href="@{${@environment.getProperty('url.produtos.consumo')}}">Consumo</a></li>	                   
+			        <ul class="dropdown-menu">			          	
+			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.produtos.detalhes')}}">Detalhes (revenda ou consumo interno)</a></li>			          
+			          <li><a id="estoque" th:href="@{${@environment.getProperty('url.produtos.estoque')}}">Estoque</a></li>	                   
 			        </ul>
 			      </li>	
 			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentAdministrativo}">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>			          
-			          <li><a id="outros" th:href="@{${@environment.getProperty('url.outros')}}">Outros</a></li>
+			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>        		          
 			          <li><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   
 			        </ul>
+			      </li>	
+			      <li id="financeiro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentFinanceiro}">
+			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro<span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
+			        </ul>
 			      </li>		            
-			      <li id="financeiro" th:style="${styleValue}" th:remove="${fragmentFinanceiro}"><a th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro</a></li>
+			      <!--  <li id="financeiro" th:style="${styleValue}" th:remove="${fragmentFinanceiro}"><a th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro</a></li>
+			      <li><a id="outros" th:href="@{${@environment.getProperty('url.outros')}}">Outros</a></li>-->
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="#"><span th:text="${userLogged}"></span ></a></li>

@@ -22,8 +22,6 @@ public class HairdressingControllerAgenda {
 		String name = auth.getName(); //get logged in username
 		ModelAndView mv = new ModelAndView("agenda");
 		mv.addObject("userLogged", name);
-		mv.addObject("agenda", ",<br/><br/><h1>Test Agenda</h1>");
-
 		return mv;
 	}
 }

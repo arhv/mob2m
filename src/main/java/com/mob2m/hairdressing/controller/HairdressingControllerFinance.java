@@ -1,6 +1,8 @@
 package com.mob2m.hairdressing.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +18,10 @@ public class HairdressingControllerFinance {
 
 	@RequestMapping(path = "${url.financeiro}", method = RequestMethod.GET)
 	public ModelAndView goFinanceiro() {
-		ModelAndView mv = new ModelAndView("financeiro");
-		//mv.addObject("clientes", );
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = authentication.getName();
+		ModelAndView mv = new ModelAndView("fluxodecaixa");
+		mv.addObject("userLogged", currentUserName);
 		return mv;
 	}
 
