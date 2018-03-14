@@ -20,7 +20,7 @@ public class HairdressingControllerComandas {
 	public ModelAndView goComandas() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName(); //get logged in username
-		ModelAndView mv = new ModelAndView("agenda");
+		ModelAndView mv = new ModelAndView("comandas");
 		mv.addObject("userLogged", name);
 		return mv;
 	}
