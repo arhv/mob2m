@@ -1,4 +1,4 @@
-package com.mob2m.hairdressing.model;
+package com.mob2m.hairdressing.model.dao;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -31,8 +31,7 @@
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Cadastro<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
 			          <li><a id="clientes" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>			          
-			          <li th:style="@{${@environment.getProperty('li.cadastro.fornecedores')}}"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>
-        
+			          <li th:style="@{${@environment.getProperty('li.cadastro.fornecedores')}}"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>   
 			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.fornecedores')}}">Fornecedores</a></li>	
 			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.servicos')}}">Serviços</a></li>	
 			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Produtos</a></li>	           
@@ -64,13 +63,11 @@
 			        <ul class="dropdown-menu">
 			          <li><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
 			        </ul>
-			      </li>		            
-			      <!--  <li id="financeiro" th:style="${styleValue}" th:remove="${fragmentFinanceiro}"><a th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro</a></li>
-			      <li><a id="outros" th:href="@{${@environment.getProperty('url.outros')}}">Outros</a></li>-->
+			      </li>	           			      
 			    </ul>
 			    <ul class="nav navbar-nav navbar-right">
 			      <li><a href="#"><span th:text="${userLogged}"></span ></a></li>
-			      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+			      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
 			    </ul>
 			</div>  
 		  </div>
@@ -136,8 +133,7 @@
 	<div th:fragment="addUsers">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Usuário</strong>
-	            
+	            <strong><br/><br/><br/>Cadastro de Usuário</strong>	            
 	        </div>
 	        <div class="panel-body">
 	            <form class="form-horizontal" th:object="${user}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px" >
@@ -222,8 +218,7 @@
 	                </div>
 	            </form>
 	        </div>
-    	</div>
-    	
+    	</div>    	
     </div>
     
     <div th:fragment="editUsers">

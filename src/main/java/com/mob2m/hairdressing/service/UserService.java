@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.mob2m.hairdressing.model.User;
+import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.repository.UserRepository;
 
 @Service

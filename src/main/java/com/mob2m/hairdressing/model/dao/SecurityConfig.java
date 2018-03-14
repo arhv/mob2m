@@ -1,4 +1,4 @@
-package com.mob2m.hairdressing.model;
+package com.mob2m.hairdressing.model.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mob2m.hairdressing.model.Expenses;
+import com.mob2m.hairdressing.model.dao.Expenses;
 import com.mob2m.hairdressing.repository.ExpensesRepository;
 
 @Service
