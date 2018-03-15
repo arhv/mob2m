@@ -6,19 +6,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mob2m.hairdressing.service.UserService;
+import com.mob2m.hairdressing.model.service.UserAuthentication;
 
 @RestController
 public class HairdressingControllerOthers {
 
 	@Autowired
-	private UserService userService;
+	private UserAuthentication userAuthentication;
 
 	@RequestMapping(path = "${url.outros}", method = RequestMethod.GET)
 	public ModelAndView goOutros() {
-		ModelAndView mv = new ModelAndView("adminoutros");
-		//mv.addObject("clientes", );
-		return mv;
+		return userAuthentication.getModelViewWithUser("adminoutros");
 	}
 
 }

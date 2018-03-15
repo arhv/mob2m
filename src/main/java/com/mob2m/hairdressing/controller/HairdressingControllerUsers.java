@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mob2m.hairdressing.model.dao.User;
+import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.UserService;
 
 @RestController
@@ -24,43 +25,37 @@ public class HairdressingControllerUsers {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private UserAuthentication userAuthentication;
 
 	@RequestMapping(path = "${url.usuarios.master.new.user}", method = RequestMethod.GET)
 	public ModelAndView addNewUser(User user) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = authentication.getName();
-		ModelAndView mv = new ModelAndView("usuariosmaster");
+		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("addUser", user);
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "none");
 		mv.addObject("removeEditUsers", "all");
-		mv.addObject("userLogged", currentUserName);
 		return mv;
+
 	}
 
 	@RequestMapping(path = "${url.usuarios.master.detalhes}/{id}", method = RequestMethod.GET)
 	public ModelAndView goDetalhes(@PathVariable("id") Long id) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = authentication.getName();
-		ModelAndView mv = new ModelAndView("usuariosmaster");
+		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("editUsers", userService.findOne(id));
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "all");
 		mv.addObject("removeEditUsers", "none");
-		mv.addObject("userLogged", currentUserName);
 		return mv;
 	}
 
 	@RequestMapping(path = "${url.usuarios.master}", method = RequestMethod.GET)
 	public ModelAndView goUsuariosMaster() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentUserName = authentication.getName();
-		ModelAndView mv = new ModelAndView("usuariosmaster");
+		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddUsers", "all");
 		mv.addObject("removeEditUsers", "all");
 		mv.addObject("userList", userService.findAll());
-		mv.addObject("userLogged", currentUserName);
 		return mv;
 	}
 
