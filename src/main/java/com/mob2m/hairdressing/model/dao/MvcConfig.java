@@ -1,21 +1,16 @@
 package com.mob2m.hairdressing.model.dao;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-@Configuration
-@EnableWebMvc
-public class MvcConfig extends WebMvcConfigurerAdapter {
+//@Configuration
+//@EnableWebMvc
+public class MvcConfig { //extends WebMvcConfigurerAdapter {
 
 
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
+	//@Override
+	//public void addViewControllers(ViewControllerRegistry registry) {
 		/*registry.addViewController("/home").setViewName("home");
-		registry.addViewController("/").setViewName("agenda");
-		registry.addViewController("/agenda").setViewName("agenda");
-		registry.addViewController("/login").setViewName("login");
-		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);*/
-	}
+	registry.addViewController("/").setViewName("agenda");
+	registry.addViewController("/agenda").setViewName("agenda");
+	registry.addViewController("/login").setViewName("login");
+	registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	}*/
 }

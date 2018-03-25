@@ -1,21 +1,18 @@
 package com.mob2m.hairdressing.controller;
 
-import java.util.Date;
-
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mob2m.hairdressing.model.dao.User;
+import com.mob2m.hairdressing.model.service.StringEncryption;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.UserService;
 
@@ -27,6 +24,9 @@ public class HairdressingControllerUsers {
 
 	@Autowired
 	private UserAuthentication userAuthentication;
+
+	@Autowired
+	private StringEncryption userEncrypt;
 
 	@RequestMapping(path = "${url.usuarios.master.new.user}", method = RequestMethod.GET)
 	public ModelAndView addNewUser(User user) {
@@ -49,17 +49,22 @@ public class HairdressingControllerUsers {
 		return mv;
 	}
 
-	@RequestMapping(path = "${url.usuarios.master}", method = RequestMethod.GET)
-	public ModelAndView goUsuariosMaster() {
+	//@RequestMapping(path = "${url.usuarios.master}", method = RequestMethod.GET, produces = { "application/xml", "text/html" })
+	@RequestMapping(path = "${url.usuarios.master}", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+	@ResponseBody
+	/*public ModelAndView goUsuariosMaster() {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddUsers", "all");
 		mv.addObject("removeEditUsers", "all");
 		mv.addObject("userList", userService.findAll());
 		return mv;
+	}*/
+	public List<User> goUsuariosMaster() {
+		return userService.findAll();
 	}
 
-	@RequestMapping(path = "${url.usuarios.master.save}", method = RequestMethod.POST)
+	/*@RequestMapping(path = "${url.usuarios.master.save}", method = RequestMethod.POST)
 	public ModelAndView save(@Valid @ModelAttribute("user") User user, BindingResult result) {
 		if (result.hasErrors()) {
 			return addNewUser(user);
@@ -68,8 +73,9 @@ public class HairdressingControllerUsers {
 		user.setActive(true);
 		user.setInsertdate(new Date(System.currentTimeMillis()));
 		user.setInsertby(authentication.getName());
+		user.setPassword(userEncrypt.getEncrypt(user.getPassword().toString()));
 		userService.save(user);
 		return goUsuariosMaster();
-	}
+	}*/
 
 }
