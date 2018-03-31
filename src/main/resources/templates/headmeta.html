@@ -8,8 +8,18 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- Inclusão do Plugin jQuery Validation-->
-  	<script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>  	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
 </head>
 
 <body>
@@ -157,35 +167,35 @@
 	                            <div class="col-md-4">
 	                            	<label for="username">Nome de usuário</label>	                                
 	                                <input id="username" type="text" class="form-control input-sm" th:field="*{username}" th:required="required"></input>
-	                                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>                            
+	                                <!--  <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" >Name Error</span> -->                           
 	                            </div>
 	                         </div>
 	                         <div class="form-group row">                                                          
 	                            <div class="col-md-4" >
 	                                <label for="userEmail">Email</label>
-	                                <input id="userEmail" type="email" class="form-control input-sm" th:field="*{email}"  th:required="required"></input>
-	                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>  
+	                                <input id="userEmail" type="email" class="form-control input-sm" th:field="*{email}" th:required="required"></input>
+	                                <!--  <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>  -->
 	                            </div>
 	                        </div>
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="phonenumber" >Telefone</label>
-	                                <input id="phonenumber" type="text" class="form-control input-sm" th:field="*{phonenumber}" th:required="required"></input>
-	                            	<span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}">Name Error</span> 
+	                                <input id="phonenumber" type="text" class="form-control input-sm" th:field="*{phonenumber}" th:required="required" ></input>
+	                            	 <!-- <span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}" >Name Error</span> -->
 	                            </div>
 	                        </div>	 
 	                        <div class="form-group row">
 	                            <div class="col-md-4" >
 	                                <label for="userPassword" >Senha</label> 
 	                                <input id="userPassword" type="password" class="form-control input-sm" th:field="*{password}" th:required="required"></input>
-	                              	<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</span> 
+	                              	 <!-- <span th:if="${#fields.hasErrors('password')}"  th:errors="*{password}" >Name Error</span> -->
 	                            </div>
 	                        </div>   
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="fullName" >Nome completo</label> 
 	                                <input id="fullName" type="text" class="form-control input-sm" th:field="*{name}" th:required="required"></input>
-	                              	<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+	                              	<!--<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >Name Error</span> -->
 	                            </div>	                            
 	                        </div>             
 				           <div class="form-group row">
@@ -197,21 +207,37 @@
 	                        <div class="form-group row">
 	                            <div class="col-md-4" >
 	                                <label>CEP</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{zipCode}"/>
+	                                <input id="zipCode" type="text" class="form-control input-sm" th:field="*{zipCode}"/>
 	                            </div>
-	                        </div>  
+	                        </div> 					
+				          <div class="form-group row">
+	                            <div class="col-md-4"  >
+	                                <label>País</label>
+	                                <div class="dropdown">
+	                                	<select id="pais" class="form-control input-sm" th:disabled="disabled"></select>
+	                                </div>
+	                                <!--  <input type="text" class="form-control input-sm" th:field="*{pais}"/>-->
+	                            </div>
+	                        </div> 
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label id="campo_estado">Estado</label>
+	                                <div class="dropdown">
+	                                	<select id="estado" class="form-control input-sm" th:field="*{state}"></select>
+	                                </div>
+	                                <!--  <input id="state" type="text" class="form-control input-sm" th:field="*{state}"/>-->
+	                            </div>
+	                        </div> 
 	                         <div class="form-group row">
 	                            <div class="col-md-4"  >
-	                                <label>Cidade</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{city}"/>
+	                                <label id="campo_cidade">Cidade</label>
+	                                <div class="dropdown">
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}"></select>
+	                              	</div>
+	                                <!-- <input type="text" class="form-control input-sm" th:field="*{city}"/>-->
 	                            </div>
 	                        </div>  
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>Estado</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{state}"/>
-	                            </div>
-	                        </div>                       
+	                                             
 	                    </fieldset>
 	                </div>
 	                <div class="form-group row">
@@ -220,9 +246,64 @@
 	                </div>
 	            </form>
 	        </div>
-	        <!-- Inclusão das validações com o Plugin jQuery Validation-->
-  			<script src="/static/js/validacao.js"></script>
-    	</div>    	
+	        
+	        
+    	<!-- define validation rules and activate validation -->
+	    <script>
+	         $(document).ready(function () {
+	             $("#formNewUser").validate({
+	                 rules: {
+	                     'username': {
+	                         required: true,
+	                        // minlength: 5,
+	                        //maxlength: 100
+	                     },
+	                     'userEmail': {
+	                         required: true,
+	                         //minlength: 8,
+	                        // maxlength: 10000
+	                     },
+	                     'phonenumber': {
+	                         required: true,
+	                         //minlength: 8,
+	                        // maxlength: 10000
+	                     },
+	                     'userPassword': {
+	                         required: true,
+	                         //minlength: 8,
+	                        // maxlength: 10000
+	                     },
+	                     'fullName': {
+	                         required: true,
+	                         //minlength: 8,
+	                        // maxlength: 10000
+	                     }
+	                 },
+	                 /*messages: {
+	                	 username: {
+	                         required: "Por favor digitar seu nome de usuário !"
+	                     },
+	                     userEmail: {
+	                         required: "Por favor digitar seu endereço de email !"
+	                     },
+	                     phonenumber: {
+	                         required: "Por favor digitar seu número de telefone !"
+	                     },
+	                     userPassword: {
+	                         required: "Por favor digitar sua senha !"
+	                     },
+	                     fullName: {
+	                         required: "Por favor digitar seu nome completo !"
+	                     }
+	                 }*/
+	             });
+	         });
+	    </script>
+	    
+	     <script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script>
+	    
+	        
+    	</div>  	
     </div>
     
     <div th:fragment="editUsers">
@@ -231,7 +312,7 @@
 	            <strong><br/><br/><br/>Cadastro de Usuário</strong>
 	        </div>
 	        <div class="panel-body">
-	            <form data-toggle="validator" class="form-horizontal" th:object="${editUsers}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px">
+	            <form class="form-horizontal" th:object="${editUsers}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px">
 	                <div class="form-group">
 	                    <fieldset>
 	                        <div class="form-group row">

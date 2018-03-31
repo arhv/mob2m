@@ -32,7 +32,7 @@ public class User implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@XmlElement
-	private Long id;;
+	private Long id;
 
 	@XmlElement
 	@Column(name = "code_pk_tbl_user")
@@ -52,28 +52,28 @@ public class User implements Serializable {
 
 	@XmlElement
 	@Column(name = "username")
-	@NotBlank(message = "{username.validation.message}")
+	@NotBlank //(message = "Favor digitar seu nome de usuário")
 	private String username;
 
 	@XmlElement
 	@Column(name = "email")
-	@Email(message = "Favor digitar um email válido")
-	@NotBlank(message = "Favor digitar seu email")
+	@Email //(message = "Favor digitar um email válido")
+	@NotBlank //(message = "Favor digitar um email")
 	private String email;
 
 	@XmlElement
 	@Column(name = "password")
-	@NotBlank(message = "Favor digitar sua senha")
+	@NotBlank //(message = "Favor digitar a senha")
 	private String password;
 
 	@XmlElement
 	@Column(name = "name")
-	@NotBlank(message = "Favor digitar seu nome")
+	@NotBlank //(message = "Favor digitar o nome")
 	private String name;
 
 	@XmlElement
 	@Column(name = "phonenumber")
-	@NotBlank(message = "Favor digitar um telefone para contato")
+	@NotBlank //(message = "Favor digitar um telefone")
 	private String phonenumber;
 
 	@XmlElement
