@@ -210,31 +210,34 @@
 	                                <input id="zipCode" type="text" class="form-control input-sm" th:field="*{zipCode}"/>
 	                            </div>
 	                        </div> 					
-				          <div class="form-group row">
+				          <!-- <div class="form-group row">
 	                            <div class="col-md-4"  >
 	                                <label>País</label>
 	                                <div class="dropdown">
 	                                	<select id="pais" class="form-control input-sm" th:disabled="disabled"></select>
 	                                </div>
-	                                <!--  <input type="text" class="form-control input-sm" th:field="*{pais}"/>-->
-	                            </div>
-	                        </div> 
+	                                <input type="text" class="form-control input-sm" th:field="*{pais}"/>
+	                            </div>  
+	                        </div> -->
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
-	                                <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}"></select>
+	                                 <div class="dropdown">
+	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" > </option>
+	                                	</select>
 	                                </div>
-	                                <!--  <input id="state" type="text" class="form-control input-sm" th:field="*{state}"/>-->
 	                            </div>
 	                        </div> 
 	                         <div class="form-group row">
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}"></select>
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${userCity}"> </option> 
+	                              	  </select>
 	                              	</div>
-	                                <!-- <input type="text" class="form-control input-sm" th:field="*{city}"/>-->
+	                                
 	                            </div>
 	                        </div>  
 	                                             
@@ -339,16 +342,14 @@
 	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
 	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" th:selected="${stateList.cod_estados==userState}"> </option>
 	                                	</select>
-	                                </div>
-	                                <!--  <input id="state" type="text" class="form-control input-sm" th:field="*{state}"/>-->
+	                                </div>	                               
 	                            </div>
 	                        </div> 
 	                         <div class="form-group row">
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">
-	                              	  	<!--  <option th:selected="selected" th:value="${userCity}" th:text="${userCity}" ></option>-->
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">	                              	  	
 	                                	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${userCity}"> </option>     
 	                              	  </select>
 	                              	</div>

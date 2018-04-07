@@ -45,9 +45,15 @@ public class HairdressingControllerUsers {
 	private StatesService statesService;
 
 
-	@RequestMapping(path = "${url.usuarios.master.new.user}", method = RequestMethod.GET)
+	@RequestMapping(path = "/adicionar", method = RequestMethod.GET)
 	public ModelAndView addNewUser(User user) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
+		List<States> listStates = statesService.findAll();
+		int initValue = 1;//iniciar combo com Cidades do Acre
+		List<Cities> listCitiesNames = citiesService.stateCode(initValue);
+		mv.addObject("state", listStates);
+		mv.addObject("city", listCitiesNames);
+		mv.addObject("userCity", initValue);
 		mv.addObject("addUser", user);
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "none");
@@ -72,19 +78,13 @@ public class HairdressingControllerUsers {
 		return userState;
 	}
 
-	@RequestMapping(path = "${url.usuarios.master.detalhes}/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/detalhes/{id}", method = RequestMethod.GET)
 	public ModelAndView goDetalhes(@PathVariable("id") Long id) {
 		User user = userService.findOne(id);
 		int userState = Integer.parseInt(user.getState());
 		int userCity = Integer.parseInt(user.getCity());
-		System.out.println(userCity);
-		System.out.println(userState);
 		List<States> listStates = statesService.findAll();
 		List<Cities> listCitiesNames = citiesService.stateCode(userState);
-
-		//List<Cities> listCitiesNames = citiesService.findAll();
-
-
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("userState", userState);
 		mv.addObject("state", listStates);
