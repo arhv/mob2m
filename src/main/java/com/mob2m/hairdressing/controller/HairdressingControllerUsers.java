@@ -1,8 +1,10 @@
 package com.mob2m.hairdressing.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,9 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.mob2m.hairdressing.model.dao.Cities;
+import com.mob2m.hairdressing.model.dao.States;
 import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.model.service.StringEncryption;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
+import com.mob2m.hairdressing.service.CitiesService;
+import com.mob2m.hairdressing.service.StatesService;
 import com.mob2m.hairdressing.service.UserService;
 
 @RestController
@@ -31,6 +38,13 @@ public class HairdressingControllerUsers {
 	@Autowired
 	private StringEncryption userEncrypt;
 
+	@Autowired
+	private CitiesService citiesService;
+
+	@Autowired
+	private StatesService statesService;
+
+
 	@RequestMapping(path = "${url.usuarios.master.new.user}", method = RequestMethod.GET)
 	public ModelAndView addNewUser(User user) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
@@ -42,9 +56,40 @@ public class HairdressingControllerUsers {
 
 	}
 
+	@RequestMapping(path = "/listStates/{listState}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public String getCityList(@PathVariable("listState") int listState) {
+		List<Cities> listCitiesNames = citiesService.stateCode(listState);
+		Gson jsonConvert = new Gson();
+		String listCitiesNameJson = jsonConvert.toJson(listCitiesNames);
+		System.out.println("List from cityJson" + listCitiesNameJson);
+		return listCitiesNameJson;
+	}
+
+	@RequestMapping(path = "/estadousuario/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public String getUserState(@PathVariable("id") Long id) {
+		User userById = userService.findOne(id);
+		String userState = userById.getState();
+		return userState;
+	}
+
 	@RequestMapping(path = "${url.usuarios.master.detalhes}/{id}", method = RequestMethod.GET)
 	public ModelAndView goDetalhes(@PathVariable("id") Long id) {
+		User user = userService.findOne(id);
+		int userState = Integer.parseInt(user.getState());
+		int userCity = Integer.parseInt(user.getCity());
+		System.out.println(userCity);
+		System.out.println(userState);
+		List<States> listStates = statesService.findAll();
+		List<Cities> listCitiesNames = citiesService.stateCode(userState);
+
+		//List<Cities> listCitiesNames = citiesService.findAll();
+
+
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
+		mv.addObject("userState", userState);
+		mv.addObject("state", listStates);
+		mv.addObject("city", listCitiesNames);
+		mv.addObject("userCity", userCity);
 		mv.addObject("editUsers", userService.findOne(id));
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "all");
@@ -82,6 +127,35 @@ public class HairdressingControllerUsers {
 		user.setInsertby(authentication.getName());
 		user.setPassword(userEncrypt.getEncrypt(user.getPassword().toString()));
 		userService.save(user);
+		return goUsuariosMaster();
+	}
+
+	@RequestMapping(path = "/atualizarusuario", method = RequestMethod.POST)
+	//produces = MediaType.APPLICATION_XML_VALUE)
+	//@ResponseBody
+	//public ModelAndView save(@Valid @ModelAttribute("user") User user, BindingResult result) {
+	//public int save(@RequestBody User user) {
+	public ModelAndView saveEdit(@Valid User user, BindingResult result) {
+
+		if (result.hasErrors()) {
+		if (user.getPassword() == null) {
+		User returnPasswordObject = (userService.findOne(user.getId()));
+		String password = returnPasswordObject.getPassword();
+		user.setPassword(password);
+		System.out.println(password);
+		} else {
+		System.out.println(result.getFieldError().toString());
+		return addNewUser(user);
+		}
+		}
+
+		System.out.println("Active value: " + user.getActive());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
+		user.setInsertdate(new Date(System.currentTimeMillis()));
+		user.setInsertby(authentication.getName());		
+		int returnUpdate = userService.update(user.getId(), user.getActive(), user.getInsertdate(), user.getInsertby(), user.getEmail(),
+				user.getName(), user.getPhonenumber(), user.getAddress(), user.getZipCode(), user.getCity(), user.getState());
+		//userService.save(user);
 		return goUsuariosMaster();
 	}
 }

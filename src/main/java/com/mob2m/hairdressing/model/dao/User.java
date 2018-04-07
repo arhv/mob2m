@@ -40,7 +40,7 @@ public class User implements Serializable {
 
 	@XmlElement
 	@Column(name = "active")
-	private boolean active;
+	private Boolean active;
 
 	@XmlElement
 	@Column(name = "insertdate")
@@ -108,7 +108,11 @@ public class User implements Serializable {
 		return false;
 		}
 		User other = (User) obj;
-		if (active != other.active) {
+		if (active == null) {
+		if (other.active != null) {
+		return false;
+		}
+		} else if (!active.equals(other.active)) {
 		return false;
 		}
 		if (address == null) {
@@ -205,6 +209,10 @@ public class User implements Serializable {
 		return true;
 	}
 
+	public Boolean getActive() {
+		return active;
+	}
+
 	public String getAddress() {
 		return address;
 	}
@@ -261,7 +269,7 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (active ? 1231 : 1237);
+		result = prime * result + ((active == null) ? 0 : active.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((code_pk_tbl_user == null) ? 0 : code_pk_tbl_user.hashCode());
@@ -278,11 +286,7 @@ public class User implements Serializable {
 		return result;
 	}
 
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -346,7 +350,7 @@ public class User implements Serializable {
 				+ ", zipCode=" + zipCode + ", city=" + city + ", state=" + state + ", getAddress()=" + getAddress() + ", getCity()=" + getCity()
 				+ ", getEmail()=" + getEmail() + ", getId()=" + getId() + ", getInsertby()=" + getInsertby() + ", getInsertdate()=" + getInsertdate()
 				+ ", getName()=" + getName() + ", getPassword()=" + getPassword() + ", getState()=" + getState() + ", getUsername()=" + getUsername()
-				+ ", getZipCode()=" + getZipCode() + ", isActive()=" + isActive() + ", getPhonenumber()=" + getPhonenumber() + ", getClass()="
+				+ ", getZipCode()=" + getZipCode() + ", getActive()=" + getActive() + ", getPhonenumber()=" + getPhonenumber() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 

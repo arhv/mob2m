@@ -37,7 +37,7 @@ public class UserService {
 
 	}
 
-	public int update(Long id, boolean active, Date insertdate, String insertby, String email, String name, String phonenumber, String address,
+	public int update(Long id, Boolean active, Date insertdate, String insertby, String email, String name, String phonenumber, String address,
 			String zipCode, String city, String state) {
 		return UserRepository.updateUser(id, active, insertdate, insertby, email, name, phonenumber, address, zipCode, city, state);
 	}
