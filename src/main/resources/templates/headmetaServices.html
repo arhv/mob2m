@@ -90,45 +90,27 @@
 		<div class="panel panel-default">
 	        <div class="panel-heading">
 	            <strong><br/><br/><br/>Usuários cadastrados</strong>
-	            <a class="btn btn-sm btn-success" th:href="@{${@environment.getProperty('url.usuarios.master.new.user')}}" >Adicionar</a>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarservico}" style="margin-left:20px;">Adicionar</a>
+	             <input id="serviceSearch" type="text" class="" placeholder="Procurar pelo nome do serviço" onkeyup="myFunctionService()" style="margin-left:40px; width:300px"></input>
 	        </div>
 	        <div class="panel-body" style="overflow-y:auto;height:300px">
 	            <div class="table-responsive">
-	                <table class="table table-sm table-striped table-hover table-bordered">
+	                <table id="allServices" class="table table-sm table-striped table-hover table-bordered">
 	                    <thead>
 	                        <tr>
 	                            <th>ID</th>
-	                            <th>Ativo</th>
-	                            <th>Nome completo</th>
-	                            <th>Nome de usuário</th>
-	                            <th>Email</th>	                            
-	                            <th>Telefone</th>
-	                            <!--  <th>Endereço</th>                      
-	                            <th>CEP</th>
-	                            <th>Cidade</th>
-	                            <th>Estado</th> 
-	                            <th>Data de atualização</th>
-	                            <th>Atualização realizada por: </th> -->                
+	                            <th>Nome do Serviço</th>
+	                                           
 						     </tr>
 	                    </thead>
 	                    <tbody>
-	                        <tr th:each="user : ${userList}">
-	                            <td th:text="${user.id}"></td>
-	                            <td ><input type="checkbox" name="mycheckbox" th:checked="${user.active}" disabled="disabled"/></td>
-	                            <td th:text="${user.name}"></td>
-	                            <td th:text="${user.username}"></td>
-	                            <td th:text="${user.email}"></td>	                            
-	                            <td th:text="${user.phonenumber}"></td>
-	                            <!-- <td th:text="${user.address}"></td>
-	                            <td th:text="${user.zipCode}"></td>
-	                            <td th:text="${user.city}"></td>
-	                            <td th:text="${user.state}"></td>
-	                            <td th:text="${#dates.format(user.insertdate, 'dd/MM/yyyy')}"></td>
-	                            <td th:text="${user.insertby}"></td> -->
+	                        <tr th:each="services : ${servicesList}">
+	                            <td th:text="${services.id}"></td>	                            
+	                            <td th:text="${services.service}"></td>	                            
 	                            <td>
 	                                <div class="btn-group pull-right">
-	                                    <a class="btn btn-sm btn-primary" th:href="@{/detalhes/{id}(id=${user.id})}" >Detalhes</a>
-	                                    <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${user.id})}">Excluir</a>
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarservico/{id}(id=${services.id})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${services.id})}">Excluir</a>-->
 	                               </div>
 	                            </td>
 	                        </tr>
@@ -137,18 +119,19 @@
 	            </div>
 	        </div>
 	        <div class="panel-footer">
-	            <a class="btn btn-sm btn-success" th:href="@{${@environment.getProperty('url.usuarios.master.new.user')}}" >Adicionar</a>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarservico}" >Adicionar</a>
 	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchServiceName.js}" src="js/searchServiceName.js"></script>  
 	    </div>	
 	  </div>	
 	
 	<div th:fragment="addServices">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Usuário</strong>	            
+	            <strong><br/><br/><br/>Cadastro de Serviço</strong>	            
 	        </div>
 	        <div class="panel-body">
-	            <form id="formNewUser" class="form-horizontal" th:object="${user}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px" >
+	            <form id="formNewService" class="form-horizontal" th:object="${addServices}" th:action="@{/salvarservico}" method="POST" style="margin: 10px" >
 	                <div class="form-group">
 	                    <fieldset>
 	                        <!--<div class="form-group row">
@@ -156,163 +139,35 @@
 	                                <label>ID</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
-	                        </div>  
-	                         <div class="form-group row">	                         	
-		                            <div class="col-md-4">
-		                            	<label>Ativo</label>
-		                                <input type="checkbox" name="mycheckbox" th:checked="*{active}" />
-		                            </div>	                         	
-	                         </div>-->
-	                         <div class="form-group row">
-	                            <div class="col-md-4">
-	                            	<label for="username">Nome de usuário</label>	                                
-	                                <input id="username" type="text" class="form-control input-sm" th:field="*{username}" th:required="required"></input>
-	                                <!--  <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" >Name Error</span> -->                           
-	                            </div>
-	                         </div>
-	                         <div class="form-group row">                                                          
-	                            <div class="col-md-4" >
-	                                <label for="userEmail">Email</label>
-	                                <input id="userEmail" type="email" class="form-control input-sm" th:field="*{email}" th:required="required"></input>
-	                                <!--  <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</span>  -->
-	                            </div>
-	                        </div>
+	                        </div> -->                      
+	                       
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
-	                                <label for="phonenumber" >Telefone</label>
-	                                <input id="phonenumber" type="text" class="form-control input-sm" th:field="*{phonenumber}" th:required="required" ></input>
-	                            	 <!-- <span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}" >Name Error</span> -->
+	                                <label for="serviceName" >Nome do Serviço</label>
+	                                <input id="serviceName" type="text" class="form-control input-sm" th:field="*{service}" ></input>
+	                            	 
 	                            </div>
-	                        </div>	 
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label for="userPassword" >Senha</label> 
-	                                <input id="userPassword" type="password" class="form-control input-sm" th:field="*{password}" th:required="required"></input>
-	                              	 <!-- <span th:if="${#fields.hasErrors('password')}"  th:errors="*{password}" >Name Error</span> -->
-	                            </div>
-	                        </div>   
-	                        <div class="form-group row">
-	                            <div class="col-md-4">
-	                                <label for="fullName" >Nome completo</label> 
-	                                <input id="fullName" type="text" class="form-control input-sm" th:field="*{name}" th:required="required"></input>
-	                              	<!--<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" >Name Error</span> -->
-	                            </div>	                            
-	                        </div>             
-				           <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>Endereço</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{address}"/>
-	                            </div>
-	                        </div>  
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>CEP</label>
-	                                <input id="zipCode" type="text" class="form-control input-sm" th:field="*{zipCode}"/>
-	                            </div>
-	                        </div> 					
-				          <div class="form-group row">
-	                            <div class="col-md-4"  >
-	                                <label>País</label>
-	                                <div class="dropdown">
-	                                	<select id="pais" class="form-control input-sm" th:disabled="disabled"></select>
-	                                </div>
-	                                <!--  <input type="text" class="form-control input-sm" th:field="*{pais}"/>-->
-	                            </div>
-	                        </div> 
-	                         <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label id="campo_estado">Estado</label>
-	                                <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}"></select>
-	                                </div>
-	                                <!--  <input id="state" type="text" class="form-control input-sm" th:field="*{state}"/>-->
-	                            </div>
-	                        </div> 
-	                         <div class="form-group row">
-	                            <div class="col-md-4"  >
-	                                <label id="campo_cidade">Cidade</label>
-	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}"></select>
-	                              	</div>
-	                                <!-- <input type="text" class="form-control input-sm" th:field="*{city}"/>-->
-	                            </div>
-	                        </div>  
-	                                             
+	                        </div>	                       
+	                                    
 	                    </fieldset>
 	                </div>
 	                <div class="form-group row">
 	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-	                    <a th:href="@{${@environment.getProperty('url.usuarios.master')}}" class="btn btn-sm btn-default">Cancelar</a>
+	                    <a th:href="@{/servicos}" class="btn btn-sm btn-default">Cancelar</a>
 	                </div>
 	            </form>
-	        </div>
-	        
-	        
-    	<!-- define validation rules and activate validation -->
-	    <script>
-	         $(document).ready(function () {
-	             $("#formNewUser").validate({
-	                 rules: {
-	                     'username': {
-	                         required: true,
-	                        // minlength: 5,
-	                        //maxlength: 100
-	                     },
-	                     'userEmail': {
-	                         required: true,
-	                         //minlength: 8,
-	                        // maxlength: 10000
-	                     },
-	                     'phonenumber': {
-	                         required: true,
-	                         //minlength: 8,
-	                        // maxlength: 10000
-	                     },
-	                     'userPassword': {
-	                         required: true,
-	                         //minlength: 8,
-	                        // maxlength: 10000
-	                     },
-	                     'fullName': {
-	                         required: true,
-	                         //minlength: 8,
-	                        // maxlength: 10000
-	                     }
-	                 },
-	                 /*messages: {
-	                	 username: {
-	                         required: "Por favor digitar seu nome de usuário !"
-	                     },
-	                     userEmail: {
-	                         required: "Por favor digitar seu endereço de email !"
-	                     },
-	                     phonenumber: {
-	                         required: "Por favor digitar seu número de telefone !"
-	                     },
-	                     userPassword: {
-	                         required: "Por favor digitar sua senha !"
-	                     },
-	                     fullName: {
-	                         required: "Por favor digitar seu nome completo !"
-	                     }
-	                 }*/
-	             });
-	         });
-	    </script>
-	    
-	     <script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script>
-	    
-	        
+	        </div>        
+        	
     	</div>  	
     </div>
     
     <div th:fragment="editServices">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Usuário</strong>
+	            <strong><br/><br/><br/>Cadastro de Serviço</strong>
 	        </div>
 	        <div class="panel-body">
-	            <form class="form-horizontal" th:object="${editServices}" th:action="@{${@environment.getProperty('url.usuarios.master.save')}}" method="POST" style="margin: 10px">
+	            <form class="form-horizontal" th:object="${editServices}" th:action="@{/salvarservico}" method="POST" style="margin: 10px">
 	                <div class="form-group">
 	                    <fieldset>
 	                        <div class="form-group row">
@@ -321,77 +176,18 @@
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
 	                        </div>
-	                        <!-- <div class="form-group row">		
-	                            <div class="col-md-4">
-	                                <label>Código Usuário</label> 
-	                                <input type="text" class="form-control input-sm" th:field="*{code_pk_tbl_user}"/>
-	                            </div>
-	                        </div> -->
-	                         <div class="form-group row">	                         	
-	                            <div class="col-md-4">
-	                            	<label>Ativo</label><br/>
-	                                <input type="checkbox" name="mycheckbox" th:checked="*{active}" />
-	                            </div>
-	                         </div>
-	                         <div class="form-group row">		
-	                            <div class="col-md-4">
-	                                <label>Nome completo</label> 
-	                                <input type="text" class="form-control input-sm" th:field="*{name}"/>
-	                            </div>
-	                        </div>                    
-	                        <div class="form-group row">
-	                            <div class="col-md-4">
-	                            	<label>Nome de usuário</label>
-	                                <input type="text" class="form-control input-sm" id="username" th:field="*{username}" readOnly="readonly"/>
-	                            </div>
-	                         </div>
+	                       
 	                        <div class="form-group row">                                                          
 	                            <div class="col-md-4" >
-	                                <label>Email</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{email}"/>
+	                                <label>Nome do Serviço</label>
+	                                <input type="text" class="form-control input-sm" th:field="*{service}"/>
 	                            </div>
-	                        </div>
-	                       <!-- <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>Senha</label> 
-	                                <input type="password" class="form-control input-sm" th:field="*{password}"/>
-	                            </div>
-	                        </div>	 -->                                               
-	                        <div class="form-group row">
-	                            <div class="col-md-4">
-	                                <label>Telefone</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{phonenumber}"/>
-	                            </div>
-	                        </div> 
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>Endereço</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{address}"/>
-	                            </div>
-	                        </div>  
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>CEP</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{zipCode}"/>
-	                            </div>
-	                        </div>  
-	                         <div class="form-group row">
-	                            <div class="col-md-4"  >
-	                                <label>Cidade</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{city}"/>
-	                            </div>
-	                        </div>  
-	                        <div class="form-group row">
-	                            <div class="col-md-4" >
-	                                <label>Estado</label>
-	                                <input type="text" class="form-control input-sm" th:field="*{state}"/>
-	                            </div>
-	                        </div>                       
+	                        </div>	                           
 	                    </fieldset>
 	                </div>
 	                <div class="form-group row">
 	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-	                    <a th:href="@{${@environment.getProperty('url.usuarios.master')}}" class="btn btn-sm btn-default">Cancelar</a>
+	                    <a th:href="@{/servicos}" class="btn btn-sm btn-default">Cancelar</a>
 	                </div>
 	            </form>
 	        </div>

@@ -96,6 +96,14 @@ public class User implements Serializable {
 
 	}
 
+	public User(String username) {
+		this.username = username;
+	}
+
+	public User(String username, String email) {
+		this.email = email;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

@@ -16,6 +16,14 @@ public class UserService {
 	@Autowired
 	private UserRepository UserRepository;
 
+	public List<String> checkValidUserEmail (String email) {
+		return UserRepository.checkUserEmailExist(email);
+	}
+
+	public List<String> checkValidUsername (String username) {
+		return UserRepository.checkUsernameExist(username);
+	}
+
 	//Delete an user
 	public void delete(Long id) {
 		UserRepository.delete(id);

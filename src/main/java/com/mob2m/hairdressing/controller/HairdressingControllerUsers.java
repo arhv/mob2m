@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.mob2m.hairdressing.model.dao.Cities;
 import com.mob2m.hairdressing.model.dao.States;
 import com.mob2m.hairdressing.model.dao.User;
+import com.mob2m.hairdressing.model.dao.UsernameEmail;
 import com.mob2m.hairdressing.model.service.StringEncryption;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CitiesService;
@@ -44,9 +45,9 @@ public class HairdressingControllerUsers {
 	@Autowired
 	private StatesService statesService;
 
-
 	@RequestMapping(path = "/adicionar", method = RequestMethod.GET)
 	public ModelAndView addNewUser(User user) {
+		User user1 = new User();
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		List<States> listStates = statesService.findAll();
 		int initValue = 1;//iniciar combo com Cidades do Acre
@@ -54,12 +55,54 @@ public class HairdressingControllerUsers {
 		mv.addObject("state", listStates);
 		mv.addObject("city", listCitiesNames);
 		mv.addObject("userCity", initValue);
-		mv.addObject("addUser", user);
+		mv.addObject("addUser", user1);
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "none");
 		mv.addObject("removeEditUsers", "all");
+		mv.addObject("removedCheckNewUsernameEmail", "all");
+
 		return mv;
 
+	}
+
+	@RequestMapping(path = "/verificaremailusuario", method = RequestMethod.GET)
+	public ModelAndView checkNewUserEmailUsername(UsernameEmail usernameEmail) {
+		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
+		mv.addObject("checkUsernameEmail", usernameEmail);
+		mv.addObject("removedCheckNewUsernameEmail", "none");
+		mv.addObject("removeFindAll", "all");
+		mv.addObject("removeAddUsers", "all");
+		mv.addObject("removeEditUsers", "all");
+		return mv;
+	}
+
+	@RequestMapping(path = "/checkuseremail/{email:.+}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public String checkUserEmail(@PathVariable("email") String email) {
+		System.out.println("Accessing method checkUserEmail = " + email);
+		String userEmailExists;
+		List<String> checkValidUserEmailfromDatabase = userService.checkValidUserEmail(email);
+		System.out.println("Value of checkValidUserEmailfromDatabase = " + checkValidUserEmailfromDatabase.size());
+		Gson jsonUsernameExists = new Gson();
+		if (checkValidUserEmailfromDatabase.isEmpty()) {
+		userEmailExists = jsonUsernameExists.toJson(0);
+		} else {
+		userEmailExists = jsonUsernameExists.toJson(1);
+		}		
+		return userEmailExists;		 
+	}
+
+
+	@RequestMapping(path = "/checkusername/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON )
+	public String checkUsernameEmail(@PathVariable("username") String username) {
+		String usernameExists;
+		List<String> checkValidUsernamefromDatabase = userService.checkValidUsername(username);
+		Gson jsonUsernameExists = new Gson();
+		if (checkValidUsernamefromDatabase.isEmpty()) {
+		usernameExists = jsonUsernameExists.toJson(0);
+		} else {
+		usernameExists = jsonUsernameExists.toJson(1);
+		}		
+		return usernameExists;		 
 	}
 
 	@RequestMapping(path = "/listStates/{listState}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
@@ -67,7 +110,6 @@ public class HairdressingControllerUsers {
 		List<Cities> listCitiesNames = citiesService.stateCode(listState);
 		Gson jsonConvert = new Gson();
 		String listCitiesNameJson = jsonConvert.toJson(listCitiesNames);
-		System.out.println("List from cityJson" + listCitiesNameJson);
 		return listCitiesNameJson;
 	}
 
@@ -94,6 +136,7 @@ public class HairdressingControllerUsers {
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddUsers", "all");
 		mv.addObject("removeEditUsers", "none");
+		mv.addObject("removedCheckNewUsernameEmail", "all");
 		return mv;
 	}
 
@@ -103,6 +146,7 @@ public class HairdressingControllerUsers {
 	public ModelAndView goUsuariosMaster() {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
 		mv.addObject("removeFindAll", "none");
+		mv.addObject("removedCheckNewUsernameEmail", "all");
 		mv.addObject("removeAddUsers", "all");
 		mv.addObject("removeEditUsers", "all");
 		mv.addObject("userList", userService.findAll());
