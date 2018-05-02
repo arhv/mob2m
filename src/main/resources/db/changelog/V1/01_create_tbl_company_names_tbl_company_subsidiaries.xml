@@ -1,0 +1,66 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="1" author="mob2m">
+		  <!-- <preConditions>
+		  	<not>
+		        <tableExists tableName="tbl_company_names"/>
+		        <tableExists tableName="tbl_company_subsidiaries"/>        
+		    </not>
+		  </preConditions> -->
+		
+		  <createTable tableName="tbl_company_names" remarks="Table with the name of hairdressing companies">
+		    <column name="id" type="serial" autoIncrement="true">
+		      <constraints nullable="false" unique="true" primaryKey="true" />
+		    </column>
+		    <column name="company_name" type="varchar(100)">
+		      <constraints nullable="false" unique="true"/>
+		    </column>
+		    <column name="email_master" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+		  </createTable>
+		
+		  <createTable tableName="tbl_company_subsidiaries" remarks="A table that contains all the names of hairdressing subsidiaries ">
+		    <column name="id" type="serial" autoIncrement="true">
+		      <constraints nullable="false" primaryKey="true" />
+		    </column>
+		    <column name="company_subsidiary_name" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_type" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_cnpj" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_address" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_cep" type="varchar(100)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_state" type="varchar(10)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_subsidiary_city" type="varchar(10)">
+		      <constraints nullable="false"/>
+		    </column>
+			<column name="company_name_id" type="int">
+		      <constraints nullable="false"/>
+		    </column>
+		  </createTable>
+		
+		  <addForeignKeyConstraint 
+		  baseTableName="tbl_company_subsidiaries" 
+		  baseColumnNames="company_name_id"
+		  constraintName="company_name_fk"
+		  referencedTableName="tbl_company_names" 
+		  referencedColumnNames="id"
+		  onDelete="RESTRICT"/>
+		</changeSet>
+</databaseChangeLog>		 

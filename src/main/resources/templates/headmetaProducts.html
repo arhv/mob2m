@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	<div th:fragment="menuheader">
+		<nav class="navbar navbar-inverse navbar-fixed-top" >
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span> 
+		      	</button>
+			    <a class="navbar-brand" th:href="@{${@environment.getProperty('url.home')}}">Nome do Site</a>
+		    </div>
+		    <div class="collapse navbar-collapse" id="myNavbar">
+			    <ul class="nav navbar-nav">
+			      <li id="home" th:style="${styleValue}" class="active"><a th:href="@{${@environment.getProperty('url.home')}}">Home</a></li>
+			      <li id="agenda" ><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
+			      <li id="comandas"><a  th:href="@{${@environment.getProperty('url.comandas')}}">Comandas</a></li>	      
+			      <li id="cadastro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentCadastro}">
+			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Cadastro<span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a id="clientes" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>			          
+			          <li th:style="@{${@environment.getProperty('li.cadastro.fornecedores')}}"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>   
+			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.fornecedores')}}">Fornecedores</a></li>	
+			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.servicos')}}">Serviços</a></li>	
+			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Produtos</a></li>	           
+			        </ul>
+			      </li>	 
+			      <li id="servicos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentServicos}">
+			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.servicos')}}">Serviços<span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes por profissional</a></li>			          
+			          <li><a id="promocoes" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções (Pacotes)</a></li>	                   
+			        </ul>
+			      </li>	    
+			      <li id="produtos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentProdutos}">
+			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
+			        <ul class="dropdown-menu">			          	
+			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.produtos.detalhes')}}">Detalhes (revenda ou consumo interno)</a></li>			          
+			          <li><a id="estoque" th:href="@{${@environment.getProperty('url.produtos.estoque')}}">Estoque</a></li>	                   
+			        </ul>
+			      </li>	
+			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentAdministrativo}">
+			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>        		          
+			          <li><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   
+			        </ul>
+			      </li>	
+			      <li id="financeiro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentFinanceiro}">
+			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro<span class="caret"></span></a>
+			        <ul class="dropdown-menu">
+			          <li><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
+			        </ul>
+			      </li>	           			      
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li><a href="#"><span th:text="${userLogged}"></span ></a></li>
+			      <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
+			    </ul>
+			</div>  
+		  </div>
+		</nav>
+	</div>	
+	
+	<div th:fragment="findAllProducts">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Produtos cadastrados</strong>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarproduto}" style="margin-left:20px;">Adicionar</a>
+	             <input id="productSearch" type="text" class="" placeholder="Procurar pelo nome do serviço" onkeyup="myFunctionProduct()" style="margin-left:40px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allProducts" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	 
+	                            <th>Nome usual do produto</th>                           
+	                            <th>Nome comercial do produto</th>	                              
+	                            <th>Código de barras do produto</th>
+	                            <th>Quantidade de conteudo do produto</th>
+	                            <th>Unidade do conteudo</th>
+	                            <th>Estabelecimento</th>             
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="products : ${productsList}">
+	                            <td th:text="${products.id}"></td>	
+	                            <td th:text="${products.productNickName}"></td>	                            
+	                            <td th:text="${products.productOfficialName}"></td>	                           
+	                            <td th:text="${products.barcode}"></td>	
+	                            <td th:text="${products.contentValue}"></td>
+	                            <td th:text="${products.unitContent}"></td>
+	                            <td th:text="${products.company}"></td>	                            
+	                            <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarproduto/{id}(id=${products.id})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarproduto}" >Adicionar</a>
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchProductName.js}" src="js/searchProductName.js"></script>  
+	    </div>	
+	  </div>	
+	
+	<div th:fragment="addProducts">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Produto</strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewService" class="form-horizontal" th:object="${addProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->                      
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productNickName" >Nome usual do produto</label>
+	                                <input id="productNickName" type="text" class="form-control input-sm" th:field="*{productNickName}" ></input>
+	                            	 
+	                            </div>
+	                        </div>	  	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productOfficialName" >Nome comercial do produto</label>
+	                                <input id="productOfficialName" type="text" class="form-control input-sm" th:field="*{productOfficialName}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="barcode" >Código de barras</label>
+	                                <input id="barcode" type="text" class="form-control input-sm" th:field="*{barcode}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="contentValue" >Conteudo total</label>
+	                                <input id="contentValue" type="text" class="form-control input-sm" th:field="*{contentValue}" ></input>	                            	 
+	                            </div>
+	                        </div>  
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="unitContent" >Unidade do conteudo</label>
+	                                <input id="unitContent" type="text" class="form-control input-sm" th:field="*{unitContent}" ></input>	                            	 
+	                            </div>
+	                        </div>                   	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/produtos}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>        
+        	
+    	</div>  	
+    </div>
+    
+    <div th:fragment="editproducts">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Produto</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editproducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                           <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>                      
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productNickName" >Nome usual do produto</label>
+	                                <input id="productNickName" type="text" class="form-control input-sm" th:field="*{productNickName}" ></input>	                            	 
+	                            </div>
+	                        </div>	  	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productOfficialName" >Nome comercial do produto</label>
+	                                <input id="productOfficialName" type="text" class="form-control input-sm" th:field="*{productOfficialName}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="barcode" >Código de barras</label>
+	                                <input id="barcode" type="text" class="form-control input-sm" th:field="*{barcode}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="contentValue" >Conteudo total</label>
+	                                <input id="contentValue" type="text" class="form-control input-sm" th:field="*{contentValue}" ></input>	                            	 
+	                            </div>
+	                        </div>  
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="unitContent" >Unidade do conteudo</label>
+	                                <input id="unitContent" type="text" class="form-control input-sm" th:field="*{unitContent}" ></input>	                            	 
+	                            </div>
+	                        </div>                          
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/produtos}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>    	
+    </div>
+	
+
+</body>
+
+</html>

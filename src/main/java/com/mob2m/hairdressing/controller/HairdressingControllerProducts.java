@@ -14,12 +14,18 @@ public class HairdressingControllerProducts {
 	@Autowired
 	private UserAuthentication userAuthentication;
 
-	@RequestMapping(path = "${url.cadastro.produtos}", method = RequestMethod.GET)
+	@RequestMapping(path = "/produtos", method = RequestMethod.GET)
 	public ModelAndView goProdutos() {
+		return userAuthentication.getModelViewWithUser("produtos");
+
+	}
+
+	@RequestMapping(path = "/detalhesprodutos/{id}", method = RequestMethod.GET)
+	public ModelAndView goProdutosDetalhes() {
 		return userAuthentication.getModelViewWithUser("produtos");
 	}
 
-	@RequestMapping(path = "${url.produtos.detalhes}", method = RequestMethod.GET)
+	@RequestMapping(path = "/detalhesinsumos", method = RequestMethod.GET)
 	public ModelAndView goProdutosInsumos() {
 		return userAuthentication.getModelViewWithUser("produtosdetalhes");
 	}
@@ -27,6 +33,11 @@ public class HairdressingControllerProducts {
 	@RequestMapping(path = "${url.produtos.estoque}", method = RequestMethod.GET)
 	public ModelAndView goProdutosRevenda() {
 		return userAuthentication.getModelViewWithUser("produtosestoque");
+	}
+
+	@RequestMapping(path = "/salvarprodutos", method = RequestMethod.GET)
+	public ModelAndView goProdutosSave() {
+		return userAuthentication.getModelViewWithUser("produtosdetalhes");
 	}
 
 

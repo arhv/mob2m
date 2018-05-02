@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+         
+         <include file="changelog/V1/01_create_tbl_company_names_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/02_insert_tbl_company_names.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/03_insert_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
+		
+		 
+		 
+</databaseChangeLog>

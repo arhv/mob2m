@@ -9,19 +9,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name = "tbl_user_roles")
+@Entity(name = "tbl_user_roles_details")
 @Table(schema = "hairdressing_master")
-public class UserRoles implements Serializable {
+public class UserRolesDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
-	@Column (name = "role")
-	private String role;
+	@Column(name = "roleId")
+	private Long roleId;
 
+	@Column(name = "roleName")
+	private Long roleName;
+
+	@Column(name = "roleValue")
+	private Long roleValue;
 
 }

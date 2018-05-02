@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<th:block th:include="headmetaServices::headmeta"></th:block>		
+	<th:block th:include="headmeta::headmeta"></th:block>		
 </head>
 <body>
-	<th:block th:include="headmetaServices::menuheader"></th:block>
+	<th:block th:include="headmeta::menuheader"></th:block>
 	<th:block th:include="headmetaServices::findAllServices"  th:remove="${removeFindAll}"></th:block>
 	<th:block th:include="headmetaServices::addServices"  th:remove="${removeAddServices}"></th:block>
 	<th:block th:include="headmetaServices::editServices"  th:remove="${removeEditServices}"></th:block>

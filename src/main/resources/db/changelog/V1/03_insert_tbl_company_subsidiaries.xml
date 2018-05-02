@@ -1,0 +1,55 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="3" author="mob2m">
+		    <insert tableName="tbl_company_subsidiaries" schemaName="hairdressing_master">
+				<column name="company_subsidiary_name" value="Kanzen0"/>     
+				<column name="company_subsidiary_type" value="Matriz"/> 
+				<column name="company_subsidiary_cnpj" value="123456789/0001-00"/>
+				<column name="company_subsidiary_address" value="Rua de Osasco s/n"/>
+				<column name="company_subsidiary_cep" value="12345-678"/>
+				<column name="company_subsidiary_state" value="SP"/>
+				<column name="company_subsidiary_city" value="Osasco"/>
+				<column name="company_name_id" value="1"/>
+			</insert>
+				
+			<insert tableName="tbl_company_subsidiaries" schemaName="hairdressing_master">
+				<column name="company_subsidiary_name" value="Kanzen1"/>     
+				<column name="company_subsidiary_type" value="Filial"/> 
+				<column name="company_subsidiary_cnpj" value="123456789/0002-00"/>
+				<column name="company_subsidiary_address" value="Rua de Osasco 1"/>
+				<column name="company_subsidiary_cep" value="12345-999"/>
+				<column name="company_subsidiary_state" value="SP"/>
+				<column name="company_subsidiary_city" value="Osasco"/>
+				<column name="company_name_id" value="1"/>
+			</insert>
+			
+			<insert tableName="tbl_company_subsidiaries" schemaName="hairdressing_master">	
+				<column name="company_subsidiary_name" value="Kanzen2"/>     
+				<column name="company_subsidiary_type" value="Filial"/> 
+				<column name="company_subsidiary_cnpj" value="123456789/0003-00"/>
+				<column name="company_subsidiary_address" value="Rua de Osasco 2"/>
+				<column name="company_subsidiary_cep" value="12345-888"/>
+				<column name="company_subsidiary_state" value="SP"/>
+				<column name="company_subsidiary_city" value="Osasco"/>
+				<column name="company_name_id" value="1"/>
+			</insert>
+				
+			<insert tableName="tbl_company_subsidiaries" schemaName="hairdressing_master">
+				<column name="company_subsidiary_name" value="Kanzen3"/>     
+				<column name="company_subsidiary_type" value="Filial"/> 
+				<column name="company_subsidiary_cnpj" value="123456789/0004-00"/>
+				<column name="company_subsidiary_address" value="Rua de Osasco 3"/>
+				<column name="company_subsidiary_cep" value="12345-777"/>
+				<column name="company_subsidiary_state" value="SP"/>
+				<column name="company_subsidiary_city" value="Osasco"/>
+				<column name="company_name_id" value="1"/>
+			</insert>
+			<rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="headmetaCompany::headmeta"></th:block>		
+</head>
+<body>
+	<th:block th:include="headmetaCompany::menuheader"></th:block>
+	<th:block th:include="headmetaCompany::findAllSubsidiaries"  th:remove="${removeFindAllSubsidiaries}"></th:block>
+	<th:block th:include="headmetaCompany::addSubsidiary"  th:remove="${removeAddSubsidiary}"></th:block>
+	<th:block th:include="headmetaCompany::editSubsidiary"  th:remove="${removeEditSubsidiary}"></th:block>
+</body>
+</html>

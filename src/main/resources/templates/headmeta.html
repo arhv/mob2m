@@ -89,7 +89,8 @@
 			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentAdministrativo}">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>        		          
+			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>
+			          <li><a id="permissoes" th:href="@{/unidades}">Unidades de Prestação de Serviços</a></li>        		          
 			          <li><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   
 			        </ul>
 			      </li>	
