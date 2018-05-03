@@ -56,10 +56,10 @@
 		  </createTable>
 		
 		  <addForeignKeyConstraint 
-		  baseTableName="tbl_company_subsidiaries" 
+		  baseTableName="hairdressing_master.tbl_company_subsidiaries" 
 		  baseColumnNames="company_name_id"
 		  constraintName="company_name_fk"
-		  referencedTableName="tbl_company_names" 
+		  referencedTableName="hairdressing_master.tbl_company_names" 
 		  referencedColumnNames="id"
 		  onDelete="RESTRICT"/>
 		</changeSet>
