@@ -39,4 +39,8 @@ public class CitiesService {
 	public List<Cities> stateCode(int userState) {
 		return citiesRepository.getCitiesNames(userState);
 	}
+
+	public List<Cities> stateCodeSubsidiaries(int companySubsidiariesState) {
+		return citiesRepository.getCitiesNamesSubsidiaries(companySubsidiariesState);
+	}
 }

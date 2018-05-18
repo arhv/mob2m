@@ -133,7 +133,7 @@
 	            </div>
 	        </div>
 	        <div class="panel-footer">
-	            <a class="btn btn-sm btn-success" th:href="@{/adicionarunidade}" >Adicionar uma nova unidade</a>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarunidade}" th:disabled="disabled">Adicionar uma nova unidade</a>
 	        </div>
 	       	<script type="text/javascript" th:src="@{/js/searchSubsidiaryName.js}" src="js/searchSubsidiaryName.js"></script>  
 	    </div>	
@@ -190,8 +190,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                 <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
-	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" > </option>
+	                                	<select id="estado" class="form-control input-sm" th:field="*{companySubsidiaryState}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" th:selected="${stateList.cod_estados=='26'}" > </option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -200,8 +200,8 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">
-	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${userCity}"> </option> 
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{companySubsidiaryCity}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${subsidiaryCity}"> </option> 
 	                              	  </select>
 	                              	</div>	                                
 	                            </div>
@@ -214,7 +214,7 @@
 	                </div>
 	            </form>
 	        </div>        
-        	
+        	<script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script> 
     	</div>  	
     </div>
     
@@ -224,15 +224,21 @@
 	            <strong><br/><br/><br/>Cadastro de Unidade</strong>
 	        </div>
 	        <div class="panel-body">
-	            <form class="form-horizontal" th:object="${editSubsidiaries}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px">
+	            <form class="form-horizontal" th:object="${editCompanySubsidiaries}" th:action="@{/salvarunidade}" method="POST" style="margin: 10px">
 	                <div class="form-group">
 	                    <fieldset>
-	                         <!--<div class="form-group row">
+	                         <div class="form-group row">
 	                            <div class="col-md-4">
-	                                <label>ID</label> 
+	                                <label>Item</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
-	                        </div> -->                      
+	                        </div> 
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Código da empresa</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{companyNameId}" readOnly="readonly"/>
+	                            </div>
+	                        </div>                       
 	                       <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="companySubsidiaryName" >Nome da Unidade</label>
@@ -269,8 +275,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
-	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" th:selected="${stateList.cod_estados==userState}"> </option>
+	                                	<select id="estado" class="form-control input-sm" th:field="*{companySubsidiaryState}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.nome}" th:selected="${stateList.cod_estados==companySubsidiariesState}"> </option>
 	                                	</select>
 	                                </div>	                               
 	                            </div>
@@ -279,8 +285,8 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">	                              	  	
-	                                	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${userCity}"> </option>     
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{companySubsidiaryCity}">	                              	  	
+	                                	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.nome}" th:selected="${companySubsidiariesCity}"> </option>     
 	                              	  </select>
 	                              	</div>
 	                                <!-- <input type="text" class="form-control input-sm" th:field="*{city}"/>-->
@@ -295,6 +301,7 @@
 	                </div>
 	            </form>
 	        </div>
+	        <script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script>  
     	</div>    	
     </div>
 	
