@@ -8,7 +8,7 @@ $(document).ready(function() {
 	            success: function(data){
 	            	$("#cidade").empty();
 	            	for (row in data) {
-	            		$('#cidade').append($("<option></option>").attr("value", data[row].cod_cidades).text(data[row].nome));
+	            		$('#cidade').append($("<option></option>").attr("value", data[row].cod_cidades).text(data[row].cityName));
 	            	}
 	            },
 	            error: function(jqXHR, textStatus, errorThrown) {

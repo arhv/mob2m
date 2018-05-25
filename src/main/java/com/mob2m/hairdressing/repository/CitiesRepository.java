@@ -15,12 +15,12 @@ import com.mob2m.hairdressing.model.dao.Cities;
 public interface CitiesRepository extends JpaRepository<Cities, Long> {
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	@Query("SELECT new com.mob2m.hairdressing.model.dao.Cities (c.id, c.estados_cod_estados, c.cod_cidades, c.nome, c.cep) FROM tbl_cidades c WHERE c.estados_cod_estados=:userState")
+	@Query("SELECT new com.mob2m.hairdressing.model.dao.Cities (c.id, c.estados_cod_estados, c.cod_cidades, c.cityName, c.cep) FROM tbl_cidades c WHERE c.estados_cod_estados=:userState")
 	List<Cities> getCitiesNames(@Param("userState") int userState);
 
 	@Modifying(clearAutomatically = true)
 	@Transactional
-	@Query("SELECT new com.mob2m.hairdressing.model.dao.Cities (c.id, c.estados_cod_estados, c.cod_cidades, c.nome, c.cep) FROM tbl_cidades c WHERE c.estados_cod_estados=:companySubsidiariesState")
+	@Query("SELECT new com.mob2m.hairdressing.model.dao.Cities (c.id, c.estados_cod_estados, c.cod_cidades, c.cityName, c.cep) FROM tbl_cidades c WHERE c.estados_cod_estados=:companySubsidiariesState")
 	List<Cities> getCitiesNamesSubsidiaries(@Param("companySubsidiariesState") int companySubsidiariesState);
 
 }

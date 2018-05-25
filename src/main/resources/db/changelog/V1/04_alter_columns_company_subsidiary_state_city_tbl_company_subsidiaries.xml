@@ -1,0 +1,24 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="4" author="mob2m">
+		    <modifyDataType
+            columnName="company_subsidiary_state"
+            newDataType="int"
+            schemaName="hairdressing_master"
+            tableName="tbl_company_subsidiaries"/>
+            
+            <modifyDataType
+            columnName="company_subsidiary_city"
+            newDataType="int"
+            schemaName="hairdressing_master"
+            tableName="tbl_company_subsidiaries"/>
+            
+			<rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

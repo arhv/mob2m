@@ -9,7 +9,8 @@
          <include file="changelog/V1/01_create_tbl_company_names_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/02_insert_tbl_company_names.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/03_insert_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
-		
+		 <include file="changelog/V1/04_alter_columns_company_subsidiary_state_city_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/05_add_FK_PK_tbl_cidades_estados_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
 		 
 		 
 </databaseChangeLog>

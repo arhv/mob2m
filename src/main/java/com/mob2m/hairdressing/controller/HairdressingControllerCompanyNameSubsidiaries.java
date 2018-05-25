@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.mob2m.hairdressing.model.dao.Cities;
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
@@ -21,7 +22,6 @@ import com.mob2m.hairdressing.service.CitiesService;
 import com.mob2m.hairdressing.service.CompanyNamesService;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.StatesService;
-import com.mob2m.hairdressing.service.UserService;
 
 @RestController
 public class HairdressingControllerCompanyNameSubsidiaries {
@@ -34,9 +34,6 @@ public class HairdressingControllerCompanyNameSubsidiaries {
 
 	@Autowired
 	private CompanySubsidiariesService companySubsidiariesService;
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private StringEncryption userEncrypt;
@@ -72,7 +69,9 @@ public class HairdressingControllerCompanyNameSubsidiaries {
 		mv.addObject("removeEditSubsidiary", "all");
 		//mv.addObject("subsidiariesList", companySubsidiariesService.listSubsidiariesById(Long.valueOf(1)));//Need to refactor if there are more than 1 Company
 		mv.addObject("companyList", companyNamesService.findOne(Long.valueOf(1))); //Need to refactor if there are more than 1 Company
-		mv.addObject("subsidiariesList", companySubsidiariesService.findAll());
+
+		//mv.addObject("subsidiariesList1", companySubsidiariesJoinCityStateService.listAllSubsidiariesJoinedCityState());
+		mv.addObject("subsidiariesList", companySubsidiariesService.listAllSubsidiariesJoinedCityState());
 		return mv;
 	}
 
@@ -80,8 +79,8 @@ public class HairdressingControllerCompanyNameSubsidiaries {
 	public ModelAndView goUnidades(@PathVariable("id") Long id) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("company");
 		CompanySubsidiaries companySubsidiaries = companySubsidiariesService.findOne(id);
-		int companySubsidiariesState = Integer.parseInt(companySubsidiaries.getCompanySubsidiaryState());
-		int companySubsidiariesCity = Integer.parseInt(companySubsidiaries.getCompanySubsidiaryCity());
+		int companySubsidiariesState = companySubsidiaries.getCompanySubsidiaryState();
+		int companySubsidiariesCity = companySubsidiaries.getCompanySubsidiaryCity();
 		//User user = userService.findOne(id);
 		//int userState = Integer.parseInt(user.getState());
 		//int userCity = Integer.parseInt(user.getCity());
@@ -101,14 +100,18 @@ public class HairdressingControllerCompanyNameSubsidiaries {
 	}
 
 	@RequestMapping(path = "/salvarunidade", method = RequestMethod.POST)
-	public ModelAndView saveSubsidiary(@Valid CompanySubsidiaries editCompanySubsidiaries, BindingResult result) {
+	public RedirectView saveSubsidiary(@Valid CompanySubsidiaries editCompanySubsidiaries, BindingResult result) {
 
 		if (result.hasErrors()) {
 		//return addNewUser(user);
 		}
-		//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
 		companySubsidiariesService.save(editCompanySubsidiaries);
-		return allSubsidiaries();
+		RedirectView rv = new RedirectView();
+		rv.setContextRelative(true);
+		rv.setUrl("/unidades");
+		return rv;
+		//return allSubsidiaries();
+		//return "redirect:/unidades";
 	}
 
 }

@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="5" author="mob2m">
+			<dropPrimaryKey
+            constraintName="tbl_estados_pk"
+            schemaName="hairdressing_master"
+            tableName="tbl_estados"/>
+			
+			<dropPrimaryKey
+            constraintName="tbl_cidades_pk"
+            schemaName="hairdressing_master"
+            tableName="tbl_cidades"/>        
+                   
+			<addPrimaryKey 
+            columnNames="cod_cidades"
+            constraintName="pk_cod_cidades"
+            schemaName="hairdressing_master"
+            tableName="tbl_cidades"/>
+            
+            <addPrimaryKey 
+            columnNames="cod_estados"
+            constraintName="pk_cod_estados"
+            schemaName="hairdressing_master"
+            tableName="tbl_estados"/>
+            
+		    <addForeignKeyConstraint 
+            baseTableName="tbl_company_subsidiaries"
+            baseColumnNames="company_subsidiary_state"
+            constraintName="fk_company_subsidiaries_state"
+            referencedTableName="tbl_estados"
+            referencedColumnNames="cod_estados"            
+            onDelete="RESTRICT"/>
+            
+            <addForeignKeyConstraint 
+            baseTableName="tbl_company_subsidiaries"
+            baseColumnNames="company_subsidiary_city"
+            constraintName="fk_company_subsidiaries_city"
+            referencedTableName="tbl_cidades"
+            referencedColumnNames="cod_cidades"            
+            onDelete="RESTRICT"/>
+			<rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

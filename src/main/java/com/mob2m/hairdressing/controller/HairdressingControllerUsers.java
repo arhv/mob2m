@@ -60,7 +60,6 @@ public class HairdressingControllerUsers {
 		mv.addObject("removeAddUsers", "none");
 		mv.addObject("removeEditUsers", "all");
 		mv.addObject("removedCheckNewUsernameEmail", "all");
-
 		return mv;
 
 	}
@@ -180,26 +179,23 @@ public class HairdressingControllerUsers {
 	//public ModelAndView save(@Valid @ModelAttribute("user") User user, BindingResult result) {
 	//public int save(@RequestBody User user) {
 	public ModelAndView saveEdit(@Valid User user, BindingResult result) {
-
+		User returnPasswordObject = (userService.findOne(user.getId()));
 		if (result.hasErrors()) {
 		if (user.getPassword() == null) {
-		User returnPasswordObject = (userService.findOne(user.getId()));
 		String password = returnPasswordObject.getPassword();
 		user.setPassword(password);
-		System.out.println(password);
 		} else {
-		System.out.println(result.getFieldError().toString());
 		return addNewUser(user);
 		}
 		}
-
-		System.out.println("Active value: " + user.getActive());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();		
 		user.setInsertdate(new Date(System.currentTimeMillis()));
-		user.setInsertby(authentication.getName());		
+		user.setInsertby(authentication.getName());
+		user.setCode_pk_tbl_user(returnPasswordObject.getCode_pk_tbl_user());
+		System.out.println("Code_pk_tbl_user: " + returnPasswordObject.getCode_pk_tbl_user());
 		int returnUpdate = userService.update(user.getId(), user.getActive(), user.getInsertdate(), user.getInsertby(), user.getEmail(),
 				user.getName(), user.getPhonenumber(), user.getAddress(), user.getZipCode(), user.getCity(), user.getState());
-		//userService.save(user);
+		userService.save(user);
 		return goUsuariosMaster();
 	}
 }

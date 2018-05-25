@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_company_subsidiaries")
@@ -42,13 +45,40 @@ public class CompanySubsidiaries implements Serializable {
 	private String companySubsidiaryCep;
 
 	@Column(name = "company_subsidiary_state")
-	private String companySubsidiaryState;
+	private int companySubsidiaryState;
 
 	@Column(name = "company_subsidiary_city")
-	private String companySubsidiaryCity;
+	private int companySubsidiaryCity;
 
 	@Column(name = "company_name_id")
 	private Long companyNameId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cod_cidades")
+	private Cities cities;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "cod_estados")
+	private States states;
+
+	public CompanySubsidiaries() {}
+
+	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType, String companySubsidiaryCnpj,
+			String companySubsidiaryAddress, String companySubsidiaryCep, int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId,
+			Cities cities, States states) {
+		super();
+		this.id = id;
+		this.companySubsidiaryName = companySubsidiaryName;
+		this.companySubsidiaryType = companySubsidiaryType;
+		this.companySubsidiaryCnpj = companySubsidiaryCnpj;
+		this.companySubsidiaryAddress = companySubsidiaryAddress;
+		this.companySubsidiaryCep = companySubsidiaryCep;
+		this.companySubsidiaryState = companySubsidiaryState;
+		this.companySubsidiaryCity = companySubsidiaryCity;
+		this.companyNameId = companyNameId;
+		this.cities = cities;
+		this.states = states;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -65,6 +95,13 @@ public class CompanySubsidiaries implements Serializable {
 		return false;
 		}
 		CompanySubsidiaries other = (CompanySubsidiaries) obj;
+		if (cities == null) {
+		if (other.cities != null) {
+		return false;
+		}
+		} else if (!cities.equals(other.cities)) {
+		return false;
+		}
 		if (companyNameId == null) {
 		if (other.companyNameId != null) {
 		return false;
@@ -86,11 +123,7 @@ public class CompanySubsidiaries implements Serializable {
 		} else if (!companySubsidiaryCep.equals(other.companySubsidiaryCep)) {
 		return false;
 		}
-		if (companySubsidiaryCity == null) {
-		if (other.companySubsidiaryCity != null) {
-		return false;
-		}
-		} else if (!companySubsidiaryCity.equals(other.companySubsidiaryCity)) {
+		if (companySubsidiaryCity != other.companySubsidiaryCity) {
 		return false;
 		}
 		if (companySubsidiaryCnpj == null) {
@@ -107,11 +140,7 @@ public class CompanySubsidiaries implements Serializable {
 		} else if (!companySubsidiaryName.equals(other.companySubsidiaryName)) {
 		return false;
 		}
-		if (companySubsidiaryState == null) {
-		if (other.companySubsidiaryState != null) {
-		return false;
-		}
-		} else if (!companySubsidiaryState.equals(other.companySubsidiaryState)) {
+		if (companySubsidiaryState != other.companySubsidiaryState) {
 		return false;
 		}
 		if (companySubsidiaryType == null) {
@@ -128,8 +157,25 @@ public class CompanySubsidiaries implements Serializable {
 		} else if (!id.equals(other.id)) {
 		return false;
 		}
+		if (states == null) {
+		if (other.states != null) {
+		return false;
+		}
+		} else if (!states.equals(other.states)) {
+		return false;
+		}
 		return true;
 	}
+
+	/**
+	 * @return the cities
+	 */
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "cod_cidades")
+	public Cities getCities() {
+		return cities;
+	}
+
 
 	/**
 	 * @return the companyNameId
@@ -155,7 +201,7 @@ public class CompanySubsidiaries implements Serializable {
 	/**
 	 * @return the companySubsidiaryCity
 	 */
-	public String getCompanySubsidiaryCity() {
+	public int getCompanySubsidiaryCity() {
 		return companySubsidiaryCity;
 	}
 
@@ -176,7 +222,7 @@ public class CompanySubsidiaries implements Serializable {
 	/**
 	 * @return the companySubsidiaryState
 	 */
-	public String getCompanySubsidiaryState() {
+	public int getCompanySubsidiaryState() {
 		return companySubsidiaryState;
 	}
 
@@ -194,6 +240,15 @@ public class CompanySubsidiaries implements Serializable {
 		return id;
 	}
 
+	/**
+	 * @return the states
+	 */
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "cod_estados")
+	public States getStates() {
+		return states;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -201,16 +256,25 @@ public class CompanySubsidiaries implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cities == null) ? 0 : cities.hashCode());
 		result = prime * result + ((companyNameId == null) ? 0 : companyNameId.hashCode());
 		result = prime * result + ((companySubsidiaryAddress == null) ? 0 : companySubsidiaryAddress.hashCode());
 		result = prime * result + ((companySubsidiaryCep == null) ? 0 : companySubsidiaryCep.hashCode());
-		result = prime * result + ((companySubsidiaryCity == null) ? 0 : companySubsidiaryCity.hashCode());
+		result = prime * result + companySubsidiaryCity;
 		result = prime * result + ((companySubsidiaryCnpj == null) ? 0 : companySubsidiaryCnpj.hashCode());
 		result = prime * result + ((companySubsidiaryName == null) ? 0 : companySubsidiaryName.hashCode());
-		result = prime * result + ((companySubsidiaryState == null) ? 0 : companySubsidiaryState.hashCode());
+		result = prime * result + companySubsidiaryState;
 		result = prime * result + ((companySubsidiaryType == null) ? 0 : companySubsidiaryType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((states == null) ? 0 : states.hashCode());
 		return result;
+	}
+
+	/**
+	 * @param cities the cities to set
+	 */
+	public void setCities(Cities cities) {
+		this.cities = cities;
 	}
 
 	/**
@@ -237,7 +301,7 @@ public class CompanySubsidiaries implements Serializable {
 	/**
 	 * @param companySubsidiaryCity the companySubsidiaryCity to set
 	 */
-	public void setCompanySubsidiaryCity(String companySubsidiaryCity) {
+	public void setCompanySubsidiaryCity(int companySubsidiaryCity) {
 		this.companySubsidiaryCity = companySubsidiaryCity;
 	}
 
@@ -258,7 +322,7 @@ public class CompanySubsidiaries implements Serializable {
 	/**
 	 * @param companySubsidiaryState the companySubsidiaryState to set
 	 */
-	public void setCompanySubsidiaryState(String companySubsidiaryState) {
+	public void setCompanySubsidiaryState(int companySubsidiaryState) {
 		this.companySubsidiaryState = companySubsidiaryState;
 	}
 
@@ -276,6 +340,14 @@ public class CompanySubsidiaries implements Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * @param states the states to set
+	 */
+	public void setStates(States states) {
+		this.states = states;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -284,12 +356,13 @@ public class CompanySubsidiaries implements Serializable {
 		return "CompanySubsidiaries [id=" + id + ", companySubsidiaryName=" + companySubsidiaryName + ", companySubsidiaryType="
 				+ companySubsidiaryType + ", companySubsidiaryCnpj=" + companySubsidiaryCnpj + ", companySubsidiaryAddress="
 				+ companySubsidiaryAddress + ", companySubsidiaryCep=" + companySubsidiaryCep + ", companySubsidiaryState=" + companySubsidiaryState
-				+ ", companySubsidiaryCity=" + companySubsidiaryCity + ", companyNameId=" + companyNameId + ", getId()=" + getId()
-				+ ", getCompanySubsidiaryName()=" + getCompanySubsidiaryName() + ", getCompanySubsidiaryType()=" + getCompanySubsidiaryType()
-				+ ", getCompanySubsidiaryCnpj()=" + getCompanySubsidiaryCnpj() + ", getCompanySubsidiaryAddress()=" + getCompanySubsidiaryAddress()
-				+ ", getCompanySubsidiaryCep()=" + getCompanySubsidiaryCep() + ", getCompanySubsidiaryState()=" + getCompanySubsidiaryState()
-				+ ", getCompanySubsidiaryCity()=" + getCompanySubsidiaryCity() + ", getCompanyNameId()=" + getCompanyNameId() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+				+ ", companySubsidiaryCity=" + companySubsidiaryCity + ", companyNameId=" + companyNameId + ", cities=" + cities + ", states="
+				+ states + ", getStates()=" + getStates() + ", getId()=" + getId() + ", getCompanySubsidiaryName()=" + getCompanySubsidiaryName()
+				+ ", getCompanySubsidiaryType()=" + getCompanySubsidiaryType() + ", getCompanySubsidiaryCnpj()=" + getCompanySubsidiaryCnpj()
+				+ ", getCompanySubsidiaryAddress()=" + getCompanySubsidiaryAddress() + ", getCompanySubsidiaryCep()=" + getCompanySubsidiaryCep()
+				+ ", getCompanySubsidiaryState()=" + getCompanySubsidiaryState() + ", getCompanySubsidiaryCity()=" + getCompanySubsidiaryCity()
+				+ ", getCompanyNameId()=" + getCompanyNameId() + ", getCities()=" + getCities() + ", hashCode()=" + hashCode() + ", getClass()="
+				+ getClass() + ", toString()=" + super.toString() + "]";
 	}
 
 

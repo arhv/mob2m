@@ -30,16 +30,14 @@ public class CompanySubsidiariesService {
 		return companySubsidiariesRepository.findOne(id);
 	}
 
-	/*public List<CompanySubsidiaries> listSubsidiariesById (Long id) {
-		return companySubsidiariesRepository.listSubsidiaries(id);		 
-
-	}*/
+	public List<CompanySubsidiaries> listAllSubsidiariesJoinedCityState() {
+		return companySubsidiariesRepository.listAllSubsidiaries();
+	}
 
 	//Add new or updated
 	public CompanySubsidiaries save(CompanySubsidiaries companySubsidiaries) {
 		return companySubsidiariesRepository.saveAndFlush(companySubsidiaries);
 
 	}
-
 
 }
