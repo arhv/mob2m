@@ -287,8 +287,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                 <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
-	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}"> </option>
+	                                	<select id="estado" class="form-control input-sm" th:field="*{stateName}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==26}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -297,7 +297,7 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{cityName}">
 	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${userCity}"> </option> 
 	                              	  </select>
 	                              	</div>
@@ -402,7 +402,7 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{state}" >	                                		
+	                                	<select id="estado" class="form-control input-sm" th:field="*{stateName}" >	                                		
 	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==userState}"> </option>
 	                                	</select>
 	                                </div>	                               
@@ -412,7 +412,7 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city}">	                              	  	
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{cityName}">	                              	  	
 	                                	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${userCity}"> </option>     
 	                              	  </select>
 	                              	</div>

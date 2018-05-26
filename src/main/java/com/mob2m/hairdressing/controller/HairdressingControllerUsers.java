@@ -113,17 +113,17 @@ public class HairdressingControllerUsers {
 	}
 
 	@RequestMapping(path = "/estadousuario/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public String getUserState(@PathVariable("id") Long id) {
+	public int getUserState(@PathVariable("id") Long id) {
 		User userById = userService.findOne(id);
-		String userState = userById.getState();
+		int userState = userById.getStateName();
 		return userState;
 	}
 
 	@RequestMapping(path = "/detalhes/{id}", method = RequestMethod.GET)
 	public ModelAndView goDetalhes(@PathVariable("id") Long id) {
 		User user = userService.findOne(id);
-		int userState = Integer.parseInt(user.getState());
-		int userCity = Integer.parseInt(user.getCity());
+		int userState = user.getStateName();
+		int userCity = user.getCityName();
 		List<States> listStates = statesService.findAll();
 		List<Cities> listCitiesNames = citiesService.stateCode(userState);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
@@ -194,7 +194,7 @@ public class HairdressingControllerUsers {
 		user.setCode_pk_tbl_user(returnPasswordObject.getCode_pk_tbl_user());
 		System.out.println("Code_pk_tbl_user: " + returnPasswordObject.getCode_pk_tbl_user());
 		int returnUpdate = userService.update(user.getId(), user.getActive(), user.getInsertdate(), user.getInsertby(), user.getEmail(),
-				user.getName(), user.getPhonenumber(), user.getAddress(), user.getZipCode(), user.getCity(), user.getState());
+				user.getName(), user.getPhonenumber(), user.getAddress(), user.getZipCode(), user.getCityName(), user.getStateName());
 		userService.save(user);
 		return goUsuariosMaster();
 	}

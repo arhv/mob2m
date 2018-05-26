@@ -27,10 +27,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query("UPDATE tbl_user c SET c.active =:active, c.insertdate =:insertdate, c.insertby=:insertby, c.email=:email, c.name=:name, c.phonenumber=:phonenumber,"
-			+ "c.address=:address, c.zipCode=:zipCode, c.city=:city, c.state=:state WHERE c.id=:id")
+			+ "c.address=:address, c.zipCode=:zipCode, c.cityName=:city, c.stateName=:state WHERE c.id=:id")
 	int updateUser(@Param("id") Long id, @Param("active") Boolean active, @Param("insertdate") Date insertdate, @Param("insertby") String insertby,
 			@Param("email") String email, @Param("name") String name, @Param("phonenumber") String phonenumber, @Param("address") String address,
-			@Param("zipCode") String zipCode, @Param("city") String city, @Param("state") String state);
+			@Param("zipCode") String zipCode, @Param("city") int cityName, @Param("state") int stateName);
 
 
 }

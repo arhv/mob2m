@@ -1,0 +1,39 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="6" author="mob2m">	
+			<modifyDataType
+            columnName="state"
+            newDataType="int"
+            schemaName="hairdressing_master"
+            tableName="tbl_user"/>
+            
+            <modifyDataType
+            columnName="city"
+            newDataType="int"
+            schemaName="hairdressing_master"
+            tableName="tbl_user"/>
+						
+		    <addForeignKeyConstraint 
+            baseTableName="tbl_user"
+            baseColumnNames="state"
+            constraintName="fk_user_state"
+            referencedTableName="tbl_estados"
+            referencedColumnNames="cod_estados"            
+            onDelete="RESTRICT"/>
+            
+            <addForeignKeyConstraint 
+            baseTableName="tbl_user"
+            baseColumnNames="city"
+            constraintName="fk_user_city"
+            referencedTableName="tbl_cidades"
+            referencedColumnNames="cod_cidades"            
+            onDelete="RESTRICT"/>
+			<rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 
