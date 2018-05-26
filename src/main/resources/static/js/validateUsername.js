@@ -1,7 +1,8 @@
  
 	 $("#checkUsername").click(function() {		
 			$.ajax({				
-					url: "http://localhost:8080/checkusername/"+$("#usernameCheck").val(),
+					//url: "http://localhost:8080/checkusername/"+$("#usernameCheck").val(),
+					url: "http://www.riomam.com.br/checkusername/"+$("#usernameCheck").val(),
 					dataType: 'json',
 		            type: 'GET',
 		            data: {username : $('#usernameCheck').val()},

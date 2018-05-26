@@ -3,7 +3,8 @@
 	$("#checkUserEmail").click(function(event){
 		event.preventDefault();		
 		$.ajax({				
-			url: "http://localhost:8080/checkuseremail/"+$("#userEmailCheck").val(),
+			//url: "http://localhost:8080/checkuseremail/"+$("#userEmailCheck").val(),
+			url: "http://www.riomam.com.br/checkuseremail/"+$("#userEmailCheck").val(),
 			dataType: 'json',
             type: 'GET',
             data: {email : $('#userEmailCheck').val()},           
