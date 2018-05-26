@@ -298,7 +298,7 @@
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
 	                              	  <select id="cidade" class="form-control input-sm" th:field="*{cityName}">
-	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${userCity}"> </option> 
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${cityList.cityName==9432}"> </option> 
 	                              	  </select>
 	                              	</div>
 	                                

@@ -49,8 +49,9 @@ public class HairdressingControllerUsers {
 	public ModelAndView addNewUser(User user) {
 		User user1 = new User();
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usuariosmaster");
+		//long initState = 26;
 		List<States> listStates = statesService.findAll();
-		int initValue = 1;//iniciar combo com Cidades do Acre
+		int initValue = 26;//iniciar combo com Cidades de São Paulo
 		List<Cities> listCitiesNames = citiesService.stateCode(initValue);
 		mv.addObject("state", listStates);
 		mv.addObject("city", listCitiesNames);
