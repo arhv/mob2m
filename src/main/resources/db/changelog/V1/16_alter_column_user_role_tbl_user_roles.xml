@@ -7,9 +7,9 @@
 
 		
 		<changeSet id="16" author="mob2m">	
-			<dropForeignKeyConstraint 
+			<!--  <dropForeignKeyConstraint 
 			baseTableName="tbl_user_roles" 
-			constraintName="fkn1s74q4mbsn3ql0xb77p2pov2"/>
+			constraintName="fkn1s74q4mbsn3ql0xb77p2pov2"/>-->
 					       
             <modifyDataType
             columnName="user_role"
