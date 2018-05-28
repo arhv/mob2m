@@ -28,7 +28,7 @@ public class States implements Serializable {
 
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@Id
 	@Column(name = "cod_estados")
@@ -43,16 +43,22 @@ public class States implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "states")
 	private Set<CompanySubsidiaries> companySubsidiariesRecordsStates = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "states")
+	private Set<Customers> customersStates = new HashSet<>(0);
+
 	public States() {
 
 	}
 
-	public States(Long id, int cod_estados, String sigla, String stateName, Set<CompanySubsidiaries> companySubsidiariesRecordsStates) {
+	public States(int id, int cod_estados, String sigla, String stateName, Set<CompanySubsidiaries> companySubsidiariesRecordsStates,
+			Set<Customers> customersStates) {
+		super();
 		this.id = id;
 		this.cod_estados = cod_estados;
 		this.sigla = sigla;
 		this.stateName = stateName;
 		this.companySubsidiariesRecordsStates = companySubsidiariesRecordsStates;
+		this.customersStates = customersStates;
 	}
 
 	/* (non-Javadoc)
@@ -80,11 +86,14 @@ public class States implements Serializable {
 		} else if (!companySubsidiariesRecordsStates.equals(other.companySubsidiariesRecordsStates)) {
 		return false;
 		}
-		if (id == null) {
-		if (other.id != null) {
+		if (customersStates == null) {
+		if (other.customersStates != null) {
 		return false;
 		}
-		} else if (!id.equals(other.id)) {
+		} else if (!customersStates.equals(other.customersStates)) {
+		return false;
+		}
+		if (id != other.id) {
 		return false;
 		}
 		if (sigla == null) {
@@ -120,9 +129,16 @@ public class States implements Serializable {
 	}
 
 	/**
+	 * @return the customersStates
+	 */
+	public Set<Customers> getCustomersStates() {
+		return customersStates;
+	}
+
+	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -149,7 +165,8 @@ public class States implements Serializable {
 		int result = 1;
 		result = prime * result + cod_estados;
 		result = prime * result + ((companySubsidiariesRecordsStates == null) ? 0 : companySubsidiariesRecordsStates.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((customersStates == null) ? 0 : customersStates.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		result = prime * result + ((stateName == null) ? 0 : stateName.hashCode());
 		return result;
@@ -170,9 +187,16 @@ public class States implements Serializable {
 	}
 
 	/**
+	 * @param customersStates the customersStates to set
+	 */
+	public void setCustomersStates(Set<Customers> customersStates) {
+		this.customersStates = customersStates;
+	}
+
+	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -196,9 +220,10 @@ public class States implements Serializable {
 	@Override
 	public String toString() {
 		return "States [id=" + id + ", cod_estados=" + cod_estados + ", sigla=" + sigla + ", stateName=" + stateName
-				+ ", companySubsidiariesRecordsStates=" + companySubsidiariesRecordsStates + ", getId()=" + getId() + ", getCod_estados()="
-				+ getCod_estados() + ", getSigla()=" + getSigla() + ", getStateName()=" + getStateName() + ", getCompanySubsidiariesRecordsStates()="
-				+ getCompanySubsidiariesRecordsStates() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
+				+ ", companySubsidiariesRecordsStates=" + companySubsidiariesRecordsStates + ", customersStates=" + customersStates
+				+ ", getCustomersStates()=" + getCustomersStates() + ", getCod_estados()=" + getCod_estados()
+				+ ", getCompanySubsidiariesRecordsStates()=" + getCompanySubsidiariesRecordsStates() + ", getId()=" + getId() + ", getSigla()="
+				+ getSigla() + ", getStateName()=" + getStateName() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
 				+ super.toString() + "]";
 	}
 

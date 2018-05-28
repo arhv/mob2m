@@ -94,13 +94,16 @@ public class User implements Serializable {
 	@Column (name = "state")
 	private int stateName;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_cidades")
 	private Cities cities;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_estados")
 	private States states;
+
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	//private Set<UserCompany> userCompany = new HashSet<>(0);
 
 	public User() {
 
@@ -127,12 +130,8 @@ public class User implements Serializable {
 		this.states = states;
 	}
 
-	public User(String username) {
+	public User(String username) {		
 		this.username = username;
-	}
-
-	public User(String username, String email) {
-		this.email = email;
 	}
 
 	/* (non-Javadoc)
@@ -522,7 +521,6 @@ public class User implements Serializable {
 				+ ", getStateName()=" + getStateName() + ", getCities()=" + getCities() + ", getStates()=" + getStates() + ", hashCode()="
 				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
-
 
 }
 

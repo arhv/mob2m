@@ -3,6 +3,8 @@
 package com.mob2m.hairdressing.model.dao;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_company_subsidiaries")
@@ -61,11 +64,25 @@ public class CompanySubsidiaries implements Serializable {
 	@JoinColumn(name = "cod_estados")
 	private States states;
 
-	public CompanySubsidiaries() {}
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	private Set<Products> products = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	private Set<Services> services = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	private Set<UserCompany> userCompany = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	private Set<UserRoles> userRoles = new HashSet<>(0);
+
+	public CompanySubsidiaries() {
+
+	}
 
 	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType, String companySubsidiaryCnpj,
 			String companySubsidiaryAddress, String companySubsidiaryCep, int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId,
-			Cities cities, States states) {
+			Cities cities, States states, Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles) {
 		super();
 		this.id = id;
 		this.companySubsidiaryName = companySubsidiaryName;
@@ -78,6 +95,10 @@ public class CompanySubsidiaries implements Serializable {
 		this.companyNameId = companyNameId;
 		this.cities = cities;
 		this.states = states;
+		this.products = products;
+		this.services = services;
+		this.userCompany = userCompany;
+		this.userRoles = userRoles;
 	}
 
 	/* (non-Javadoc)
@@ -157,11 +178,39 @@ public class CompanySubsidiaries implements Serializable {
 		} else if (!id.equals(other.id)) {
 		return false;
 		}
+		if (products == null) {
+		if (other.products != null) {
+		return false;
+		}
+		} else if (!products.equals(other.products)) {
+		return false;
+		}
+		if (services == null) {
+		if (other.services != null) {
+		return false;
+		}
+		} else if (!services.equals(other.services)) {
+		return false;
+		}
 		if (states == null) {
 		if (other.states != null) {
 		return false;
 		}
 		} else if (!states.equals(other.states)) {
+		return false;
+		}
+		if (userCompany == null) {
+		if (other.userCompany != null) {
+		return false;
+		}
+		} else if (!userCompany.equals(other.userCompany)) {
+		return false;
+		}
+		if (userRoles == null) {
+		if (other.userRoles != null) {
+		return false;
+		}
+		} else if (!userRoles.equals(other.userRoles)) {
 		return false;
 		}
 		return true;
@@ -170,12 +219,9 @@ public class CompanySubsidiaries implements Serializable {
 	/**
 	 * @return the cities
 	 */
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "cod_cidades")
 	public Cities getCities() {
 		return cities;
 	}
-
 
 	/**
 	 * @return the companyNameId
@@ -241,12 +287,38 @@ public class CompanySubsidiaries implements Serializable {
 	}
 
 	/**
+	 * @return the products
+	 */
+	public Set<Products> getProducts() {
+		return products;
+	}
+
+	/**
+	 * @return the services
+	 */
+	public Set<Services> getServices() {
+		return services;
+	}
+
+	/**
 	 * @return the states
 	 */
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "cod_estados")
 	public States getStates() {
 		return states;
+	}
+
+	/**
+	 * @return the userCompany
+	 */
+	public Set<UserCompany> getUserCompany() {
+		return userCompany;
+	}
+
+	/**
+	 * @return the userRoles
+	 */
+	public Set<UserRoles> getUserRoles() {
+		return userRoles;
 	}
 
 	/* (non-Javadoc)
@@ -266,7 +338,11 @@ public class CompanySubsidiaries implements Serializable {
 		result = prime * result + companySubsidiaryState;
 		result = prime * result + ((companySubsidiaryType == null) ? 0 : companySubsidiaryType.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		//result = prime * result + ((products == null) ? 0 : products.hashCode());
+		result = prime * result + ((services == null) ? 0 : services.hashCode());
 		result = prime * result + ((states == null) ? 0 : states.hashCode());
+		result = prime * result + ((userCompany == null) ? 0 : userCompany.hashCode());
+		//result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
 		return result;
 	}
 
@@ -341,12 +417,39 @@ public class CompanySubsidiaries implements Serializable {
 	}
 
 	/**
+	 * @param products the products to set
+	 */
+	public void setProducts(Set<Products> products) {
+		this.products = products;
+	}
+
+	/**
+	 * @param services the services to set
+	 */
+	public void setServices(Set<Services> services) {
+		this.services = services;
+	}
+
+	/**
 	 * @param states the states to set
 	 */
 	public void setStates(States states) {
 		this.states = states;
 	}
 
+	/**
+	 * @param userCompany the userCompany to set
+	 */
+	public void setUserCompany(Set<UserCompany> userCompany) {
+		this.userCompany = userCompany;
+	}
+
+	/**
+	 * @param userRoles the userRoles to set
+	 */
+	public void setUserRoles(Set<UserRoles> userRoles) {
+		this.userRoles = userRoles;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -357,14 +460,8 @@ public class CompanySubsidiaries implements Serializable {
 				+ companySubsidiaryType + ", companySubsidiaryCnpj=" + companySubsidiaryCnpj + ", companySubsidiaryAddress="
 				+ companySubsidiaryAddress + ", companySubsidiaryCep=" + companySubsidiaryCep + ", companySubsidiaryState=" + companySubsidiaryState
 				+ ", companySubsidiaryCity=" + companySubsidiaryCity + ", companyNameId=" + companyNameId + ", cities=" + cities + ", states="
-				+ states + ", getStates()=" + getStates() + ", getId()=" + getId() + ", getCompanySubsidiaryName()=" + getCompanySubsidiaryName()
-				+ ", getCompanySubsidiaryType()=" + getCompanySubsidiaryType() + ", getCompanySubsidiaryCnpj()=" + getCompanySubsidiaryCnpj()
-				+ ", getCompanySubsidiaryAddress()=" + getCompanySubsidiaryAddress() + ", getCompanySubsidiaryCep()=" + getCompanySubsidiaryCep()
-				+ ", getCompanySubsidiaryState()=" + getCompanySubsidiaryState() + ", getCompanySubsidiaryCity()=" + getCompanySubsidiaryCity()
-				+ ", getCompanyNameId()=" + getCompanyNameId() + ", getCities()=" + getCities() + ", hashCode()=" + hashCode() + ", getClass()="
-				+ getClass() + ", toString()=" + super.toString() + "]";
+				+ states + ", products=" + products + ", services=" + services + ", userCompany=" + userCompany + ", userRoles=" + userRoles + "]";
 	}
-
 
 }
 

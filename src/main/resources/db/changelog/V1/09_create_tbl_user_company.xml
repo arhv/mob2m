@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="9" author="mob2m">	
+			<createTable tableName="tbl_user_company" remarks="Table with the name of hairdressing user company" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="username" type="int">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="company_subsidiary" type="int">
+			      <constraints nullable="false" unique="false"/>
+			    </column>	
+			    <column name="user_role" type="int">
+			      <constraints nullable="false" unique="false"/>
+			    </column>			    		    	    
+		  	</createTable>	
+		  	<!--  <addForeignKeyConstraint 
+            baseTableName="tbl_user_company"
+            baseColumnNames="company_name_id"
+            constraintName="fk_company_name_id"
+            referencedTableName="tbl_company_names"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>-->	  	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

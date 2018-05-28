@@ -47,11 +47,17 @@ public class Cities implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cities")
 	private Set<CompanySubsidiaries> companySubsidiariesRecordsCities = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cities")
+	private Set<Customers> customersCities = new HashSet<>(0);
+
+
+
 	public Cities() {
 
 	}
 
 	public Cities(Long id, int estados_cod_estados, int cod_cidades, String cityName, String cep) {
+		super();
 		this.id = id;
 		this.estados_cod_estados = estados_cod_estados;
 		this.cod_cidades = cod_cidades;
@@ -67,6 +73,20 @@ public class Cities implements Serializable {
 		this.cityName = cityName;
 		this.cep = cep;
 		this.companySubsidiariesRecordsCities = companySubsidiariesRecords;
+	}
+
+
+
+	public Cities(Long id, int estados_cod_estados, int cod_cidades, String cityName, String cep,
+			Set<CompanySubsidiaries> companySubsidiariesRecordsCities, Set<Customers> customersCities) {
+		super();
+		this.id = id;
+		this.estados_cod_estados = estados_cod_estados;
+		this.cod_cidades = cod_cidades;
+		this.cityName = cityName;
+		this.cep = cep;
+		this.companySubsidiariesRecordsCities = companySubsidiariesRecordsCities;
+		this.customersCities = customersCities;
 	}
 
 	/* (non-Javadoc)
@@ -143,11 +163,17 @@ public class Cities implements Serializable {
 	}
 
 	/**
-	 * @return the companySubsidiariesRecords
+	 * @return the companySubsidiariesRecordsCities
 	 */
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "tbl_cidades")
-	public Set<CompanySubsidiaries> getCompanySubsidiariesRecords() {
+	public Set<CompanySubsidiaries> getCompanySubsidiariesRecordsCities() {
 		return companySubsidiariesRecordsCities;
+	}
+
+	/**
+	 * @return the customersCities
+	 */
+	public Set<Customers> getCustomersCities() {
+		return customersCities;
 	}
 
 	/**
@@ -162,22 +188,6 @@ public class Cities implements Serializable {
 	 */
 	public Long getId() {
 		return id;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
-		result = prime * result + cod_cidades;
-		result = prime * result + ((companySubsidiariesRecordsCities == null) ? 0 : companySubsidiariesRecordsCities.hashCode());
-		result = prime * result + estados_cod_estados;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
 	}
 
 	/**
@@ -202,10 +212,17 @@ public class Cities implements Serializable {
 	}
 
 	/**
-	 * @param companySubsidiariesRecords the companySubsidiariesRecords to set
+	 * @param companySubsidiariesRecordsCities the companySubsidiariesRecordsCities to set
 	 */
-	public void setCompanySubsidiariesRecords(Set<CompanySubsidiaries> companySubsidiariesRecords) {
-		this.companySubsidiariesRecordsCities = companySubsidiariesRecords;
+	public void setCompanySubsidiariesRecordsCities(Set<CompanySubsidiaries> companySubsidiariesRecordsCities) {
+		this.companySubsidiariesRecordsCities = companySubsidiariesRecordsCities;
+	}
+
+	/**
+	 * @param customersCities the customersCities to set
+	 */
+	public void setCustomersCities(Set<Customers> customersCities) {
+		this.customersCities = customersCities;
 	}
 
 	/**
@@ -228,11 +245,13 @@ public class Cities implements Serializable {
 	@Override
 	public String toString() {
 		return "Cities [id=" + id + ", estados_cod_estados=" + estados_cod_estados + ", cod_cidades=" + cod_cidades + ", cityName=" + cityName
-				+ ", cep=" + cep + ", companySubsidiariesRecords=" + companySubsidiariesRecordsCities + ", getId()=" + getId()
-				+ ", getEstados_cod_estados()=" + getEstados_cod_estados() + ", getCod_cidades()=" + getCod_cidades() + ", getCityName()="
-				+ getCityName() + ", getCep()=" + getCep() + ", getCompanySubsidiariesRecords()=" + getCompanySubsidiariesRecords() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+				+ ", cep=" + cep + ", companySubsidiariesRecordsCities=" + companySubsidiariesRecordsCities + ", customersCities=" + customersCities
+				+ ", getId()=" + getId() + ", getEstados_cod_estados()=" + getEstados_cod_estados() + ", getCod_cidades()=" + getCod_cidades()
+				+ ", getCityName()=" + getCityName() + ", getCep()=" + getCep() + ", getCompanySubsidiariesRecordsCities()="
+				+ getCompanySubsidiariesRecordsCities() + ", getCustomersCities()=" + getCustomersCities() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
 
 }
 

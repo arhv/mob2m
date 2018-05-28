@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_user_company")
@@ -29,11 +32,27 @@ public class UserCompany implements Serializable {
 	@Column(name = "username")
 	private String username;
 
-	@Column(name = "companySubsidiary")
-	private String companySubsidiary;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_role")
+	private UserRoles userRoles;
 
-	@Column(name = "userRole")
-	private String userRole;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_subsidiary")
+	private CompanySubsidiaries companySubsidiaries;
+
+
+
+	public UserCompany() {
+
+	}
+
+	public UserCompany(Long id, String username, UserRoles userRoles, CompanySubsidiaries companySubsidiaries) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.userRoles = userRoles;
+		this.companySubsidiaries = companySubsidiaries;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -50,11 +69,11 @@ public class UserCompany implements Serializable {
 		return false;
 		}
 		UserCompany other = (UserCompany) obj;
-		if (companySubsidiary == null) {
-		if (other.companySubsidiary != null) {
+		if (companySubsidiaries == null) {
+		if (other.companySubsidiaries != null) {
 		return false;
 		}
-		} else if (!companySubsidiary.equals(other.companySubsidiary)) {
+		} else if (!companySubsidiaries.equals(other.companySubsidiaries)) {
 		return false;
 		}
 		if (id == null) {
@@ -64,11 +83,11 @@ public class UserCompany implements Serializable {
 		} else if (!id.equals(other.id)) {
 		return false;
 		}
-		if (userRole == null) {
-		if (other.userRole != null) {
+		if (userRoles == null) {
+		if (other.userRoles != null) {
 		return false;
 		}
-		} else if (!userRole.equals(other.userRole)) {
+		} else if (!userRoles.equals(other.userRoles)) {
 		return false;
 		}
 		if (username == null) {
@@ -82,10 +101,10 @@ public class UserCompany implements Serializable {
 	}
 
 	/**
-	 * @return the companySubsidiary
+	 * @return the companySubsidiaries
 	 */
-	public String getCompanySubsidiary() {
-		return companySubsidiary;
+	public CompanySubsidiaries getCompanySubsidiaries() {
+		return companySubsidiaries;
 	}
 
 	/**
@@ -103,10 +122,10 @@ public class UserCompany implements Serializable {
 	}
 
 	/**
-	 * @return the userRole
+	 * @return the userRoles
 	 */
-	public String getUserRole() {
-		return userRole;
+	public UserRoles getUserRoles() {
+		return userRoles;
 	}
 
 	/* (non-Javadoc)
@@ -116,18 +135,18 @@ public class UserCompany implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companySubsidiary == null) ? 0 : companySubsidiary.hashCode());
+		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((userRole == null) ? 0 : userRole.hashCode());
+		//result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
 	/**
-	 * @param companySubsidiary the companySubsidiary to set
+	 * @param companySubsidiaries the companySubsidiaries to set
 	 */
-	public void setCompanySubsidiary(String companySubsidiary) {
-		this.companySubsidiary = companySubsidiary;
+	public void setCompanySubsidiaries(CompanySubsidiaries companySubsidiaries) {
+		this.companySubsidiaries = companySubsidiaries;
 	}
 
 	/**
@@ -145,23 +164,23 @@ public class UserCompany implements Serializable {
 	}
 
 	/**
-	 * @param userRole the userRole to set
+	 * @param userRoles the userRoles to set
 	 */
-	public void setUserRole(String userRole) {
-		this.userRole = userRole;
+	public void setUserRoles(UserRoles userRoles) {
+		this.userRoles = userRoles;
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
-	 */
+
 	@Override
 	public String toString() {
-		return "UserCompany [id=" + id + ", username=" + username + ", companySubsidiary=" + companySubsidiary + ", userRole=" + userRole
-				+ ", getId()=" + getId() + ", getUsername()=" + getUsername() + ", getCompanySubsidiary()=" + getCompanySubsidiary()
-				+ ", getUserRole()=" + getUserRole() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
-				+ super.toString() + "]";
-	}
-
+		return "UserCompany [id=" + id + ", username=" + username + ", userRoles=" + userRoles + ", companySubsidiaries=" + companySubsidiaries
+				+ ", getId()=" + getId() + ", getUsername()=" + getUsername() + ", getUserRoles()=" + getUserRoles() + ", getCompanySubsidiaries()="
+				+ getCompanySubsidiaries() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+	}*/
 
 
 }

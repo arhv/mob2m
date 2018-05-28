@@ -1,0 +1,19 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="14" author="mob2m">		  
+		    <addForeignKeyConstraint 
+            baseTableName="tbl_user_company"
+            baseColumnNames="user_role"
+            constraintName="fk_user_role_id"
+            referencedTableName="tbl_user_roles"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>       	            	
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

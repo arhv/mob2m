@@ -24,6 +24,7 @@ public class CompanyNames implements Serializable {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@OneToMany(fetch = FetchType.EAGER, mappedBy = "products")
 	private Long id;
 
 	@Column(name = "company_name", unique = true)
@@ -31,6 +32,20 @@ public class CompanyNames implements Serializable {
 
 	@Column(name = "email_master", unique = true)
 	private String emailMaster;
+
+
+	public CompanyNames() {
+
+	}
+
+
+	public CompanyNames(Long id, String companyName, String emailMaster) {
+		super();
+		this.id = id;
+		this.companyName = companyName;
+		this.emailMaster = emailMaster;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -71,12 +86,14 @@ public class CompanyNames implements Serializable {
 		return true;
 	}
 
+
 	/**
 	 * @return the companyName
 	 */
 	public String getCompanyName() {
 		return companyName;
 	}
+
 
 	/**
 	 * @return the emailMaster
@@ -85,12 +102,14 @@ public class CompanyNames implements Serializable {
 		return emailMaster;
 	}
 
+
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -105,12 +124,14 @@ public class CompanyNames implements Serializable {
 		return result;
 	}
 
+
 	/**
 	 * @param companyName the companyName to set
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 
 	/**
 	 * @param emailMaster the emailMaster to set
@@ -119,12 +140,14 @@ public class CompanyNames implements Serializable {
 		this.emailMaster = emailMaster;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

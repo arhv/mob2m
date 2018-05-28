@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_services")
@@ -29,9 +32,24 @@ public class Services implements Serializable {
 	@Column(name = "service")
 	private String service;
 
-	@Column(name = "companySubsidiaryId")
-	private Long companySubsidiaryId;
+	@Column(name = "value")
+	private double value;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "company_name_id")
+	private CompanySubsidiaries companySubsidiaries;
+
+	public Services() {
+
+	}
+
+	public Services(Long id, String service, double value, CompanySubsidiaries companySubsidiaries) {
+		super();
+		this.id = id;
+		this.service = service;
+		this.value = value;
+		this.companySubsidiaries = companySubsidiaries;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -48,11 +66,11 @@ public class Services implements Serializable {
 		return false;
 		}
 		Services other = (Services) obj;
-		if (companySubsidiaryId == null) {
-		if (other.companySubsidiaryId != null) {
+		if (companySubsidiaries == null) {
+		if (other.companySubsidiaries != null) {
 		return false;
 		}
-		} else if (!companySubsidiaryId.equals(other.companySubsidiaryId)) {
+		} else if (!companySubsidiaries.equals(other.companySubsidiaries)) {
 		return false;
 		}
 		if (id == null) {
@@ -69,14 +87,17 @@ public class Services implements Serializable {
 		} else if (!service.equals(other.service)) {
 		return false;
 		}
+		if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
+		return false;
+		}
 		return true;
 	}
 
 	/**
-	 * @return the companySubsidiaryId
+	 * @return the companySubsidiaries
 	 */
-	public Long getCompanySubsidiaryId() {
-		return companySubsidiaryId;
+	public CompanySubsidiaries getCompanySubsidiaries() {
+		return companySubsidiaries;
 	}
 
 	/**
@@ -93,6 +114,13 @@ public class Services implements Serializable {
 		return service;
 	}
 
+	/**
+	 * @return the value
+	 */
+	public double getValue() {
+		return value;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -100,17 +128,20 @@ public class Services implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companySubsidiaryId == null) ? 0 : companySubsidiaryId.hashCode());
+		result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((service == null) ? 0 : service.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(value);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
 	/**
-	 * @param companySubsidiaryId the companySubsidiaryId to set
+	 * @param companySubsidiaries the companySubsidiaries to set
 	 */
-	public void setCompanySubsidiaryId(Long companySubsidiaryId) {
-		this.companySubsidiaryId = companySubsidiaryId;
+	public void setCompanySubsidiaries(CompanySubsidiaries companySubsidiaries) {
+		this.companySubsidiaries = companySubsidiaries;
 	}
 
 	/**
@@ -127,15 +158,23 @@ public class Services implements Serializable {
 		this.service = service;
 	}
 
+	/**
+	 * @param value the value to set
+	 */
+	public void setValue(double value) {
+		this.value = value;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Services [id=" + id + ", service=" + service + ", companySubsidiaryId=" + companySubsidiaryId + ", getCompanySubsidiaryId()="
-				+ getCompanySubsidiaryId() + ", getId()=" + getId() + ", getService()=" + getService() + ", hashCode()=" + hashCode()
-				+ ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+		return "Services [id=" + id + ", service=" + service + ", value=" + value + ", companySubsidiaries=" + companySubsidiaries + ", getId()="
+				+ getId() + ", getService()=" + getService() + ", getValue()=" + getValue() + ", getCompanySubsidiaries()=" + getCompanySubsidiaries()
+				+ ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
+
 
 }
 

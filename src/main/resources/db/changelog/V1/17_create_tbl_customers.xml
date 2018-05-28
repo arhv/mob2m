@@ -1,0 +1,53 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="17" author="mob2m">	
+			<createTable tableName="tbl_customers" remarks="Table with the name of hairdressing customers" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="customer_name" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="phone_number" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="email" type="varchar(200)">
+			      <constraints nullable="false"/>
+			    </column>
+			    <column name="address" type="varchar(200)">
+			      <constraints nullable="false"/>
+			    </column>	
+			    <column name="zip_code" type="varchar(200)">
+			      <constraints nullable="false"/>
+			    </column>
+			    <column name="city_name" type="int">
+			      <constraints nullable="false"/>
+			    </column>
+			    <column name="state_name" type="int">
+			      <constraints nullable="false"/>
+			    </column>		    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_customers"
+            baseColumnNames="city_name"
+            constraintName="fk_customer_city_name"
+            referencedTableName="tbl_cidades"
+            referencedColumnNames="cod_cidades"            
+            onDelete="RESTRICT"/>	
+            
+            <addForeignKeyConstraint 
+            baseTableName="tbl_customers"
+            baseColumnNames="state_name"
+            constraintName="fk_customer_state_name"
+            referencedTableName="tbl_estados"
+            referencedColumnNames="cod_estados"            
+            onDelete="RESTRICT"/>  	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

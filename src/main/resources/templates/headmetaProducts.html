@@ -23,68 +23,6 @@
 </head>
 
 <body>
-	<div th:fragment="menuheader">
-		<nav class="navbar navbar-inverse navbar-fixed-top" >
-		  <div class="container-fluid">
-		    <div class="navbar-header">
-			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span> 
-		      	</button>
-			    <a class="navbar-brand" th:href="@{${@environment.getProperty('url.home')}}">Nome do Site</a>
-		    </div>
-		    <div class="collapse navbar-collapse" id="myNavbar">
-			    <ul class="nav navbar-nav">
-			      <li id="home" th:style="${styleValue}" class="active"><a th:href="@{${@environment.getProperty('url.home')}}">Home</a></li>
-			      <li id="agenda" ><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
-			      <li id="comandas"><a  th:href="@{${@environment.getProperty('url.comandas')}}">Comandas</a></li>	      
-			      <li id="cadastro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentCadastro}">
-			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Cadastro<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a id="clientes" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>			          
-			          <li th:style="@{${@environment.getProperty('li.cadastro.fornecedores')}}"><a id="profissionais" th:href="@{${@environment.getProperty('url.cadastro.profissionais')}}">Profissionais</a></li>   
-			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.fornecedores')}}">Fornecedores</a></li>	
-			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.servicos')}}">Serviços</a></li>	
-			          <li><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Produtos</a></li>	           
-			        </ul>
-			      </li>	 
-			      <li id="servicos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentServicos}">
-			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.servicos')}}">Serviços<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.servicos.detalhes')}}">Detalhes por profissional</a></li>			          
-			          <li><a id="promocoes" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções (Pacotes)</a></li>	                   
-			        </ul>
-			      </li>	    
-			      <li id="produtos" th:style="${styleValue}" class="dropdown" th:remove="${fragmentProdutos}">
-			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
-			        <ul class="dropdown-menu">			          	
-			          <li><a id="detalhes" th:href="@{${@environment.getProperty('url.produtos.detalhes')}}">Detalhes (revenda ou consumo interno)</a></li>			          
-			          <li><a id="estoque" th:href="@{${@environment.getProperty('url.produtos.estoque')}}">Estoque</a></li>	                   
-			        </ul>
-			      </li>	
-			      <li id="administrativo" th:style="${styleValue}" class="dropdown" th:remove="${fragmentAdministrativo}">
-			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a id="permissoes" th:href="@{${@environment.getProperty('url.administrativo.permissoes')}}">Permissões</a></li>        		          
-			          <li><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   
-			        </ul>
-			      </li>	
-			      <li id="financeiro" th:style="${styleValue}" class="dropdown" th:remove="${fragmentFinanceiro}">
-			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
-			        </ul>
-			      </li>	           			      
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			      <li><a href="#"><span th:text="${userLogged}"></span ></a></li>
-			      <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span>Sair</a></li>
-			    </ul>
-			</div>  
-		  </div>
-		</nav>
-	</div>	
 	
 	<div th:fragment="findAllProducts">
 		<div class="panel panel-default">
@@ -103,8 +41,7 @@
 	                            <th>Nome comercial do produto</th>	                              
 	                            <th>Código de barras do produto</th>
 	                            <th>Quantidade de conteudo do produto</th>
-	                            <th>Unidade do conteudo</th>
-	                            <th>Estabelecimento</th>             
+	                            <th>Unidade do conteudo</th>	                                        
 						     </tr>
 	                    </thead>
 	                    <tbody>
@@ -114,8 +51,7 @@
 	                            <td th:text="${products.productOfficialName}"></td>	                           
 	                            <td th:text="${products.barcode}"></td>	
 	                            <td th:text="${products.contentValue}"></td>
-	                            <td th:text="${products.unitContent}"></td>
-	                            <td th:text="${products.company}"></td>	                            
+	                            <td th:text="${products.unitContent}"></td>	                                                       
 	                            <td>
 	                                <div class="btn-group pull-right">
 	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarproduto/{id}(id=${products.id})}">Detalhes</a>

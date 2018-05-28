@@ -1,0 +1,68 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="14" author="mob2m">		  
+		    		<dropColumn
+		            columnName="style_value_home"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_cadastro_clientes"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>				            
+		            <dropColumn
+		            columnName="style_value_cadastro_profissionais"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_cadastro_fornecedores"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_cadastro_servicos"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_cadastro_produtos"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>
+		            <dropColumn
+		            columnName="style_value_servicos_profissional"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_servicos_pacotes"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_produtos_detalhes"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_produtos_estoque"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_administrativo_permissoes"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>	
+		            <dropColumn
+		            columnName="style_value_administrativo_prestacao_servicos"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>
+		            <dropColumn
+		            columnName="style_value_administrativo_usuarios_master"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>
+		            <dropColumn
+		            columnName="style_value_financeiro_fluxo_caixa"
+		            schemaName="hairdressing_master"
+		            tableName="tbl_user_roles"/>            	            	
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

@@ -12,6 +12,17 @@
 		 <include file="changelog/V1/04_alter_columns_company_subsidiary_state_city_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/05_add_FK_PK_tbl_cidades_estados_tbl_company_subsidiaries.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/06_alter_columns_city_state_add_FK_tbl_users.xml" relativeToChangelogFile="true"/>
-		 
+		 <include file="changelog/V1/07_create_tbl_services.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/08_create_tbl_products.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/09_create_tbl_user_company.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/10_create_tbl_user_role.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/11_add_fk__tbl_user_company_tbl_company_subsidiary.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/12_alter_column_tbl_user_roles.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/13_alter_column_tbl_user_company.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/14_drop_column_tbl_user_role.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/15_add_fk_tbl_user_role.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/16_alter_column_user_role_tbl_user_roles.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/17_create_tbl_customers.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/18_add_null_column__tbl_customers.xml" relativeToChangelogFile="true"/>
 		 
 </databaseChangeLog>

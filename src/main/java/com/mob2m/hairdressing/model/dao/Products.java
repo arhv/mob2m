@@ -6,9 +6,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_products")
@@ -26,26 +29,40 @@ public class Products implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "productNickName")
+	@Column(name = "product_nick_name")
 	private String productNickName;
 
-	@Column(name = "productOfficialName")
+	@Column(name = "product_official_name")
 	private String productOfficialName;
 
 	@Column(name = "barcode", unique = true)
 	private String barcode;
 
-	@Column(name = "contentValue")
+	@Column(name = "content_value")
 	private String contentValue;
 
-	@Column(name = "unitContent")
+	@Column(name = "unit_content")
 	private String unitContent;
 
-	@Column(name = "company")
-	private String company;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "company_name_id")
+	private CompanySubsidiaries companySubsidiaries;
 
-	@Column(name = "companySubsidiaryId")
-	private Long companySubsidiaryId;
+	public Products() {
+
+	}
+
+	public Products(Long id, String productNickName, String productOfficialName, String barcode, String contentValue, String unitContent,
+			CompanySubsidiaries companySubsidiaries) {
+		super();
+		this.id = id;
+		this.productNickName = productNickName;
+		this.productOfficialName = productOfficialName;
+		this.barcode = barcode;
+		this.contentValue = contentValue;
+		this.unitContent = unitContent;
+		this.companySubsidiaries = companySubsidiaries;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -69,18 +86,11 @@ public class Products implements Serializable {
 		} else if (!barcode.equals(other.barcode)) {
 		return false;
 		}
-		if (company == null) {
-		if (other.company != null) {
+		if (companySubsidiaries == null) {
+		if (other.companySubsidiaries != null) {
 		return false;
 		}
-		} else if (!company.equals(other.company)) {
-		return false;
-		}
-		if (companySubsidiaryId == null) {
-		if (other.companySubsidiaryId != null) {
-		return false;
-		}
-		} else if (!companySubsidiaryId.equals(other.companySubsidiaryId)) {
+		} else if (!companySubsidiaries.equals(other.companySubsidiaries)) {
 		return false;
 		}
 		if (contentValue == null) {
@@ -129,17 +139,10 @@ public class Products implements Serializable {
 	}
 
 	/**
-	 * @return the company
+	 * @return the companySubsidiaries
 	 */
-	public String getCompany() {
-		return company;
-	}
-
-	/**
-	 * @return the companySubsidiaryId
-	 */
-	public Long getCompanySubsidiaryId() {
-		return companySubsidiaryId;
+	public CompanySubsidiaries getCompanySubsidiaries() {
+		return companySubsidiaries;
 	}
 
 	/**
@@ -185,8 +188,7 @@ public class Products implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((barcode == null) ? 0 : barcode.hashCode());
-		result = prime * result + ((company == null) ? 0 : company.hashCode());
-		result = prime * result + ((companySubsidiaryId == null) ? 0 : companySubsidiaryId.hashCode());
+		result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((contentValue == null) ? 0 : contentValue.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((productNickName == null) ? 0 : productNickName.hashCode());
@@ -203,17 +205,10 @@ public class Products implements Serializable {
 	}
 
 	/**
-	 * @param company the company to set
+	 * @param companySubsidiaries the companySubsidiaries to set
 	 */
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
-	/**
-	 * @param companySubsidiaryId the companySubsidiaryId to set
-	 */
-	public void setCompanySubsidiaryId(Long companySubsidiaryId) {
-		this.companySubsidiaryId = companySubsidiaryId;
+	public void setCompanySubsidiaries(CompanySubsidiaries companySubsidiaries) {
+		this.companySubsidiaries = companySubsidiaries;
 	}
 
 	/**
@@ -257,12 +252,13 @@ public class Products implements Serializable {
 	@Override
 	public String toString() {
 		return "Products [id=" + id + ", productNickName=" + productNickName + ", productOfficialName=" + productOfficialName + ", barcode=" + barcode
-				+ ", contentValue=" + contentValue + ", unitContent=" + unitContent + ", company=" + company + ", companySubsidiaryId="
-				+ companySubsidiaryId + ", getId()=" + getId() + ", getProductNickName()=" + getProductNickName() + ", getProductOfficialName()="
-				+ getProductOfficialName() + ", getBarcode()=" + getBarcode() + ", getContentValue()=" + getContentValue() + ", getUnitContent()="
-				+ getUnitContent() + ", getCompany()=" + getCompany() + ", getCompanySubsidiaryId()=" + getCompanySubsidiaryId() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+				+ ", contentValue=" + contentValue + ", unitContent=" + unitContent + ", companySubsidiaries=" + companySubsidiaries + ", getId()="
+				+ getId() + ", getProductNickName()=" + getProductNickName() + ", getProductOfficialName()=" + getProductOfficialName()
+				+ ", getBarcode()=" + getBarcode() + ", getContentValue()=" + getContentValue() + ", getUnitContent()=" + getUnitContent()
+				+ ", getCompanySubsidiaries()=" + getCompanySubsidiaries() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
+				+ ", toString()=" + super.toString() + "]";
 	}
+
 
 }
 

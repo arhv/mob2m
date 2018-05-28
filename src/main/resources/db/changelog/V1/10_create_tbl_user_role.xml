@@ -1,0 +1,93 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="10" author="mob2m">	
+			<createTable tableName="tbl_user_roles" remarks="Table with the name of hairdressing user role" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="user_role" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="company_subsidiary" type="int">
+			      <constraints nullable="false" unique="false"/>
+			    </column>	
+			    <column name="style_value_home" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>	
+			    <column name="style_value_agenda" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="style_value_comandas" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>	
+			    <column name="style_value_cadastro" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>	  
+			    <column name="style_value_cadastro_clientes" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column> 
+			    <column name="style_value_cadastro_profissionais" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column> 	 
+			    <column name="style_value_cadastro_fornecedores" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>  
+			    <column name="style_value_cadastro_servicos" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>   
+			    <column name="style_value_cadastro_produtos" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>  
+			    <column name="style_value_servicos" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="style_value_servicos_profissional" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>   
+			    <column name="style_value_servicos_pacotes" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>   
+			    <column name="style_value_produtos" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>  
+			    <column name="style_value_produtos_detalhes" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column> 
+			    <column name="style_value_produtos_estoque" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column> 
+			    <column name="style_value_administrativo" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column> 
+			    <column name="style_value_administrativo_permissoes" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="style_value_administrativo_prestacao_servicos" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="style_value_administrativo_usuarios_master" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			     <column name="style_value_financeiro" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+			    <column name="style_value_financeiro_fluxo_caixa" type="varchar(200)">
+			      <constraints nullable="false" unique="false"/>
+			    </column>
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_user_roles"
+            baseColumnNames="company_subsidiary"
+            constraintName="fk_company_subsidiary_id"
+            referencedTableName="tbl_company_subsidiaries"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>	  	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 
