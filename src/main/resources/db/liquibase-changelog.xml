@@ -24,5 +24,8 @@
 		 <include file="changelog/V1/16_alter_column_user_role_tbl_user_roles.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/17_create_tbl_customers.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/18_add_null_column__tbl_customers.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/19_add_columns_tbl_customers.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/20_add_columns_tbl_products.xml" relativeToChangelogFile="true"/>
+		 
 		 
 </databaseChangeLog>

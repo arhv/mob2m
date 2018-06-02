@@ -76,7 +76,7 @@
 	            <strong><br/><br/><br/>Cadastro de Produto</strong>	            
 	        </div>
 	        <div class="panel-body">
-	            <form id="formNewService" class="form-horizontal" th:object="${addProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px" >
+	            <form id="formNewProduct" class="form-horizontal" th:object="${addProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px" >
 	                <div class="form-group">
 	                    <fieldset>
 	                        <!--<div class="form-group row">
@@ -84,7 +84,17 @@
 	                                <label>ID</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
-	                        </div> -->                      
+	                        </div> -->    
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{company_subsidiary_id}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                   
 	                       <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="productNickName" >Nome usual do produto</label>
@@ -128,21 +138,33 @@
     	</div>  	
     </div>
     
-    <div th:fragment="editproducts">
+    <div th:fragment="editProducts">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
 	            <strong><br/><br/><br/>Cadastro de Produto</strong>
 	        </div>
 	        <div class="panel-body">
-	            <form class="form-horizontal" th:object="${editproducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px">
+	            <form class="form-horizontal" th:object="${editProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px">
 	                <div class="form-group">
 	                    <fieldset>
-	                           <div class="form-group row">
+	                        <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label>ID</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
-	                        </div>                      
+	                        </div>   	                      
+	                            
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{company_subsidiary_id}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${companySubsidiarySelection.id==editProducts.company_subsidiary_id}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                                          
 	                       <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="productNickName" >Nome usual do produto</label>

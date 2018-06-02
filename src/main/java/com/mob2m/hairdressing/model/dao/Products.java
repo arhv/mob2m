@@ -29,6 +29,9 @@ public class Products implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "company_subsidiary_id")
+	private int company_subsidiary_id;
+
 	@Column(name = "product_nick_name")
 	private String productNickName;
 
@@ -52,10 +55,11 @@ public class Products implements Serializable {
 
 	}
 
-	public Products(Long id, String productNickName, String productOfficialName, String barcode, String contentValue, String unitContent,
-			CompanySubsidiaries companySubsidiaries) {
+	public Products(Long id, int company_subsidiary_id, String productNickName, String productOfficialName, String barcode, String contentValue,
+			String unitContent, CompanySubsidiaries companySubsidiaries) {
 		super();
 		this.id = id;
+		this.company_subsidiary_id = company_subsidiary_id;
 		this.productNickName = productNickName;
 		this.productOfficialName = productOfficialName;
 		this.barcode = barcode;
@@ -139,6 +143,13 @@ public class Products implements Serializable {
 	}
 
 	/**
+	 * @return the company_subsidiary_id
+	 */
+	public int getCompany_subsidiary_id() {
+		return company_subsidiary_id;
+	}
+
+	/**
 	 * @return the companySubsidiaries
 	 */
 	public CompanySubsidiaries getCompanySubsidiaries() {
@@ -202,6 +213,13 @@ public class Products implements Serializable {
 	 */
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
+	}
+
+	/**
+	 * @param company_subsidiary_id the company_subsidiary_id to set
+	 */
+	public void setCompany_subsidiary_id(int company_subsidiary_id) {
+		this.company_subsidiary_id = company_subsidiary_id;
 	}
 
 	/**

@@ -117,8 +117,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                 <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{states}" >	                                		
-	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==26}"> </option>
+	                                	<select id="estado" class="form-control input-sm" th:field="*{state_name_id}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateSelected}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -127,8 +127,8 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{cities}">
-	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${cityList.cod_cidades==9432}"> </option> 
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city_name_id}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${initCity}"> </option> 
 	                              	  </select>
 	                              	</div>
 	                                
@@ -145,7 +145,7 @@
 	        
     	<!-- define validation rules and activate validation -->
 	    <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	    
-	    <script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script>   	          
+	    <script type="text/javascript" th:src="@{/js/paisEstadoCidadeCustomers.js}" src="js/paisEstadoCidadeCustomers.js"></script>   	          
     	</div>  	
     </div>
     
@@ -194,8 +194,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="campo_estado">Estado</label>
 	                                 <div class="dropdown">
-	                                	<select id="estado" class="form-control input-sm" th:field="*{states}" >	                                		
-	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==26}"> </option>
+	                                	<select id="estado" class="form-control input-sm" th:field="*{state_name_id}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==editCustomers.state_name_id}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -204,8 +204,8 @@
 	                            <div class="col-md-4"  >
 	                                <label id="campo_cidade">Cidade</label>
 	                                <div class="dropdown">
-	                              	  <select id="cidade" class="form-control input-sm" th:field="*{cities}">
-	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${cityList.cod_cidades==editCustomers.cities.city_name}"> </option> 
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{city_name_id}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${cityList.cod_cidades==editCustomers.city_name_id}"> </option> 
 	                              	  </select>
 	                              	</div>
 	                                
@@ -220,7 +220,7 @@
 	            </form>
 	        </div>
 	        <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	    
-	     	<script type="text/javascript" th:src="@{/js/paisEstadoCidade.js}" src="js/paisEstadoCidade.js"></script>   	
+	     	<script type="text/javascript" th:src="@{/js/paisEstadoCidadeCustomers.js}" src="js/paisEstadoCidadeCustomers.js"></script>   	
     	</div>    	
     </div>
 	

@@ -63,9 +63,9 @@
 			      <li id="agenda" th:style="${styleValueAgenda}"><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
 			      <li id="comandas" th:style="${styleValueComandas}"><a  th:href="@{${@environment.getProperty('url.comandas')}}">Comandas</a></li>	      
 			      <li id="cadastro" th:style="${styleValueCadastro}" class="dropdown" th:remove="${fragmentCadastro}">
-			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Cadastro<span class="caret"></span></a>
+			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Clientes<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li><a id="clientes" th:style="${styleValueCadastroClientes}" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Clientes</a></li>	         			                   
+			          <li><a id="clientes" th:style="${styleValueCadastroClientes}" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Cadastro</a></li>	         			                   
 			        </ul>
 			      </li>	 
 			      <li id="servicos" th:style="${styleValueServicos}" class="dropdown" th:remove="${fragmentServicos}">

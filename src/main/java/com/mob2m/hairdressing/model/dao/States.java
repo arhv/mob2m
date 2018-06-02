@@ -41,9 +41,11 @@ public class States implements Serializable {
 	private String stateName;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "states")
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	private Set<CompanySubsidiaries> companySubsidiariesRecordsStates = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "states")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "states1")
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	private Set<Customers> customersStates = new HashSet<>(0);
 
 	public States() {

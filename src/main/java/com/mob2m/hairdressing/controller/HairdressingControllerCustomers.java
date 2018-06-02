@@ -49,10 +49,13 @@ public class HairdressingControllerCustomers {
 	public ModelAndView addNewCustomer(Customers customers) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("customers");
 		List<States> listStates = statesService.findAll();
-		int initValue = 9432;//iniciar combo com Cidades de Osasco
-		List<Cities> listCitiesNames = citiesService.stateCode(initValue);
+		int initState = 26;//iniciar combo com Cidades de SP
+		List<Cities> listCitiesNames = citiesService.stateCode(initState);
+		int initCity = 9432;//iniciar combo com Cidade de Osasco
 		mv.addObject("state", listStates);
+		mv.addObject("stateSelected", initState);
 		mv.addObject("city", listCitiesNames);
+		mv.addObject("citySelected", initCity);
 		mv.addObject("addCustomer", customers);
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddCustomer", "none");
@@ -78,7 +81,9 @@ public class HairdressingControllerCustomers {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("customers");
 		Customers listCustomers = customersService.findOne(id);
 		List<States> listStates = statesService.findAll();
-		int initValue = 9432;//iniciar combo com Cidades de Osasco
+		//int initValue = 26;//iniciar combo com Cidades de SP
+		int initValue = listCustomers.getState_name_id();//iniciar combo com Cidades de SP
+		//List<Cities> listCitiesNames = citiesService.stateCode(initValue);
 		List<Cities> listCitiesNames = citiesService.stateCode(initValue);
 		mv.addObject("state", listStates);
 		mv.addObject("city", listCitiesNames);

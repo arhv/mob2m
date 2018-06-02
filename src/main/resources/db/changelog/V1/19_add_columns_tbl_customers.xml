@@ -1,0 +1,48 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="19" author="mob2m">	
+			<addColumn 
+	            schemaName="hairdressing_master"
+	            tableName="tbl_customers">
+	        	<column name="state_name_id" type="int"/>
+    		</addColumn>
+    		
+           	<addColumn 
+	            schemaName="hairdressing_master"
+	            tableName="tbl_customers">
+	        	<column name="city_name_id" type="int"/>
+    		</addColumn> 
+    		
+    		<dropForeignKeyConstraint 
+    			baseTableName="tbl_customers" 
+    			constraintName="fk_customer_state_name"/> 
+    			 
+    		<dropForeignKeyConstraint 
+    			baseTableName="tbl_customers" 
+    			constraintName="fk_customer_city_name"/>  	
+    			  			
+    		<addForeignKeyConstraint 
+            baseTableName="tbl_customers"
+            baseColumnNames="state_name_id"
+            constraintName="fk_customers_state"
+            referencedTableName="tbl_estados"
+            referencedColumnNames="cod_estados"            
+            onDelete="RESTRICT"/>
+            
+            <addForeignKeyConstraint 
+            baseTableName="tbl_customers"
+            baseColumnNames="city_name_id"
+            constraintName="fk_customers_city"
+            referencedTableName="tbl_cidades"
+            referencedColumnNames="cod_cidades"            
+            onDelete="RESTRICT"/>
+            
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

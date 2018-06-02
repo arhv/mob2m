@@ -31,6 +31,10 @@ public class CustomersService {
 	}
 
 
+	public List<Customers> listAllCustomersJoinedCityState() {
+		return customersRepository.listAllCustomers();
+	}
+
 	public Customers save(Customers customersData) {
 		return customersRepository.saveAndFlush(customersData);
 

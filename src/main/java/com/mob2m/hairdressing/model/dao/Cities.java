@@ -45,9 +45,11 @@ public class Cities implements Serializable {
 	private String cep;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cities")
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	private Set<CompanySubsidiaries> companySubsidiariesRecordsCities = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cities")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cities1")
+	//@Cascade({ CascadeType.SAVE_UPDATE })
 	private Set<Customers> customersCities = new HashSet<>(0);
 
 
@@ -128,6 +130,13 @@ public class Cities implements Serializable {
 		} else if (!companySubsidiariesRecordsCities.equals(other.companySubsidiariesRecordsCities)) {
 		return false;
 		}
+		if (customersCities == null) {
+		if (other.customersCities != null) {
+		return false;
+		}
+		} else if (!customersCities.equals(other.customersCities)) {
+		return false;
+		}
 		if (estados_cod_estados != other.estados_cod_estados) {
 		return false;
 		}
@@ -190,6 +199,23 @@ public class Cities implements Serializable {
 		return id;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((cityName == null) ? 0 : cityName.hashCode());
+		result = prime * result + cod_cidades;
+		result = prime * result + ((companySubsidiariesRecordsCities == null) ? 0 : companySubsidiariesRecordsCities.hashCode());
+		result = prime * result + ((customersCities == null) ? 0 : customersCities.hashCode());
+		result = prime * result + estados_cod_estados;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
 	/**
 	 * @param cep the cep to set
 	 */
@@ -246,10 +272,10 @@ public class Cities implements Serializable {
 	public String toString() {
 		return "Cities [id=" + id + ", estados_cod_estados=" + estados_cod_estados + ", cod_cidades=" + cod_cidades + ", cityName=" + cityName
 				+ ", cep=" + cep + ", companySubsidiariesRecordsCities=" + companySubsidiariesRecordsCities + ", customersCities=" + customersCities
-				+ ", getId()=" + getId() + ", getEstados_cod_estados()=" + getEstados_cod_estados() + ", getCod_cidades()=" + getCod_cidades()
-				+ ", getCityName()=" + getCityName() + ", getCep()=" + getCep() + ", getCompanySubsidiariesRecordsCities()="
-				+ getCompanySubsidiariesRecordsCities() + ", getCustomersCities()=" + getCustomersCities() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", hashCode()=" + hashCode() + ", getCep()=" + getCep() + ", getCityName()=" + getCityName() + ", getCod_cidades()="
+				+ getCod_cidades() + ", getCompanySubsidiariesRecordsCities()=" + getCompanySubsidiariesRecordsCities() + ", getCustomersCities()="
+				+ getCustomersCities() + ", getEstados_cod_estados()=" + getEstados_cod_estados() + ", getId()=" + getId() + ", getClass()="
+				+ getClass() + ", toString()=" + super.toString() + "]";
 	}
 
 
