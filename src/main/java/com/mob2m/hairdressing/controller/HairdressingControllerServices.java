@@ -1,5 +1,8 @@
 package com.mob2m.hairdressing.controller;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,10 @@ public class HairdressingControllerServices {
 
 	@RequestMapping(path = "/adicionarservico", method = RequestMethod.GET)
 	public ModelAndView addNewService(Services services) {		
-		ModelAndView mv = userAuthentication.getModelViewWithUser("servicos");		
+		ModelAndView mv = userAuthentication.getModelViewWithUser("servicos");
+		final Locale brLocale = new Locale("pt", "BR");
+		final NumberFormat brFormat = NumberFormat.getCurrencyInstance(brLocale);
+		brFormat.format(services.getValue());
 		mv.addObject("addServices", services);
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddServices", "none");

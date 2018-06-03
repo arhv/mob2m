@@ -91,7 +91,7 @@
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="serviceValue" >Valor do Serviço</label>
-	                                <input id="serviceValue" type="text" class="form-control input-sm" th:field="*{value}" ></input>
+	                                <input id="serviceValue" type="number" step="0.01" class="form-control input-sm" th:field="*{value}" ></input>
 	                            	 
 	                            </div>
 	                        </div>                       
@@ -132,7 +132,7 @@
 	                          <div class="form-group row">
 	                            <div class="col-md-4">
 	                                <label for="serviceValue" >Valor do Serviço</label>
-	                                <input id="serviceValue" type="number" class="form-control input-sm" th:field="*{value}" ></input>	                            	 
+	                                <input id="serviceValue" type="number" step="0.01"  class="form-control input-sm" th:field="*{value}" ></input>	                            	 
 	                            </div>
 	                        </div> 	                        	                           
 	                    </fieldset>
