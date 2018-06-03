@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="22" author="mob2m">	
+			<dropForeignKeyConstraint 
+			baseTableName="tbl_professionals" 
+			constraintName="fk_company_subsidiary_professionals"/>
+			
+			<dropColumn
+            columnName="company_subsidiary_id"
+            schemaName="hairdressing_master"
+            tableName="tbl_professionals"/>	
+            
+            <dropColumn
+            columnName="username"
+            schemaName="hairdressing_master"
+            tableName="tbl_professionals"/>	           
+            
+            	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_professionals"
+            baseColumnNames="company_subsidiary"
+            constraintName="fk_company_subsidiary_professionals"
+            referencedTableName="tbl_company_subsidiaries"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>        	
+        	   	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

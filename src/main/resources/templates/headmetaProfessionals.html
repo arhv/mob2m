@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllProfessionals">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Profissionais cadastrados</strong>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarprofissional}" style="margin-left:20px;">Adicionar</a>
+	             <input id="professionalSearch" type="text" class="" placeholder="Procurar pelo nome do profissional" onkeyup="myFunctionProfessional()" style="margin-left:40px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allProfessionals" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	 
+	                            <th>Nome de usuário</th>                           
+	                            <th>Unidade</th>	                              
+	                                                                    
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="professionals : ${professionalsList}">
+	                            <td th:text="${professionals.id}"></td>	
+	                            <td th:text="${professionals.username_code}"></td>	                            
+	                            <td th:text="${professionals.companySubsidiaries.companySubsidiaryName}"></td>	                           
+	                                                                                   
+	                            <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarprofissional/{id}(id=${professionals.id})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarprofissional}" >Adicionar</a>
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchProfessionalName.js}" src="js/searchProfessionalName.js"></script>  
+	    </div>	
+	  </div>	
+	
+	<div th:fragment="addProfessionals">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Profissionais</strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewProfessional" class="form-horizontal" th:object="${addProfessionals}" th:action="@{/salvarprofissional}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->    
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="usernameProfessional" >Nome de Usuário</label>
+	                                <input id="usernameProfessional1" type="text" class="form-control input-sm" th:field="*{username_code}" ></input>
+	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                   
+	                         	                                                        	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/profissionais}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>        
+        	
+    	</div>  	
+    </div>
+    
+    <div th:fragment="editProfessionals">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Profissionais</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editProfessionals}" th:action="@{/salvarprofissional}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>   	                      
+	                            
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="usernameProfessional" >Nome de Usuário</label>
+	                                <input id="usernameProfessional1" type="text" class="form-control input-sm" th:field="*{username_code}" ></input>
+	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${companySubsidiarySelection.id==editProfessionals.companySubsidiaries.id}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                   
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/profissionais}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>    	
+    </div>
+	
+
+</body>
+
+</html>

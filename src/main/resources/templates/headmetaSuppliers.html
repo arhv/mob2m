@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+
+
+
+<body>
+	
+	
+	<div th:fragment="findAllSuppliers">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Fornecedores cadastrados</strong>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarfornecedor}" style="margin-left:20px;">Adicionar</a>            
+	            <input id="supplierSearch" type="text" class="" placeholder="Procurar por nome do fornecedor" onkeyup="mySupplier()" style="margin-left:40px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allSuppliers" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>
+	                            <th>Nome do Fornecedor</th>
+	                            <th>Contato</th>	                            
+	                            <th>Email</th>	                            
+	                            <th>Telefone 1</th>	                                                
+	                            <th>Telefone 2</th>
+	                            <!--  <th>Cidade</th>
+	                            <th>Estado</th>	-->                                          
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="supplier : ${supplierList}">
+	                            <td th:text="${supplier.id}"></td>	                            
+	                            <td th:text="${supplier.supplier_name}"></td>
+	                            <td th:text="${supplier.contact_name}"></td>
+	                            <td th:text="${supplier.email}"></td>  
+	                            <td th:text="${supplier.phone_number_1}"></td>                                                   
+	                            <td th:text="${supplier.phone_number_2}"></td>
+	                            <!--   <td th:text="${customer.cities.cityName}"></td>
+	                            <td th:text="${customer.states.stateName}"></td> -->	                            
+	                            <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/atualizarfornecedor/{id}(id=${supplier.id})}" >Detalhes</a>	                                   
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarfornecedor}" >Adicionar</a>
+	        </div>
+	        <script type="text/javascript" th:src="@{/js/searchSupplierName.js}" src="js/searchSupplierName.js"></script> 
+	    </div>	
+	  </div>		
+	
+	
+	<div th:fragment="addSupplier">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Clientes</strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewSupplier" class="form-horizontal" th:object="${addSupplier}" th:action="@{/salvarfornecedor}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>	                        
+	                         <div class="form-group row">
+	                            <div class="col-md-4">	                            	
+		                            	<label for="supplier_name">Nome do Fornecedor</label>	                                
+		                                <input id="supplier_name" type="text" class="form-control input-sm" th:field="*{supplier_name}" ></input>                                           
+	                            </div>
+	                         </div>
+	                      
+	                         <div class="form-group row">                                                          
+	                            <div class="col-md-4" >
+	                                <label for="contact_name">Contato</label>
+	                                <input id="contact_name" type="text" class="form-control input-sm" th:field="*{contact_name}" ></input>	                                
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="email" >Email</label>
+	                                <input id="email" type="text" class="form-control input-sm" th:field="*{email}"></input>                        	
+	                            </div>
+	                        </div>	 
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="phoneNumber1" >Telefone 1</label> 
+	                                <input id="phoneNumber1" type="text" class="form-control input-sm" th:field="*{phone_number_1}" ></input>                       
+	                            </div>
+	                        </div>   
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="phoneNumber2" >Telefone 2</label> 
+	                                <input id="phoneNumber2" type="text" class="form-control input-sm" th:field="*{phone_number_2}" ></input>                       
+	                            </div>
+	                        </div> 
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="cpf_cnpj" >CPF_CNPJ</label> 
+	                                <input id="cpf_cnpj" type="text" class="form-control input-sm" th:field="*{cpf_cnpj}" ></input>                       
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="adress" >Endereço</label> 
+	                                <input id="adress" type="text" class="form-control input-sm" th:field="*{adress}" ></input>                       
+	                            </div>
+	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label id="campo_estado">Estado</label>
+	                                 <div class="dropdown">
+	                                	<select id="estado" class="form-control input-sm" th:field="*{supplier_state_id}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateSelected}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>
+	                        </div> 
+	                         <div class="form-group row">
+	                            <div class="col-md-4"  >
+	                                <label id="campo_cidade">Cidade</label>
+	                                <div class="dropdown">
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{supplier_city_id}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${citySelected}"> </option> 
+	                              	  </select>
+	                              	</div>
+	                                
+	                            </div>
+	                        </div>  	                                           
+	                    </fieldset>
+	                </div>	              
+		                <div class="form-group row">
+		                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+		                    <a th:href="@{/fornecedore}" class="btn btn-sm btn-default">Cancelar</a>
+		                </div>        
+	            </form>
+	        </div>	        
+	        
+    	<!-- define validation rules and activate validation -->
+	    <!-- <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	-->    
+	    <script type="text/javascript" th:src="@{/js/paisEstadoCidadeSuppliers.js}" src="js/paisEstadoCidadeSuppliers.js"></script>   	          
+    	</div>  	
+    </div>
+    
+    <div th:fragment="editSupplier">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Fornecedores</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editSupplier}" th:action="@{/salvarfornecedor}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>
+	                       <div class="form-group row">
+	                            <div class="col-md-4">	                            	
+		                            	<label for="supplier_name">Nome do Fornecedor</label>	                                
+		                                <input id="supplier_name" type="text" class="form-control input-sm" th:field="*{supplier_name}" ></input>                                           
+	                            </div>
+	                         </div>
+	                      
+	                         <div class="form-group row">                                                          
+	                            <div class="col-md-4" >
+	                                <label for="contact_name">Contato</label>
+	                                <input id="contact_name" type="text" class="form-control input-sm" th:field="*{contact_name}" ></input>	                                
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="email" >Email</label>
+	                                <input id="email" type="text" class="form-control input-sm" th:field="*{email}"></input>                        	
+	                            </div>
+	                        </div>	 
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="phoneNumber1" >Telefone 1</label> 
+	                                <input id="phoneNumber1" type="text" class="form-control input-sm" th:field="*{phone_number_1}" ></input>                       
+	                            </div>
+	                        </div>   
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="phoneNumber2" >Telefone 2</label> 
+	                                <input id="phoneNumber2" type="text" class="form-control input-sm" th:field="*{phone_number_2}" ></input>                       
+	                            </div>
+	                        </div> 
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="cpf_cnpj" >CPF_CNPJ</label> 
+	                                <input id="cpf_cnpj" type="text" class="form-control input-sm" th:field="*{cpf_cnpj}" ></input>                       
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="adress" >Endereço</label> 
+	                                <input id="adress" type="text" class="form-control input-sm" th:field="*{adress}" ></input>                       
+	                            </div>
+	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label id="campo_estado">Estado</label>
+	                                 <div class="dropdown">
+	                                	<select id="estado" class="form-control input-sm" th:field="*{supplier_state_id}" >	                                		
+	                                		<option th:each="stateList : ${state}" th:value="${stateList.cod_estados}" th:text="${stateList.stateName}" th:selected="${stateList.cod_estados==editSupplier.supplier_state_id}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>
+	                        </div> 
+	                         <div class="form-group row">
+	                            <div class="col-md-4"  >
+	                                <label id="campo_cidade">Cidade</label>
+	                                <div class="dropdown">
+	                              	  <select id="cidade" class="form-control input-sm" th:field="*{supplier_city_id}">
+	                              	  	<option th:each="cityList : ${city}" th:value="${cityList.cod_cidades}" th:text="${cityList.cityName}" th:selected="${cityList.cod_cidades==editSupplier.supplier_city_id}"> </option> 
+	                              	  </select>
+	                              	</div>
+	                                
+	                            </div>
+	                        </div>  	                       
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/fornecedores}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+	        <!--  <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	 -->   
+	     	<script type="text/javascript" th:src="@{/js/paisEstadoCidadeSuppliers.js}" src="js/paisEstadoCidadeSuppliers.js"></script>   	
+    	</div>    	
+    </div>
+	
+
+</body>
+
+</html>

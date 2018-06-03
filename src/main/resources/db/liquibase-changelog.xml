@@ -26,6 +26,9 @@
 		 <include file="changelog/V1/18_add_null_column__tbl_customers.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/19_add_columns_tbl_customers.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/20_add_columns_tbl_products.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/21_create_tbl_professionals.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/22_drop_columns_add_FK_tbl_professionals.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/23_create_tbl_suppliers.xml" relativeToChangelogFile="true"/>
 		 
 		 
 </databaseChangeLog>

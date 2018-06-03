@@ -56,25 +56,31 @@ public class CompanySubsidiaries implements Serializable {
 	@Column(name = "company_name_id")
 	private Long companyNameId;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_cidades")
 	private Cities cities;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cod_estados")
 	private States states;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<Products> products = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<Services> services = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<UserCompany> userCompany = new HashSet<>(0);
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "companySubsidiaries")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<UserRoles> userRoles = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<Professionals> professionals = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<Suppliers> suppliers = new HashSet<>(0);
 
 	public CompanySubsidiaries() {
 
@@ -82,7 +88,8 @@ public class CompanySubsidiaries implements Serializable {
 
 	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType, String companySubsidiaryCnpj,
 			String companySubsidiaryAddress, String companySubsidiaryCep, int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId,
-			Cities cities, States states, Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles) {
+			Cities cities, States states, Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles,
+			Set<Professionals> professionals) {
 		super();
 		this.id = id;
 		this.companySubsidiaryName = companySubsidiaryName;
@@ -99,6 +106,7 @@ public class CompanySubsidiaries implements Serializable {
 		this.services = services;
 		this.userCompany = userCompany;
 		this.userRoles = userRoles;
+		this.professionals = professionals;
 	}
 
 	/* (non-Javadoc)
@@ -216,6 +224,7 @@ public class CompanySubsidiaries implements Serializable {
 		return true;
 	}
 
+
 	/**
 	 * @return the cities
 	 */
@@ -291,6 +300,13 @@ public class CompanySubsidiaries implements Serializable {
 	 */
 	public Set<Products> getProducts() {
 		return products;
+	}
+
+	/**
+	 * @return the professionals
+	 */
+	public Set<Professionals> getProfessionals() {
+		return professionals;
 	}
 
 	/**
@@ -421,6 +437,13 @@ public class CompanySubsidiaries implements Serializable {
 	 */
 	public void setProducts(Set<Products> products) {
 		this.products = products;
+	}
+
+	/**
+	 * @param professionals the professionals to set
+	 */
+	public void setProfessionals(Set<Professionals> professionals) {
+		this.professionals = professionals;
 	}
 
 	/**

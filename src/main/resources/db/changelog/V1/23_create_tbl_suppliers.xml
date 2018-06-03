@@ -1,0 +1,69 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="23" author="mob2m">	
+			<createTable tableName="tbl_suppliers" remarks="Table with the name of hairdressing suppliers" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="supplier_name" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="contact_name" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="email" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="phone_number_1" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="phone_number_2" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="cpf_cnpj" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="adress" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="supplier_state_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="supplier_city_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>	
+			    <column name="supplier_state" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="supplier_city" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>		
+			    <column name="company_subsidiary_supplier" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			        		    			    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_suppliers"
+            baseColumnNames="supplier_state_id"
+            constraintName="fk_supplier_state_name"
+            referencedTableName="tbl_estados"
+            referencedColumnNames="cod_estados"            
+            onDelete="RESTRICT"/>    
+            <addForeignKeyConstraint 
+            baseTableName="tbl_suppliers"
+            baseColumnNames="supplier_city_id"
+            constraintName="fk_supplier_city_name"
+            referencedTableName="tbl_cidades"
+            referencedColumnNames="cod_cidades"            
+            onDelete="RESTRICT"/>          
+           	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 
