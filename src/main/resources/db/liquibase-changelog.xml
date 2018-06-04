@@ -29,6 +29,6 @@
 		 <include file="changelog/V1/21_create_tbl_professionals.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/22_drop_columns_add_FK_tbl_professionals.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/23_create_tbl_suppliers.xml" relativeToChangelogFile="true"/>
-		 
+		 <include file="changelog/V1/24_add_columns_fk_tbl_services.xml" relativeToChangelogFile="true"/>
 		 
 </databaseChangeLog>
