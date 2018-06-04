@@ -41,7 +41,8 @@
 	                            <th>Nome do Serviço</th>                           
 	                            <th>Valor do Serviço</th>    
 	                            <th>Percentual do Profissional</th> 
-	                            <th>Percentual do Auxiliar 1 </th>       
+	                            <th>Percentual do Auxiliar 1 </th> 
+	                            <th>Percentual do Auxiliar 2 </th>       
 						     </tr>
 	                    </thead>
 	                    <tbody>
@@ -49,9 +50,10 @@
 	                            <td th:text="${services.id}"></td>	
 	                            <td th:text="${services.companySubsidiaries.companySubsidiaryName}"></td>                            
 	                            <td th:text="${services.service}"></td>
-	                            <td th:text="${#numbers.formatDecimal(services.value, 0, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(services.value, 1, 'POINT', 2, 'COMMA')}"></td>
 	                            <td th:text="${#numbers.formatDecimal(services.percentage_professional, 0, 'POINT', 2, 'COMMA')}"></td>
-	                            <td th:text="${#numbers.formatDecimal(services.percentage_aux_1, 0, 'POINT', 2, 'COMMA')}"></td>		                            	                            
+	                            <td th:text="${#numbers.formatDecimal(services.percentage_aux_1, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(services.percentage_aux_2, 1, 'POINT', 2, 'COMMA')}"></td>		                            	                            
 	                            <td>
 	                                <div class="btn-group pull-right">
 	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarservico/{id}(id=${services.id})}">Detalhes</a>
