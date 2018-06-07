@@ -27,7 +27,7 @@
 	<div th:fragment="findAllProducts">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Produtos cadastrados</strong>
+	            <strong><br/><br/><br/>Cadastro de Produtos </strong>
 	            <a class="btn btn-sm btn-success" th:href="@{/adicionarproduto}" style="margin-left:20px;">Adicionar</a>
 	             <input id="productSearch" type="text" class="" placeholder="Procurar pelo nome do produto" onkeyup="myFunctionProduct()" style="margin-left:40px; width:300px"></input>
 	        </div>
@@ -73,7 +73,7 @@
 	<div th:fragment="addProducts">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Produto</strong>	            
+	            <strong><br/><br/><br/>Cadastro de Produtos</strong>	            
 	        </div>
 	        <div class="panel-body">
 	            <form id="formNewProduct" class="form-horizontal" th:object="${addProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px" >
@@ -141,7 +141,7 @@
     <div th:fragment="editProducts">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Produto</strong>
+	            <strong><br/><br/><br/>Cadastro de Produtos</strong>
 	        </div>
 	        <div class="panel-body">
 	            <form class="form-horizontal" th:object="${editProducts}" th:action="@{/salvarproduto}" method="POST" style="margin: 10px">

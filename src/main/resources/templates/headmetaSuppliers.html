@@ -16,7 +16,8 @@
 	<script>
 		jQuery(function($){
 		   $("#phonenumber").mask("(99)(9)9999-9999");
-		   $("#zipCode").mask("99999-999");		   	   
+		   $("#zipCode").mask("99999-999");	
+		   	
 		});
 	</script>
 	
@@ -31,7 +32,7 @@
 	<div th:fragment="findAllSuppliers">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Fornecedores cadastrados</strong>
+	            <strong><br/><br/><br/>Cadastro de Fornecedores</strong>
 	            <a class="btn btn-sm btn-success" th:href="@{/adicionarfornecedor}" style="margin-left:20px;">Adicionar</a>            
 	            <input id="supplierSearch" type="text" class="" placeholder="Procurar por nome do fornecedor" onkeyup="mySupplier()" style="margin-left:40px; width:300px"></input>
 	        </div>
@@ -74,6 +75,7 @@
 	            <a class="btn btn-sm btn-success" th:href="@{/adicionarfornecedor}" >Adicionar</a>
 	        </div>
 	        <script type="text/javascript" th:src="@{/js/searchSupplierName.js}" src="js/searchSupplierName.js"></script> 
+	        <script type="text/javascript" th:src="@{/js/pais_cpf_cnpj.js}" src="js/pais_cpf_cnpj.js"></script> 
 	    </div>	
 	  </div>		
 	
@@ -81,7 +83,7 @@
 	<div th:fragment="addSupplier">
 		<div class="panel panel-default">
 	        <div class="panel-heading">
-	            <strong><br/><br/><br/>Cadastro de Clientes</strong>	            
+	            <strong><br/><br/><br/>Cadastro de Fornecedores</strong>	            
 	        </div>
 	        <div class="panel-body">
 	            <form id="formNewSupplier" class="form-horizontal" th:object="${addSupplier}" th:action="@{/salvarfornecedor}" method="POST" style="margin: 10px" >
@@ -108,22 +110,38 @@
 	                        </div>	 
 	                        <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="phoneNumber1" >Telefone 1</label> 
+	                                <label for="phoneNumber_1" >Telefone 1 (Celular)</label> 
 	                                <input id="phoneNumber1" type="text" class="form-control input-sm" th:field="*{phone_number_1}" ></input>                       
 	                            </div>
 	                        </div>   
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="phoneNumber2" >Telefone 2</label> 
+	                                <label for="phoneNumber_2" >Telefone 2 (Fixo)</label> 
 	                                <input id="phoneNumber2" type="text" class="form-control input-sm" th:field="*{phone_number_2}" ></input>                       
 	                            </div>
 	                        </div> 
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="cpf_cnpj" >CPF_CNPJ</label> 
+	                                 <label id="select_cpf_cnpj">Selecionar CPF ou CNPJ</label>
+	                                 <div class="dropdown">
+	                                	<select id="select_cpf_cnpj_drop" class="form-control input-sm" th:field="*{cpf_cnpj_select}" >	                                		
+	                                		<option th:each="cpfCnpjSelection : ${cpfCnpjList}" th:value="${cpfCnpjSelection}" th:text="${cpfCnpjSelection}"> </option>
+	                                	</select>
+	                                </div>                      
+	                            </div>
+	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="cpf_cnpj_0" >CPF_CNPJ</label> 
 	                                <input id="cpf_cnpj" type="text" class="form-control input-sm" th:field="*{cpf_cnpj}" ></input>                       
 	                            </div>
 	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label>CEP</label>
+	                                <input id="zipCode" type="text" class="form-control input-sm" th:field="*{zipCode}"/>
+	                            </div>
+	                        </div> 			                        
 	                        <div class="form-group row">
 	                            <div class="col-md-4" >
 	                                <label for="adress" >Endereço</label> 
@@ -163,6 +181,7 @@
     	<!-- define validation rules and activate validation -->
 	    <!-- <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	-->    
 	    <script type="text/javascript" th:src="@{/js/paisEstadoCidadeSuppliers.js}" src="js/paisEstadoCidadeSuppliers.js"></script>   	          
+    	<script type="text/javascript" th:src="@{/js/pais_cpf_cnpj.js}" src="js/pais_cpf_cnpj.js"></script> 
     	</div>  	
     </div>
     
@@ -202,19 +221,31 @@
 	                        </div>	 
 	                        <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="phoneNumber1" >Telefone 1</label> 
+	                                <label for="phoneNumber_1" >Telefone 1 (Celular)</label> 
 	                                <input id="phoneNumber1" type="text" class="form-control input-sm" th:field="*{phone_number_1}" ></input>                       
 	                            </div>
 	                        </div>   
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="phoneNumber2" >Telefone 2</label> 
+	                                <label for="phoneNumber_2" >Telefone 2 (Fixo)</label> 
 	                                <input id="phoneNumber2" type="text" class="form-control input-sm" th:field="*{phone_number_2}" ></input>                       
 	                            </div>
 	                        </div> 
+	                        
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label for="cpf_cnpj" >CPF_CNPJ</label> 
+	                                 <label id="select_cpf_cnpj">Selecionar CPF or CNPJ</label>
+	                                 <div class="dropdown">
+	                                	<select id="select_cpf_cnpj_drop" class="form-control input-sm" th:field="*{cpf_cnpj_select}" >	                                		
+	                                		<option th:each="cpfCnpjSelection : ${cpfCnpjList}" th:value="${cpfCnpjSelection}" th:text="${cpfCnpjSelection}" th:selected="${editSupplier.cpf_cnpj_select}"> </option>
+	                                	</select>
+	                                </div>                      
+	                            </div>
+	                        </div>
+	                        
+	                         <div class="form-group row">
+	                            <div class="col-md-4" >
+	                                <label for="cpf_cnpj_0" >CPF_CNPJ</label> 
 	                                <input id="cpf_cnpj" type="text" class="form-control input-sm" th:field="*{cpf_cnpj}" ></input>                       
 	                            </div>
 	                        </div>
@@ -254,7 +285,8 @@
 	            </form>
 	        </div>
 	        <!--  <script type="text/javascript" th:src="@{/js/validationCustomerRules.js}" src="js/validationCustomerRules.js"></script>	 -->   
-	     	<script type="text/javascript" th:src="@{/js/paisEstadoCidadeSuppliers.js}" src="js/paisEstadoCidadeSuppliers.js"></script>   	
+	     	<script type="text/javascript" th:src="@{/js/paisEstadoCidadeSuppliers.js}" src="js/paisEstadoCidadeSuppliers.js"></script> 
+	     	<script type="text/javascript" th:src="@{/js/pais_cpf_cnpj.js}" src="js/pais_cpf_cnpj.js"></script>   	
     	</div>    	
     </div>
 	

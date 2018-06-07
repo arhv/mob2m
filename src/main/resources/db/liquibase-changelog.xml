@@ -30,5 +30,9 @@
 		 <include file="changelog/V1/22_drop_columns_add_FK_tbl_professionals.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/23_create_tbl_suppliers.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/24_add_columns_fk_tbl_services.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/25_create_tbl_products_warehouse.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/26_create_table_tbl_products_usage.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/27_create_table_tbl_products_reselling.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/28_add_columns_tbl_suppliers.xml" relativeToChangelogFile="true"/>
 		 
 </databaseChangeLog>

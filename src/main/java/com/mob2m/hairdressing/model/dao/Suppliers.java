@@ -56,6 +56,12 @@ public class Suppliers implements Serializable {
 	@Column(name = "supplier_city_id")
 	private int supplier_city_id;
 
+	@Column(name = "cpf_cnpj_select")
+	private String cpf_cnpj_select;
+
+	@Column(name = "zip_code")
+	private int zipCode;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "supplier_city")
 	private Cities cities;
@@ -76,8 +82,10 @@ public class Suppliers implements Serializable {
 
 	}
 
+
 	public Suppliers(Long id, String supplier_name, String contact_name, String email, String phone_number_1, String phone_number_2, String cpf_cnpj,
-			String adress, int supplier_city_id, int supplier_state_id, Cities cities, States states, CompanySubsidiaries companySubsidiaries) {
+			String adress, int supplier_state_id, int supplier_city_id, String cpf_cnpj_select, int zipCode, Cities cities, States states,
+			CompanySubsidiaries companySubsidiaries) {
 		super();
 		this.id = id;
 		this.supplier_name = supplier_name;
@@ -87,8 +95,10 @@ public class Suppliers implements Serializable {
 		this.phone_number_2 = phone_number_2;
 		this.cpf_cnpj = cpf_cnpj;
 		this.adress = adress;
-		this.supplier_city_id = supplier_city_id;
 		this.supplier_state_id = supplier_state_id;
+		this.supplier_city_id = supplier_city_id;
+		this.cpf_cnpj_select = cpf_cnpj_select;
+		this.zipCode = zipCode;
 		this.cities = cities;
 		this.states = states;
 		this.companySubsidiaries = companySubsidiaries;
@@ -144,6 +154,13 @@ public class Suppliers implements Serializable {
 		} else if (!cpf_cnpj.equals(other.cpf_cnpj)) {
 		return false;
 		}
+		if (cpf_cnpj_select == null) {
+		if (other.cpf_cnpj_select != null) {
+		return false;
+		}
+		} else if (!cpf_cnpj_select.equals(other.cpf_cnpj_select)) {
+		return false;
+		}
 		if (email == null) {
 		if (other.email != null) {
 		return false;
@@ -192,6 +209,9 @@ public class Suppliers implements Serializable {
 		if (supplier_state_id != other.supplier_state_id) {
 		return false;
 		}
+		if (zipCode != other.zipCode) {
+		return false;
+		}
 		return true;
 	}
 
@@ -228,6 +248,13 @@ public class Suppliers implements Serializable {
 	 */
 	public String getCpf_cnpj() {
 		return cpf_cnpj;
+	}
+
+	/**
+	 * @return the cpf_cnpj_select
+	 */
+	public String getCpf_cnpj_select() {
+		return cpf_cnpj_select;
 	}
 
 	/**
@@ -286,6 +313,13 @@ public class Suppliers implements Serializable {
 		return supplier_state_id;
 	}
 
+	/**
+	 * @return the zipCode
+	 */
+	public int getZipCode() {
+		return zipCode;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -298,14 +332,16 @@ public class Suppliers implements Serializable {
 		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((contact_name == null) ? 0 : contact_name.hashCode());
 		result = prime * result + ((cpf_cnpj == null) ? 0 : cpf_cnpj.hashCode());
+		result = prime * result + ((cpf_cnpj_select == null) ? 0 : cpf_cnpj_select.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((phone_number_1 == null) ? 0 : phone_number_1.hashCode());
 		result = prime * result + ((phone_number_2 == null) ? 0 : phone_number_2.hashCode());
-		//result = prime * result + ((states == null) ? 0 : states.hashCode());
+		result = prime * result + ((states == null) ? 0 : states.hashCode());
 		result = prime * result + supplier_city_id;
 		result = prime * result + ((supplier_name == null) ? 0 : supplier_name.hashCode());
 		result = prime * result + supplier_state_id;
+		result = prime * result + zipCode;
 		return result;
 	}
 
@@ -342,6 +378,13 @@ public class Suppliers implements Serializable {
 	 */
 	public void setCpf_cnpj(String cpf_cnpj) {
 		this.cpf_cnpj = cpf_cnpj;
+	}
+
+	/**
+	 * @param cpf_cnpj_select the cpf_cnpj_select to set
+	 */
+	public void setCpf_cnpj_select(String cpf_cnpj_select) {
+		this.cpf_cnpj_select = cpf_cnpj_select;
 	}
 
 	/**
@@ -398,6 +441,13 @@ public class Suppliers implements Serializable {
 	 */
 	public void setSupplier_state_id(int supplier_state_id) {
 		this.supplier_state_id = supplier_state_id;
+	}
+
+	/**
+	 * @param zipCode the zipCode to set
+	 */
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	/* (non-Javadoc)

@@ -16,7 +16,10 @@
 	<script>
 		jQuery(function($){
 		   $("#phonenumber").mask("(99)(9)9999-9999");
-		   $("#zipCode").mask("99999-999");		   	   
+		   $("#phoneNumber1").mask("(99)(9)9999-9999");
+		   $("#phoneNumber2").mask("(99) 9999-9999");
+		   $("#zipCode").mask("99999-999");		
+		   $("#cpf_cnpj").mask("999.999.999/9999-99");
 		});
 	</script>
 	
@@ -80,8 +83,9 @@
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
 			        <ul class="dropdown-menu">			          	
 			          <li th:style="${styleValueCadastroProdutos}"><a id="fornecedores"  th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Cadastro</a></li>
-			          <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{${@environment.getProperty('url.produtos.detalhes')}}">Detalhes (revenda ou consumo interno)</a></li>			          
-			          <li><a id="estoque" th:style="${styleValueProdutosEstoque}" th:href="@{${@environment.getProperty('url.produtos.estoque')}}">Estoque</a></li>	                   
+			          <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{/revenda}">Revenda</a></li>			          
+			           <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{/consumodeprodutos}">Consumo interno</a></li>			          
+			          <li><a id="estoque" th:style="${styleValueProdutosEstoque}" th:href="@{/controledeestoque}">Estoque</a></li>	                   
 			        </ul>
 			      </li>	
 			      <li id="administrativo" th:style="${styleValueAdministrativo}" class="dropdown" th:remove="${fragmentAdministrativo}">

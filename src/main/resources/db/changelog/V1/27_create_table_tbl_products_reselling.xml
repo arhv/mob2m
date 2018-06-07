@@ -1,0 +1,47 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="27" author="mob2m">	
+			<createTable tableName="tbl_products_reselling" remarks="Table with the name of hairdressing products reselling" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="product_package" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="gross_profit" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="net_price" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>			   
+			    <column name="company_name_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="product_name_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_products_reselling"
+            baseColumnNames="company_name_id"
+            constraintName="fk_company_name_id"
+            referencedTableName="tbl_company_subsidiaries"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>  
+            <addForeignKeyConstraint 
+            baseTableName="tbl_products_reselling"
+            baseColumnNames="product_name_id"
+            constraintName="fk_product_name_id"
+            referencedTableName="tbl_products"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>      
+           	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

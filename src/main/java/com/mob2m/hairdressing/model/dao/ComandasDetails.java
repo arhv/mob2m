@@ -30,14 +30,8 @@ public class ComandasDetails implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "service")
-	private int service;
-
-	@Column(name = "service_value")
+	@Column(name = "service_product_usage_value")
 	private String service_value;
-
-	@Column(name = "professional_principal")
-	private int professional_principal;
 
 	@Column(name = "professional_aux_1")
 	private String professional_aux_1;
@@ -45,9 +39,17 @@ public class ComandasDetails implements Serializable {
 	@Column(name = "professional_aux_2")
 	private String professional_aux_2;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "comandas_master_id")
 	private ComandasMaster comandasMaster;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "service_id")
+	private Services services;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "professional_principal")
+	private Professionals professionals;
 
 	public ComandasDetails() {
 

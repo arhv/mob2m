@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllProductsReselling">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Produtos (Revenda)</strong>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarrevenda}" style="margin-left:20px;">Adicionar</a>
+	             <input id="productResellingSearch" type="text" class="" placeholder="Procurar pelo nome do produto" onkeyup="myFunctionProductReselling()" style="margin-left:40px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allProductsReselling" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	 
+	                            <th>Unidade</th>                           
+	                            <th>Produto</th>
+	                            <th>Lote do Produto</th>	                              
+	                            <th>Margem de Lucro</th>
+	                            <th>Preço Final</th>
+	                            <th>Comissão de Venda (%)</th>	
+	                                                                    
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="products : ${productsResellingList}">
+	                            <td th:text="${products.id}"></td>	
+	                            <td th:text="${products.companySubsidiaries.companySubsidiaryName}"></td>	
+	                            <td th:text="${products.products.productNickName}"></td>	                            
+	                            <td th:text="${products.product_package}"></td>	                           
+	                            <td th:text="${#numbers.formatDecimal(products.gross_profit, 1, 'POINT', 2, 'COMMA')}"></td>	
+	                            <td th:text="${#numbers.formatDecimal(products.net_price, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(products.sales_commission, 1, 'POINT', 2, 'COMMA')}"></td>	                            	                                                       
+	                            <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarrevenda/{id}(id=${products.id})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarrevenda}" >Adicionar</a>
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchProductResellingName.js}" src="js/searchProductResellingName.js"></script>  
+	    </div>	
+	  </div>	
+	
+	<div th:fragment="addProductsReselling">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Produtos (Revenda)</strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewProductReselling" class="form-horizontal" th:object="${addProductsReselling}" th:action="@{/salvarrevenda}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->    
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>  
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="product_id">Produto</label>
+	                                 <div class="dropdown">
+	                                	<select id="product_name" class="form-control input-sm" th:field="*{products}" >	                                		
+	                                		<option th:each="productSelection : ${productList}" th:value="${productSelection.id}" th:text="${productSelection.productNickName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                                         
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productPackage" >Lote do produto</label>
+	                                <input id="productPackage" type="text" class="form-control input-sm" th:field="*{product_package}" ></input>
+	                            	 
+	                            </div>
+	                        </div>	  	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productGrossProfit" >Margem de Lucro (%)</label>
+	                                <input id="productGrossProfit" type="number" step="0.01" class="form-control input-sm" th:field="*{gross_profit}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="netPrice" >Preço de Venda</label>
+	                                <input id="netPrice" type="number" step="0.01" class="form-control input-sm" th:field="*{net_price}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="salesCommission" >Comissão de Vendas (%)</label>
+	                                <input id="salesCommission" type="number" step="0.01" class="form-control input-sm" th:field="*{sales_commission}" ></input>	                            	 
+	                            </div>
+	                        </div> 	                                     	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/revenda}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>        
+        	 
+    	</div>  	
+    </div>
+    
+    <div th:fragment="editProductsReselling">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Cadastro de Produtos (Revenda)</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editProductsReselling}" th:action="@{/salvarrevenda}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>   	                      
+	                            
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${companyId}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>  
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="product_id">Produto</label>
+	                                 <div class="dropdown">
+	                                	<select id="product_name" class="form-control input-sm" th:field="*{products}" >	                                		
+	                                		<option th:each="productSelection : ${productList}" th:value="${productSelection.id}" th:text="${productSelection.productNickName}" th:selected="${productId}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                                         
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productPackage" >Lote do produto</label>
+	                                <input id="productPackage" type="text" class="form-control input-sm" th:field="*{product_package}" ></input>
+	                            	 
+	                            </div>
+	                        </div>	  	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="productGrossProfit" >Margem de Lucro (%)</label>
+	                                <input id="productGrossProfit" type="number" step="0.01" class="form-control input-sm" th:field="*{gross_profit}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="netPrice" >Preço de Venda</label>
+	                                <input id="netPrice" type="number" step="0.01" class="form-control input-sm" th:field="*{net_price}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="salesCommission" >Comissão de Vendas (%)</label>
+	                                <input id="salesCommission" type="number" step="0.01" class="form-control input-sm" th:field="*{sales_commission}" ></input>	                            	 
+	                            </div>
+	                        </div> 	   
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/revenda}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>    	
+    </div>
+	
+
+</body>
+
+</html>

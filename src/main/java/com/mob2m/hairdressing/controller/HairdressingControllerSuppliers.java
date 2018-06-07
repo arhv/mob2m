@@ -1,5 +1,6 @@
 package com.mob2m.hairdressing.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -49,6 +50,7 @@ public class HairdressingControllerSuppliers {
 		int initState = 26;//iniciar combo com Cidades de SP
 		int initCity = 9432;//iniciar combo com Cidade de Osasco
 		List<Cities> listCitiesNames = citiesService.stateCode(initState);
+		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
 		mv.addObject("state", listStates);
 		mv.addObject("stateSelected", initState);
 		mv.addObject("city", listCitiesNames);
@@ -73,6 +75,20 @@ public class HairdressingControllerSuppliers {
 		return mv;
 	}
 
+	public List <String> getDisplayCnpjCpfSelection(){
+		List<String> optionDisplay1 = new ArrayList<>();
+		optionDisplay1.add("CPF");
+		optionDisplay1.add("CNPJ");
+		return optionDisplay1;
+	}
+
+	public List <String> getDisplayCpfCnpjSelection(){
+		List<String> optionDisplay = new ArrayList<>();
+		optionDisplay.add("CNPJ");
+		optionDisplay.add("CPF");
+		return optionDisplay;
+	}
+
 	@RequestMapping(path = "/atualizarfornecedor/{id}", method = RequestMethod.GET)
 	public ModelAndView goSuppliersDetails(@PathVariable("id") Long id) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("suppliers");
@@ -82,6 +98,12 @@ public class HairdressingControllerSuppliers {
 		int supplierCity = supplierList.getSupplier_city_id();
 		List<States> listStates = statesService.findAll();
 		List<Cities> listCitiesNames = citiesService.stateCodeSubsidiaries(supplierState);
+		if (supplierList.getCpf_cnpj_select() == "CNPJ") {
+		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
+		} else {
+		mv.addObject("cpfCnpjList", getDisplayCnpjCpfSelection());
+		}
+		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
 		mv.addObject("companySubsidiaryList", companySubsidiaryList);
 		mv.addObject("state", listStates);
 		mv.addObject("city", listCitiesNames);
