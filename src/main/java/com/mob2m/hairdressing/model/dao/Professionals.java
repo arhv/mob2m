@@ -44,22 +44,28 @@ public class Professionals implements Serializable {
 	private CompanySubsidiaries companySubsidiaries;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "professionals")
-	private Set<ComandasDetails> comandasDetails = new HashSet<>(0);
+	private Set<ComandasDetailsServices> comandasDetails = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "professionals1")
+	private Set<ComandasDetailsServices> comandasDetails1 = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "professionals2")
+	private Set<ComandasDetailsServices> comandasDetails2 = new HashSet<>(0);
 
 	public Professionals() {
 
 	}
 
-	public Professionals(Long id, String username_code, CompanySubsidiaries companySubsidiaries, Set<ComandasDetails> comandasDetails) {
+	public Professionals(Long id, String username_code, CompanySubsidiaries companySubsidiaries, Set<ComandasDetailsServices> comandasDetails,
+			Set<ComandasDetailsServices> comandasDetails1, Set<ComandasDetailsServices> comandasDetails2) {
 		super();
 		this.id = id;
 		this.username_code = username_code;
 		this.companySubsidiaries = companySubsidiaries;
 		this.comandasDetails = comandasDetails;
+		this.comandasDetails1 = comandasDetails1;
+		this.comandasDetails2 = comandasDetails2;
 	}
-
-
 
 
 	/* (non-Javadoc)
@@ -77,6 +83,27 @@ public class Professionals implements Serializable {
 		return false;
 		}
 		Professionals other = (Professionals) obj;
+		if (comandasDetails == null) {
+		if (other.comandasDetails != null) {
+		return false;
+		}
+		} else if (!comandasDetails.equals(other.comandasDetails)) {
+		return false;
+		}
+		if (comandasDetails1 == null) {
+		if (other.comandasDetails1 != null) {
+		return false;
+		}
+		} else if (!comandasDetails1.equals(other.comandasDetails1)) {
+		return false;
+		}
+		if (comandasDetails2 == null) {
+		if (other.comandasDetails2 != null) {
+		return false;
+		}
+		} else if (!comandasDetails2.equals(other.comandasDetails2)) {
+		return false;
+		}
 		if (companySubsidiaries == null) {
 		if (other.companySubsidiaries != null) {
 		return false;
@@ -104,8 +131,22 @@ public class Professionals implements Serializable {
 	/**
 	 * @return the comandasDetails
 	 */
-	public Set<ComandasDetails> getComandasDetails() {
+	public Set<ComandasDetailsServices> getComandasDetails() {
 		return comandasDetails;
+	}
+
+	/**
+	 * @return the comandasDetails1
+	 */
+	public Set<ComandasDetailsServices> getComandasDetails1() {
+		return comandasDetails1;
+	}
+
+	/**
+	 * @return the comandasDetails2
+	 */
+	public Set<ComandasDetailsServices> getComandasDetails2() {
+		return comandasDetails2;
 	}
 
 	/**
@@ -115,14 +156,12 @@ public class Professionals implements Serializable {
 		return companySubsidiaries;
 	}
 
-
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
-
 
 	/**
 	 * @return the username_code
@@ -139,6 +178,9 @@ public class Professionals implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		//result = prime * result + ((comandasDetails == null) ? 0 : comandasDetails.hashCode());
+		//result = prime * result + ((comandasDetails1 == null) ? 0 : comandasDetails1.hashCode());
+		//result = prime * result + ((comandasDetails2 == null) ? 0 : comandasDetails2.hashCode());
 		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((username_code == null) ? 0 : username_code.hashCode());
@@ -149,8 +191,24 @@ public class Professionals implements Serializable {
 	/**
 	 * @param comandasDetails the comandasDetails to set
 	 */
-	public void setComandasDetails(Set<ComandasDetails> comandasDetails) {
+	public void setComandasDetails(Set<ComandasDetailsServices> comandasDetails) {
 		this.comandasDetails = comandasDetails;
+	}
+
+
+	/**
+	 * @param comandasDetails1 the comandasDetails1 to set
+	 */
+	public void setComandasDetails1(Set<ComandasDetailsServices> comandasDetails1) {
+		this.comandasDetails1 = comandasDetails1;
+	}
+
+
+	/**
+	 * @param comandasDetails2 the comandasDetails2 to set
+	 */
+	public void setComandasDetails2(Set<ComandasDetailsServices> comandasDetails2) {
+		this.comandasDetails2 = comandasDetails2;
 	}
 
 
@@ -184,9 +242,10 @@ public class Professionals implements Serializable {
 	@Override
 	public String toString() {
 		return "Professionals [id=" + id + ", username_code=" + username_code + ", companySubsidiaries=" + companySubsidiaries + ", comandasDetails="
-				+ comandasDetails + ", getComandasDetails()=" + getComandasDetails() + ", getCompanySubsidiaries()=" + getCompanySubsidiaries()
-				+ ", getId()=" + getId() + ", getUsername_code()=" + getUsername_code() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
-				+ ", toString()=" + super.toString() + "]";
+				+ comandasDetails + ", comandasDetails1=" + comandasDetails1 + ", comandasDetails2=" + comandasDetails2 + ", getComandasDetails()="
+				+ getComandasDetails() + ", getComandasDetails1()=" + getComandasDetails1() + ", getComandasDetails2()=" + getComandasDetails2()
+				+ ", getCompanySubsidiaries()=" + getCompanySubsidiaries() + ", getId()=" + getId() + ", getUsername_code()=" + getUsername_code()
+				+ ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 
 

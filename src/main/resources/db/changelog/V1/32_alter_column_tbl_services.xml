@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		
+		<changeSet id="32" author="mob2m">					       
+            <modifyDataType
+            columnName="percentage_professional"
+            newDataType="double precision"
+            schemaName="hairdressing_master"
+            tableName="tbl_services"/> 
+            <modifyDataType
+            columnName="percentage_aux_1"
+            newDataType="double precision"
+            schemaName="hairdressing_master"
+            tableName="tbl_services"/> 
+            <modifyDataType
+            columnName="percentage_aux_2"
+            newDataType="double precision"
+            schemaName="hairdressing_master"
+            tableName="tbl_services"/>
+            
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

@@ -1,0 +1,45 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="29" author="mob2m">	
+			<createTable tableName="tbl_comandas_master" remarks="Table with the name of hairdressing products comandas master" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="status" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="comanda_type" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="customer_name" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="company_subsidiary" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_comandas_master"
+            baseColumnNames="company_subsidiary"
+            constraintName="fk_company_subsidiary_id"
+            referencedTableName="tbl_company_subsidiaries"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>  
+            <addForeignKeyConstraint 
+            baseTableName="tbl_comandas_master"
+            baseColumnNames="customer_name"
+            constraintName="fk_customer_name_id"
+            referencedTableName="tbl_customers"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>      
+           	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

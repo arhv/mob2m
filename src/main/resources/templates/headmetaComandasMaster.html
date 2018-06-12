@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllComandasMaster">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Controle de Comandas</strong>
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarcomanda}" style="margin-left:20px;">Adicionar</a>
+	             <input id="comandasSearch" type="text" class="" placeholder="Procurar pelo nome do cliente" onkeyup="myFunctionComandas()" style="margin-left:40px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allComandas" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>
+	                            <th>Data</th>	 
+	                            <th>Unidade</th>
+	                            <th>Nome do Cliente</th>                         	                            
+	                            <th>Situação</th>    
+	                            <th>Tipo</th>	                                                                                                                                            
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="comandas : ${comandasMasterList}">
+	                            <td th:text="${comandas.id}"></td>	
+	                            <td th:text="${#dates.format(comandas.date_comanda, 'dd/MM/yyyy HH:mm')}"></td>
+	                            <td th:text="${comandas.companySubsidiaries.companySubsidiaryName}"></td>	
+	                            <td th:text="${comandas.customers.customer_name}"></td>	                            
+	                            <td th:text="${comandas.status}"></td>	                           
+	                            <td th:text="${comandas.comanda_type}"></td>	
+	                     	    <td>
+	                                <div class="btn-group pull-right">	
+	                                	<a class="btn btn-sm btn-primary" th:href="@{/adicionarservicosprodutosdecomanda/{id}(id=${comandas.id})}" >+ Serviços/Produtos</a>                                                                  
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarcomanda/{id}(id=${comandas.id})}" style="margin-left:50px;">Alterar Comanda</a>                                    
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <a class="btn btn-sm btn-success" th:href="@{/adicionarcomanda}" >Adicionar</a>
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchComandas.js}" src="js/searchComandas.js"></script>  
+	    </div>	
+	  </div>	
+	
+	<div th:fragment="addComandasMaster">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Controle de Comandas</strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewComandasMaster" class="form-horizontal" th:object="${addComandasMaster}" th:action="@{/salvarcomanda}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->    
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>  
+	                        
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="tipo_comanda_id">Tipo de Comanda</label>
+	                                 <div class="dropdown">
+	                                	<select id="tipo_comanda_id_1" class="form-control input-sm" th:field="*{comanda_type}" >	                                		
+	                                		<option th:each="comandasTypeSelection : ${comandasType}" th:value="${comandasTypeSelection}" th:text="${comandasTypeSelection}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="customer_id">Nome do Cliente</label>
+	                                 <div class="dropdown">
+	                                	<select id="customer_id_1" class="form-control input-sm" th:field="*{customers}" >	                                		
+	                                		<option th:each="customersListSelection : ${customersList}" th:value="${customersListSelection.id}" th:text="${customersListSelection.customer_name}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>	                                         
+	                                                	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/comandasabertas}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>        
+        	 
+    	</div>  	
+    </div>
+    
+    <div th:fragment="editComandasMaster">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <strong><br/><br/><br/>Controle de Comandas</strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editComandasMaster}" th:action="@{/salvarcomanda}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> 
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Data</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{date_comanda}" readOnly="readonly"/>
+	                            </div>
+	                        </div>    	                      
+	                            
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>  
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="tipo_comanda_id">Tipo de Comanda</label>
+	                                 <div class="dropdown">
+	                                	<select id="tipo_comanda_id_1" class="form-control input-sm" th:field="*{comanda_type}" >	                                		
+	                                		<option th:each="comandasTypeSelection : ${comandasType}" th:value="${comandasTypeSelection}" th:text="${comandasTypeSelection}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="customer_id">Nome do Cliente</label>
+	                                 <div class="dropdown">
+	                                	<select id="customer_id_1" class="form-control input-sm" th:field="*{customers}" >	                                		
+	                                		<option th:each="customersListSelection : ${customersList}" th:value="${customersListSelection.id}" th:text="${customersListSelection.customer_name}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>	 
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Situação da Comanda</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{status}" readOnly="readonly"/>
+	                            </div>
+	                        </div>                                         
+	                                 
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/comandasabertas}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>    	
+    </div>
+	
+
+</body>
+
+</html>

@@ -85,7 +85,6 @@ public class Products implements Serializable {
 		this.productsWarehouse = productsWarehouse;
 	}
 
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -199,6 +198,7 @@ public class Products implements Serializable {
 		return companySubsidiaries;
 	}
 
+
 	/**
 	 * @return the contentValue
 	 */
@@ -239,6 +239,13 @@ public class Products implements Serializable {
 	 */
 	public Set<ProductsUsage> getProductsUsage() {
 		return productsUsage;
+	}
+
+	/**
+	 * @return the productsWarehouse
+	 */
+	public Set<ProductsWarehouse> getProductsWarehouse() {
+		return productsWarehouse;
 	}
 
 	/**
@@ -330,6 +337,13 @@ public class Products implements Serializable {
 	 */
 	public void setProductsUsage(Set<ProductsUsage> productsUsage) {
 		this.productsUsage = productsUsage;
+	}
+
+	/**
+	 * @param productsWarehouse the productsWarehouse to set
+	 */
+	public void setProductsWarehouse(Set<ProductsWarehouse> productsWarehouse) {
+		this.productsWarehouse = productsWarehouse;
 	}
 
 	/**

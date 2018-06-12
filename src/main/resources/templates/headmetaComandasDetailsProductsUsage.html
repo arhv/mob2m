@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	
+	
+	
+    
+    <div th:fragment="addComandasDetailsProductsUsage">	
+    	<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <br/><br/><br/>
+	            <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewComandasDetailsProductsUsage" class="form-horizontal" th:object="${addComandasDetailsProductsUsage}" th:action="@{/salvarcomandadeusodeproduto}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->   
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Código da Comanda</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{comandasMaster.id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> 
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Nome do Produto (Uso Interno)</label>
+	                                 <div class="dropdown">
+	                                	<select id="´product_usage__name" class="form-control input-sm" th:field="*{productsUsage}" >	                                		
+	                                		<option th:each="productsUsageSelection : ${productsUsageList}" th:value="${productsUsageSelection.id}" th:text="${productsUsageSelection.products.productNickName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Quantidade</label> 
+	                                <input type="number" step="0.01" class="form-control input-sm" th:field="*{quantity_unitary_usage}" />
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Valor Consumido</label> 
+	                                <input type="number" step="0.01" class="form-control input-sm" th:field="*{product_usage_cost}" />
+	                            </div>
+	                        </div>
+	                        
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_id1">Nome do Profissional</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_id" class="form-control input-sm" th:field="*{professionals}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                         
+	                       	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{${detailsComandaProductsUsage}}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>        
+        	 
+    	</div>  		
+    
+    </div>
+    
+    
+    <div th:fragment="editComandasDetailsProductsUsage">	
+    	<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <br/><br/><br/>
+	            <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+	        </div>
+	        <div class="panel-body">
+	            <form class="form-horizontal" th:object="${editComandasDetailsProductsUsage}" th:action="@{/salvarcomandadeusodeproduto}" method="POST" style="margin: 10px">
+	                <div class="form-group">
+	                    <fieldset>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>   
+	                        <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label>Código da Comanda</label> 
+		                                <input type="text" class="form-control input-sm" th:field="*{comandasMaster.id}" readOnly="readonly"/>
+		                            </div>
+		                        </div>	                      
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Nome do Produto (Uso Interno)</label>
+	                                 <div class="dropdown">
+	                                	<select id="´product_usage__name" class="form-control input-sm" th:field="*{productsUsage}" >	                                		
+	                                		<option th:each="productsUsageSelection : ${productsUsageList}" th:value="${productsUsageSelection.id}" th:text="${productsUsageSelection.products.productNickName}" th:selected="${productUsageIdSelected}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Quantidade</label> 
+	                                <input type="number" step="0.01" class="form-control input-sm" th:field="*{quantity_unitary_usage}" />
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Valor Consumido</label> 
+	                                <input type="number" step="0.01" class="form-control input-sm" th:field="*{product_usage_cost}" />
+	                            </div>
+	                        </div>
+	                        
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_id1">Nome do Profissional</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_id" class="form-control input-sm" th:field="*{professionals}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" th:selected="${professionalPrincipalIdSelected}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                                          
+	                                 
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{${detailsComandaProductsUsage}}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>
+    	</div>    	
+    </div>
+     	
+    
+	
+
+</body>
+
+</html>

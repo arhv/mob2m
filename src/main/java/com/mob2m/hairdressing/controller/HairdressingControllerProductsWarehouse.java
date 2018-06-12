@@ -1,6 +1,5 @@
 package com.mob2m.hairdressing.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.Products;
 import com.mob2m.hairdressing.model.dao.ProductsWarehouse;
+import com.mob2m.hairdressing.model.service.SelectTagLists;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.ProductsService;
@@ -38,13 +38,16 @@ public class HairdressingControllerProductsWarehouse {
 	@Autowired
 	private CompanySubsidiariesService companySubsidiariesService;
 
+	@Autowired
+	private SelectTagLists selectTagLists;
+
 	@RequestMapping(path = "/adicionarcontroledeestoque", method = RequestMethod.GET)
 	public ModelAndView addNewProductWarehouse(ProductsWarehouse productsWarehouse) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("productswarehouse");
 		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
 		List<Products> listProducts = productsService.findAll();
-		mv.addObject("productGoal", getDisplayProductGoal());
-		mv.addObject("inOut", getDisplayInOut());
+		mv.addObject("productGoal", selectTagLists.getDisplayProductGoal());
+		mv.addObject("inOut", selectTagLists.getDisplayInOut());
 		mv.addObject("productList", listProducts);
 		mv.addObject("companySubsidiaryList", listCompanySubsidiaries);
 		mv.addObject("addProductsWarehouse", productsWarehouse);
@@ -52,20 +55,6 @@ public class HairdressingControllerProductsWarehouse {
 		mv.addObject("removeAddProductsWarehouse", "none");
 		mv.addObject("removeEditProductsWarehouse", "all");
 		return mv;
-	}
-
-	public List<String> getDisplayInOut() {
-		List<String> optionDisplay = new ArrayList<>();
-		optionDisplay.add("Entrada");
-		optionDisplay.add("Saida");
-		return optionDisplay;
-	}
-
-	public List <String> getDisplayProductGoal(){
-		List<String> optionDisplay = new ArrayList<>();
-		optionDisplay.add("Revenda");
-		optionDisplay.add("Uso Interno");
-		return optionDisplay;
 	}
 
 	@RequestMapping(path = "/editarcontroledeestoque/{id}", method = RequestMethod.GET)
@@ -76,8 +65,8 @@ public class HairdressingControllerProductsWarehouse {
 		List<Products> listProducts = productsService.findAll();
 		Long companyNameId = productsWarehouse.getCompanySubsidiaries().getId();
 		Long productNameId = productsWarehouse.getProducts().getId();
-		mv.addObject("productGoal", getDisplayProductGoal());
-		mv.addObject("inOut", getDisplayInOut());
+		mv.addObject("productGoal", selectTagLists.getDisplayProductGoal());
+		mv.addObject("inOut", selectTagLists.getDisplayInOut());
 		mv.addObject("companyId", companyNameId);
 		mv.addObject("productId", productNameId);
 		mv.addObject("productList", listProducts);
@@ -88,8 +77,6 @@ public class HairdressingControllerProductsWarehouse {
 		mv.addObject("removeEditProductsWarehouse", "none");
 		return mv;
 	}
-
-
 
 	@RequestMapping(path = "/controledeestoque", method = RequestMethod.GET)
 	public ModelAndView goProductsWarehouse() {

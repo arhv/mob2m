@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllComandasDetailsServices">
+		<div class="panel panel-default" >
+			<br/><br/><br/> 
+			<div class="panel-heading">				                   
+	            <label>SERVIÇOS</label>
+	         </div>
+	        <div class="panel-heading">	            
+	            
+	            <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Valor Total da Comanda:</label>
+	            <strong th:text="${#numbers.formatDecimal(sumAllcomandaId, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>
+	            
+	             <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" style="margin-left:60px;">Adicionar</a>
+	             <input id="comandasDetailsServicesSearch" type="text" class="" placeholder="Procurar pelo nome do serviço" onkeyup="myFunctionComandasDetailsServices()" style="margin-left:100px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:200px">
+	            <div class="table-responsive">
+	                <table id="allComandasDetailsServices" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	 
+	                            <th>Nome do Serviço</th>
+	                            <th>Valor</th>                         	                            
+	                            <th>Nome do Profissional</th>    
+	                            <th>Nome do Auxiliar 1</th>   
+	                            <th>Nome do Auxiliar 2</th>                                                                                                             
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="comandas : ${comandasDetailsServicesList}">
+	                            <td th:text="${comandas.id}"></td>	
+	                            <td th:text="${comandas.services.service}"></td>	
+	                            <td th:text="${#numbers.formatDecimal(comandas.service_value, 1, 'POINT', 2, 'COMMA')}"></td>	                            
+	                            <td th:text="${comandas.professionals.username_code}"></td>	                           
+	                            <td th:text="${comandas.professionals1.username_code}"></td>
+	                            <td th:text="${comandas.professionals2.username_code}"></td>	
+	                     	    <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarcomandadeservicos/{id}/{customerName}/{comandaId}(id=${comandas.id}, customerName=${customerName}, comandaId=${comandaId})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <!-- <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" >Adicionar</a>-->
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchComandasDetailsServices.js}" src="js/searchComandasDetailsServices.js"></script>  
+	    </div>	
+	    
+	    <br/><br/><br/>
+	 
+	    <div class="panel panel-default">
+	    
+	    	 <div class="panel-heading">                    
+	            <label>PRODUTOS (USO INTERNO)</label>
+	         </div>
+	        <div class="panel-heading">	        
+	            
+	            <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Valor Consumido:</label>
+	            <strong th:text="${#numbers.formatDecimal(sumAllcomandaIdProductUsage, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>
+	            
+	             <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeusodeproduto/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" style="margin-left:60px;">Adicionar</a>
+	             <input id="comandasDetailsProductsUsageSearch" type="text" class="" placeholder="Procurar pelo nome do produto consumido" onkeyup="myFunctionComandasDetailsProductsUsage()" style="margin-left:100px; width:300px"></input>
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:300px">
+	            <div class="table-responsive">
+	                <table id="allComandasDetailsProductsUsage" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>		                            
+	                            <th>Produto</th>
+	                            <th>Profissional</th> 
+	                            <th>Quantidade</th>                         	                            
+	                            <th>Custo</th>   	                                                                                                                                        
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="comandas : ${comandasDetailsProductsUsageList}">
+	                            <td th:text="${comandas.id}"></td>	
+	                            <td th:text="${comandas.productsUsage.products.productNickName}"></td>	
+	                            <td th:text="${comandas.professionals.username_code}"></td>	
+	                            <td th:text="${#numbers.formatDecimal(comandas.quantity_unitary_usage, 1, 'POINT', 2, 'COMMA')}"></td>	                            
+	                            <td th:text="${#numbers.formatDecimal(comandas.product_usage_cost, 1, 'POINT', 2, 'COMMA')}"></td>                                                      
+	                     	    <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarcomandadeusodeproduto/{id}/{customerName}/{comandaId}(id=${comandas.id}, customerName=${customerName}, comandaId=${comandaId})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <!--  <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" >Adicionar</a>-->
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchComandasDetailsProductsUsage.js}" src="js/searchComandasDetailsProductsUsage.js"></script>  
+	    </div>	   
+	</div>	
+	
+	<div th:fragment="addComandasDetailsServices">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <br/><br/><br/>
+	            <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewComandasDetailsServices" class="form-horizontal" th:object="${addComandasDetailsServices}" th:action="@{/salvarcomandadeservicos}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->    
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Código da Comanda</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{comandasMaster.id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Nome do Serviço</label>
+	                                 <div class="dropdown">
+	                                	<select id="service_name" class="form-control input-sm" th:field="*{services}" >	                                		
+	                                		<option th:each="servicesSelection : ${serviceList}" th:value="${servicesSelection.id}" th:text="${servicesSelection.service}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>  
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="service_value1" >Valor do Serviço</label>
+	                                <input id="service_value" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_id1">Nome do Profissional</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_id" class="form-control input-sm" th:field="*{professionals}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_aux_id11">Nome do Auxiliar 1</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_aux_id1" class="form-control input-sm" th:field="*{professionals1}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>   
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_aux_id22">Nome do Auxiliar 2</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_aux_id2" class="form-control input-sm" th:field="*{professionals2}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                                       
+	                                                	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{${detailsComanda}}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>             	 
+    	</div>  
+    	
+    	<br/><br/> 
+     </div>
+    
+		 
+    
+	    <div th:fragment="editComandasDetailsServices">
+			<div class="panel panel-default">
+		        <div class="panel-heading">
+		            <br/><br/><br/>
+		            <label>Cliente:</label>
+		            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+		            <label style="margin-left:40px;">Comanda:</label>
+		            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+		        </div>
+		        <div class="panel-body">
+		            <form class="form-horizontal" th:object="${editComandasDetailsServices}" th:action="@{/salvarcomandadeservicos}" method="POST" style="margin: 10px">
+		                <div class="form-group">
+		                    <fieldset>
+		                        <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label>ID</label> 
+		                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+		                            </div>
+		                        </div>   	                      
+		                            
+		                       <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label>Código da Comanda</label> 
+		                                <input type="text" class="form-control input-sm" th:field="*{comandasMaster.id}" readOnly="readonly"/>
+		                            </div>
+		                        </div>
+		                        <div class="form-group row">    
+		                           <div class="col-md-4" >
+		                                <label id="company_subsidiary">Nome do Serviço</label>
+		                                 <div class="dropdown">
+		                                	<select id="service_name" class="form-control input-sm" th:field="*{services}" >	                                		
+		                                		<option th:each="servicesSelection : ${serviceList}" th:value="${servicesSelection.id}" th:text="${servicesSelection.service}" th:selected="${serviceIdSelected}"> </option>
+		                                	</select>
+		                                </div>
+		                            </div>  
+		                        </div>  
+		                        <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label for="service_value1" >Valor do Serviço</label>
+		                                <input id="service_value" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
+		                            </div>
+		                        </div>	
+		                        
+		                        <div class="form-group row">    
+		                           <div class="col-md-4" >
+		                                <label id="professional_id1">Nome do Profissional</label>
+		                                 <div class="dropdown">
+		                                	<select id="professional_id" class="form-control input-sm" th:field="*{professionals}" >	                                		
+		                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" th:selected="${professionalPrincipalIdSelected}"> </option>
+		                                	</select>
+		                                </div>
+		                            </div>  
+		                        </div> 
+		                         <div class="form-group row">    
+		                           <div class="col-md-4" >
+		                                <label id="professional_aux_id11">Nome do Auxiliar 1</label>
+		                                 <div class="dropdown">
+		                                	<select id="professional_aux_id1" class="form-control input-sm" th:field="*{professionals1}" >	                                		
+		                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" th:selected="${professionalAux1IdSelected}"> </option>
+		                                	</select>
+		                                </div>
+		                            </div>  
+		                        </div>   
+		                         <div class="form-group row">    
+		                           <div class="col-md-4" >
+		                                <label id="professional_aux_id22">Nome do Auxiliar 2</label>
+		                                 <div class="dropdown">
+		                                	<select id="professional_aux_id2" class="form-control input-sm" th:field="*{professionals2}" >	                                		
+		                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.username_code}" th:selected="${professionalAux2IdSelected}"> </option>
+		                                	</select>
+		                                </div>
+		                            </div>  
+		                        </div>                                            
+		                                 
+		                    </fieldset>
+		                </div>
+		                <div class="form-group row">
+		                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+		                    <a th:href="@{${detailsComanda}}" class="btn btn-sm btn-default">Cancelar</a>
+		                </div>
+		            </form>
+		        </div>
+	    	</div>   
+	    	
+	    	<br/><br/> 
+
+    </div>
+	
+
+</body>
+
+</html>

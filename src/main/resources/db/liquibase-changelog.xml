@@ -34,5 +34,8 @@
 		 <include file="changelog/V1/26_create_table_tbl_products_usage.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/27_create_table_tbl_products_reselling.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/28_add_columns_tbl_suppliers.xml" relativeToChangelogFile="true"/>
-		 
+		 <include file="changelog/V1/29_create_table_tbl_comandas_master.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/30_create_table_tbl_comandas_details_services.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/31_add_columns_tbl_comandas_master.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/32_alter_column_tbl_services.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

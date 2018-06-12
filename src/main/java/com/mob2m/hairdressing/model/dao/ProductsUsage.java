@@ -3,6 +3,8 @@
 package com.mob2m.hairdressing.model.dao;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name = "tbl_products_usage")
@@ -49,12 +52,15 @@ public class ProductsUsage implements Serializable {
 	@JoinColumn(name = "product_name_id")
 	private Products products;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "productsUsage")
+	private Set<ProductsUsage> productsUsage = new HashSet<>(0);
+
 	public ProductsUsage() {
 
 	}
 
 	public ProductsUsage(Long id, String product_package, double quantity_unitary_usage, double operational_cost, double product_usage_cost,
-			CompanySubsidiaries companySubsidiaries, Products products) {
+			CompanySubsidiaries companySubsidiaries, Products products, Set<ProductsUsage> productsUsage) {
 		super();
 		this.id = id;
 		this.product_package = product_package;
@@ -63,6 +69,7 @@ public class ProductsUsage implements Serializable {
 		this.product_usage_cost = product_usage_cost;
 		this.companySubsidiaries = companySubsidiaries;
 		this.products = products;
+		this.productsUsage = productsUsage;
 	}
 
 	/* (non-Javadoc)
@@ -114,6 +121,13 @@ public class ProductsUsage implements Serializable {
 		} else if (!products.equals(other.products)) {
 		return false;
 		}
+		if (productsUsage == null) {
+		if (other.productsUsage != null) {
+		return false;
+		}
+		} else if (!productsUsage.equals(other.productsUsage)) {
+		return false;
+		}
 		if (Double.doubleToLongBits(quantity_unitary_usage) != Double.doubleToLongBits(other.quantity_unitary_usage)) {
 		return false;
 		}
@@ -126,6 +140,8 @@ public class ProductsUsage implements Serializable {
 	public CompanySubsidiaries getCompanySubsidiaries() {
 		return companySubsidiaries;
 	}
+
+
 
 	/**
 	 * @return the id
@@ -163,6 +179,13 @@ public class ProductsUsage implements Serializable {
 	}
 
 	/**
+	 * @return the productsUsage
+	 */
+	public Set<ProductsUsage> getProductsUsage() {
+		return productsUsage;
+	}
+
+	/**
 	 * @return the quantity_unitary_usage
 	 */
 	public double getQuantity_unitary_usage() {
@@ -185,6 +208,7 @@ public class ProductsUsage implements Serializable {
 		temp = Double.doubleToLongBits(product_usage_cost);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		//result = prime * result + ((products == null) ? 0 : products.hashCode());
+		//result = prime * result + ((productsUsage == null) ? 0 : productsUsage.hashCode());
 		temp = Double.doubleToLongBits(quantity_unitary_usage);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
@@ -233,11 +257,32 @@ public class ProductsUsage implements Serializable {
 	}
 
 	/**
+	 * @param productsUsage the productsUsage to set
+	 */
+	public void setProductsUsage(Set<ProductsUsage> productsUsage) {
+		this.productsUsage = productsUsage;
+	}
+
+	/**
 	 * @param quantity_unitary_usage the quantity_unitary_usage to set
 	 */
 	public void setQuantity_unitary_usage(double quantity_unitary_usage) {
 		this.quantity_unitary_usage = quantity_unitary_usage;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+
+	@Override
+	public String toString() {
+		return "ProductsUsage [id=" + id + ", product_package=" + product_package + ", quantity_unitary_usage=" + quantity_unitary_usage
+				+ ", operational_cost=" + operational_cost + ", product_usage_cost=" + product_usage_cost + ", companySubsidiaries="
+				+ companySubsidiaries + ", products=" + products + ", productsUsage=" + productsUsage + ", getCompanySubsidiaries()="
+				+ getCompanySubsidiaries() + ", getId()=" + getId() + ", getOperational_cost()=" + getOperational_cost() + ", getProduct_package()="
+				+ getProduct_package() + ", getProduct_usage_cost()=" + getProduct_usage_cost() + ", getProducts()=" + getProducts()
+				+ ", getQuantity_unitary_usage()=" + getQuantity_unitary_usage() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass()
+				+ ", toString()=" + super.toString() + "]";
+	}*/
 
 }
 

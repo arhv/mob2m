@@ -1,6 +1,5 @@
 package com.mob2m.hairdressing.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -19,6 +18,7 @@ import com.mob2m.hairdressing.model.dao.Cities;
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.States;
 import com.mob2m.hairdressing.model.dao.Suppliers;
+import com.mob2m.hairdressing.model.service.SelectTagLists;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CitiesService;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
@@ -43,6 +43,9 @@ public class HairdressingControllerSuppliers {
 	@Autowired
 	private CompanySubsidiariesService companySubsidiariesServices;
 
+	@Autowired
+	private SelectTagLists selectTagLists;
+
 	@RequestMapping(path = "/adicionarfornecedor", method = RequestMethod.GET)
 	public ModelAndView addNewSupplier(Suppliers suppliers) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("suppliers");
@@ -50,7 +53,7 @@ public class HairdressingControllerSuppliers {
 		int initState = 26;//iniciar combo com Cidades de SP
 		int initCity = 9432;//iniciar combo com Cidade de Osasco
 		List<Cities> listCitiesNames = citiesService.stateCode(initState);
-		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
+		mv.addObject("cpfCnpjList", selectTagLists.getDisplayCpfCnpjSelection());
 		mv.addObject("state", listStates);
 		mv.addObject("stateSelected", initState);
 		mv.addObject("city", listCitiesNames);
@@ -70,23 +73,7 @@ public class HairdressingControllerSuppliers {
 		mv.addObject("removeEditSupplier", "all");
 		mv.addObject("supplierList", suppliersService.findAll());
 
-		//mv.addObject("subsidiariesList1", companySubsidiariesJoinCityStateService.listAllSubsidiariesJoinedCityState());
-		//mv.addObject("subsidiariesList", companySubsidiariesService.listAllSubsidiariesJoinedCityState());
 		return mv;
-	}
-
-	public List <String> getDisplayCnpjCpfSelection(){
-		List<String> optionDisplay1 = new ArrayList<>();
-		optionDisplay1.add("CPF");
-		optionDisplay1.add("CNPJ");
-		return optionDisplay1;
-	}
-
-	public List <String> getDisplayCpfCnpjSelection(){
-		List<String> optionDisplay = new ArrayList<>();
-		optionDisplay.add("CNPJ");
-		optionDisplay.add("CPF");
-		return optionDisplay;
 	}
 
 	@RequestMapping(path = "/atualizarfornecedor/{id}", method = RequestMethod.GET)
@@ -99,11 +86,10 @@ public class HairdressingControllerSuppliers {
 		List<States> listStates = statesService.findAll();
 		List<Cities> listCitiesNames = citiesService.stateCodeSubsidiaries(supplierState);
 		if (supplierList.getCpf_cnpj_select() == "CNPJ") {
-		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
+		mv.addObject("cpfCnpjList", selectTagLists.getDisplayCpfCnpjSelection());
 		} else {
-		mv.addObject("cpfCnpjList", getDisplayCnpjCpfSelection());
+		mv.addObject("cpfCnpjList", selectTagLists.getDisplayCnpjCpfSelection());
 		}
-		mv.addObject("cpfCnpjList", getDisplayCpfCnpjSelection());
 		mv.addObject("companySubsidiaryList", companySubsidiaryList);
 		mv.addObject("state", listStates);
 		mv.addObject("city", listCitiesNames);

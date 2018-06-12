@@ -1,0 +1,74 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="30" author="mob2m">	
+			<createTable tableName="tbl_comandas_details_services" remarks="Table with the name of hairdressing products comandas details services" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="comandas_master_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="comanda_details_type" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>			    
+			    <column name="service_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="service_usage_value" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_principal" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_aux_1" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_aux_2" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_comandas_details_services"
+            baseColumnNames="comandas_master_id"
+            constraintName="fk_comandas_master_id"
+            referencedTableName="tbl_comandas_master"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>  
+            <addForeignKeyConstraint 
+            baseTableName="tbl_comandas_details_services"
+            baseColumnNames="professional_principal"
+            constraintName="fk_professional_principal_id"
+            referencedTableName="tbl_professionals"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/> 
+            <addForeignKeyConstraint 
+            baseTableName="tbl_comandas_details_services"
+            baseColumnNames="professional_aux_1"
+            constraintName="fk_professional_aux_1_id"
+            referencedTableName="tbl_professionals"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>  
+            <addForeignKeyConstraint 
+            baseTableName="tbl_comandas_details_services"
+            baseColumnNames="professional_aux_2"
+            constraintName="fk_professional_aux_2_id"
+            referencedTableName="tbl_professionals"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>
+            <addForeignKeyConstraint 
+            baseTableName="tbl_comandas_details_services"
+            baseColumnNames="service_id"
+            constraintName="fk_service_id"
+            referencedTableName="tbl_services"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>     
+           	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

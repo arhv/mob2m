@@ -64,7 +64,14 @@
 			    <ul class="nav navbar-nav">
 			      <!-- <li id="home" th:style="${styleValueHome}" class="active"><a th:href="@{${@environment.getProperty('url.home')}}">Home</a></li> -->
 			      <li id="agenda" th:style="${styleValueAgenda}"><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
-			      <li id="comandas" th:style="${styleValueComandas}"><a  th:href="@{${@environment.getProperty('url.comandas')}}">Comandas</a></li>	      
+			      <li id="comandas" th:style="${styleValueComandas}">
+			        <a class="dropdown-toggle" data-toggle="dropdown"  th:href="@{${@environment.getProperty('url.comandas')}}" >Comandas<span class="caret"></span></a>
+			      	<ul class="dropdown-menu">
+			          <li th:style="${styleValueCadastroServicos}"><a id="comandas1" th:href="@{/comandasabertas}">Abertas</a></li>
+			          <li><a id="detalhes" th:style="${styleValueServicosProfissional}" th:href="@{/comandasfechadas}">Fechadas</a></li>			          
+			          <li><a id="promocoes" th:style="${styleValueServicosPacotes}" th:href="@{/comandasdepacotes}">Pacotes</a></li>	                   
+			        </ul>			      
+			      </li>	      
 			      <li id="cadastro" th:style="${styleValueCadastro}" class="dropdown" th:remove="${fragmentCadastro}">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Clientes<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
@@ -84,7 +91,7 @@
 			        <ul class="dropdown-menu">			          	
 			          <li th:style="${styleValueCadastroProdutos}"><a id="fornecedores"  th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Cadastro</a></li>
 			          <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{/revenda}">Revenda</a></li>			          
-			           <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{/consumodeprodutos}">Consumo interno</a></li>			          
+			          <li><a id="detalhes" th:style="${styleValueProdutosDetalhes}" th:href="@{/consumodeprodutos}">Consumo interno</a></li>			          
 			          <li><a id="estoque" th:style="${styleValueProdutosEstoque}" th:href="@{/controledeestoque}">Estoque</a></li>	                   
 			        </ul>
 			      </li>	
