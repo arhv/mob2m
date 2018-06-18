@@ -16,8 +16,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.mob2m.hairdressing.model.dao.ComandasDetailsServices;
 import com.mob2m.hairdressing.model.dao.ComandasMaster;
+import com.mob2m.hairdressing.model.dao.Professionals;
 import com.mob2m.hairdressing.model.dao.Services;
-import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.model.service.ComandasPayments;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.ComandasDetailsProductsUsageService;
@@ -63,7 +63,7 @@ public class HairdressingControllerComandasDetailsServices {
 			ComandasDetailsServices comandasDetailsServices) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
 		List<Services> listServices = servicesService.findAll();
-		List<User> listProfessionals = userService.findAll();
+		List<Professionals> listProfessionals = professionalsService.findAll();
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		ComandasMaster comandasMasterComandaId = comandasMasterService.findOne(comandaId);
 		comandasDetailsServices.setComandasMaster(comandasMasterComandaId);
@@ -85,7 +85,7 @@ public class HairdressingControllerComandasDetailsServices {
 		ComandasMaster comandasMasterCustomer = comandasMasterService.findOne(id);
 		String customerName = comandasMasterCustomer.getCustomers().getCustomer_name();
 		Long customerNameId = comandasMasterCustomer.getCustomers().getId();
-		Long comandaId = comandasMasterCustomer.getId();
+		Long comandaId = comandasMasterCustomer.getId();		
 		mv.addObject("customerName", customerName);
 		mv.addObject("customerNameId", customerNameId);
 		mv.addObject("comandaId", comandaId);
@@ -105,7 +105,7 @@ public class HairdressingControllerComandasDetailsServices {
 		ComandasDetailsServices comandasDetailsServices = comandasDetailsService.findOne(id);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
 		List<Services> listServices = servicesService.findAll();
-		List<User> listProfessionals = userService.findAll();
+		List<Professionals> listProfessionals = professionalsService.findAll();
 
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		mv.addObject("customerName", customerName);
