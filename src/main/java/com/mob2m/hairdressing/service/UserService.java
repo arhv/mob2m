@@ -31,7 +31,7 @@ public class UserService {
 
 	//All User
 	public List<User> findAll() {
-		return UserRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
+		return UserRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
 	}
 
 	//Query specific ID

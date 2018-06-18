@@ -22,7 +22,7 @@ public class ProfessionalsService {
 
 
 	public List<Professionals> findAll() {
-		return professionalsRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
+		return professionalsRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
 	}
 
 

@@ -109,7 +109,8 @@
 			      <li id="financeiro" th:style="${styleValueFinanceiro}" class="dropdown" th:remove="${fragmentFinanceiro}">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
-			          <li th:style="${styleValueFinanceiroFluxoCaixa}"><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
+			        	<li th:style="${styleValueFinanceiroFluxoCaixa}"><a id="fluxodecaixa" th:href="@{/tiposdepagamentosdecomandas}">Tipos de Pagamentos de Comandas</a></li>
+			           	<li th:style="${styleValueFinanceiroFluxoCaixa}"><a id="fluxodecaixa" th:href="@{${@environment.getProperty('url.financeiro')}}">Fluxo de caixa</a></li>     		          		          	                   
 			        </ul>
 			      </li>	           			      
 			    </ul>

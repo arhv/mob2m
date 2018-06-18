@@ -33,6 +33,10 @@ public class Customers implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_subsidiary")
+	private CompanySubsidiaries companySubsidiaries;
+
 	@Column(name = "customer_name")
 	private String customer_name;
 
@@ -66,29 +70,36 @@ public class Customers implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customers")
 	private Set<ComandasMaster> comandasMaster = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customers")
+	private Set<ComandasExpensesServices> comandasExepenses = new HashSet<>(0);
+
 	public Customers() {
 
 	}
 
-	public Customers(Long id, String customer_name, String phone_number, String email, String address, String zip_code, int city_name_id,
-			int state_name_id, Cities cities1, States states1, Set<ComandasMaster> comandasMaster) {
+
+
+	public Customers(Long id, CompanySubsidiaries companySubsidiaries, String customer_name, String phone_number,
+			String email, String address, String zip_code, int state_name_id, int city_name_id, Cities cities1,
+			States states1, Set<ComandasMaster> comandasMaster, Set<ComandasExpensesServices> comandasExepenses) {
 		super();
 		this.id = id;
+		this.companySubsidiaries = companySubsidiaries;
 		this.customer_name = customer_name;
 		this.phone_number = phone_number;
 		this.email = email;
 		this.address = address;
 		this.zip_code = zip_code;
-		this.city_name_id = city_name_id;
 		this.state_name_id = state_name_id;
+		this.city_name_id = city_name_id;
 		this.cities1 = cities1;
 		this.states1 = states1;
 		this.comandasMaster = comandasMaster;
+		this.comandasExepenses = comandasExepenses;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -97,7 +108,7 @@ public class Customers implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (!(obj instanceof Customers)) {
+		if (getClass() != obj.getClass()) {
 		return false;
 		}
 		Customers other = (Customers) obj;
@@ -118,11 +129,25 @@ public class Customers implements Serializable {
 		if (city_name_id != other.city_name_id) {
 		return false;
 		}
+		if (comandasExepenses == null) {
+		if (other.comandasExepenses != null) {
+		return false;
+		}
+		} else if (!comandasExepenses.equals(other.comandasExepenses)) {
+		return false;
+		}
 		if (comandasMaster == null) {
 		if (other.comandasMaster != null) {
 		return false;
 		}
 		} else if (!comandasMaster.equals(other.comandasMaster)) {
+		return false;
+		}
+		if (companySubsidiaries == null) {
+		if (other.companySubsidiaries != null) {
+		return false;
+		}
+		} else if (!companySubsidiaries.equals(other.companySubsidiaries)) {
 		return false;
 		}
 		if (customer_name == null) {
@@ -265,9 +290,6 @@ public class Customers implements Serializable {
 		return zip_code;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -275,7 +297,9 @@ public class Customers implements Serializable {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		//result = prime * result + ((cities1 == null) ? 0 : cities1.hashCode());
 		result = prime * result + city_name_id;
+		//result = prime * result + ((comandasExepenses == null) ? 0 : comandasExepenses.hashCode());
 		result = prime * result + ((comandasMaster == null) ? 0 : comandasMaster.hashCode());
+		result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((customer_name == null) ? 0 : customer_name.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());

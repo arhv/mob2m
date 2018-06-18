@@ -46,7 +46,7 @@
 	                        <tr th:each="userCompany : ${userCompanyList}">
 	                            <td th:text="${userCompany.id}"></td>	                            
 	                            <td th:text="${userCompany.companySubsidiaries.companySubsidiaryName}"></td>
-	                            <td th:text="${userCompany.username}"></td>
+	                            <td th:text="${userCompany.user.name}"></td>
 	                            <td th:text="${userCompany.userRoles.userRoleName}"></td>	                            	                            
 	                            <td>
 	                                <div class="btn-group pull-right">
@@ -78,10 +78,10 @@
 	                               
 	                         <div class="form-group row">
 	                            <div class="col-md-4" >
-	                                <label id="company_subsidiary_username">Nome de usuário</label>
+	                                <label id="company_subsidiary_username">Nome do Usuário</label>
 	                                 <div class="dropdown">
-	                                	<select id="company_subsidiary_username_list" class="form-control input-sm" th:field="*{username}" >	                                		
-	                                		<option th:each="usernameSelection : ${usernameList}" th:value="${usernameSelection.id}" th:text="${usernameSelection.username}" > </option>
+	                                	<select id="company_subsidiary_username_list" class="form-control input-sm" th:field="*{user}" >	                                		
+	                                		<option th:each="usernameSelection : ${usernameList}" th:value="${usernameSelection.id}" th:text="${usernameSelection.name}" > </option>
 	                                	</select>
 	                                </div>
 	                            </div>
@@ -131,7 +131,7 @@
 	                    <fieldset>
 	                    	<div class="form-group row">
 	                            <div class="col-md-4">
-	                                <label for="user_company_id" >Nível de permissão</label>
+	                                <label for="user_company_id" >ID</label>
 	                                <input id="user_company_id1" type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"></input>                         	 
 	                            </div>
 	                        </div>	 	                    
@@ -139,8 +139,8 @@
 	                            <div class="col-md-4" >
 	                                <label id="company_subsidiary_username">Nome de usuário</label>
 	                                 <div class="dropdown">
-	                                	<select id="company_subsidiary_username_list" class="form-control input-sm" th:field="*{username}" >	                                		
-	                                		<option th:each="usernameSelection : ${usernameList}" th:value="${usernameSelection.id}" th:text="${usernameSelection.username}" th:selected="${usernameSelection.username==editUserCompany.username}"> </option>
+	                                	<select id="company_subsidiary_username_list" class="form-control input-sm" th:field="*{user}" >	                                		
+	                                		<option th:each="usernameSelection : ${usernameList}" th:value="${usernameSelection.id}" th:text="${usernameSelection.name}" th:selected="${usernameSelection.id==editUserCompany.user.id}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllComandasPaymentsTypes">
+		<div class="panel panel-default" >
+			<br/><br/><br/> 
+		
+	        <div class="panel-heading">	                   
+	           	 <label>TIPOS DE PAGAMENTOS DE COMANDAS</label>
+	             <a class="btn btn-sm btn-success" th:href="@{/adicionartipodepagamentosdecomandas}" style="margin-left:80px;">Adicionar tipo de pagamento</a>
+	             <input id="comandasPaymentsTypesSearch" type="text" class="" placeholder="Procurar pelo tipo de pagamento" onkeyup="myFunctionComandasPaymentsTypes()" style="margin-left:50px; width:300px"></input>
+	        	             
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:200px">
+	            <div class="table-responsive">
+	                <table id="allComandasPaymentsTypes" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	 
+	                            <th>Unidade</th>
+	                            <th>Tipo de Pagamento</th>                         	                            
+	                            <th>Taxa de Transação (%)</th>    
+	                            <th>Dias para Recebimento</th>   
+	                                                                                                                                      
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="comandasPaymentsTypes : ${comandasPaymentsTypesList}">
+	                            <td th:text="${comandasPaymentsTypes.id}"></td>	
+	                            <td th:text="${comandasPaymentsTypes.companySubsidiaries.companySubsidiaryName}"></td>	
+	                            <td th:text="${comandasPaymentsTypes.payment_type}"></td>	                            
+	                            <td th:text="${#numbers.formatDecimal(comandasPaymentsTypes.tax_percentage, 1, 'POINT', 2, 'COMMA')}"></td>	                           
+	                            <td th:text="${comandasPaymentsTypes.compensation_days}"></td>	                            	
+	                     	    <td>
+	                                <div class="btn-group pull-right">
+	                                    <a class="btn btn-sm btn-primary" th:href="@{/editartipodepagamentodecomanda/{id}/(id=${comandasPaymentsTypes.id})}">Detalhes</a>
+	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                               </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <!-- <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" >Adicionar</a>-->
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchComandasPaymentsTypes.js}" src="js/searchComandasPaymentsTypes.js"></script>  
+	    </div>	 
+	</div>	
+	
+	<div th:fragment="addComandasPaymentsTypes">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <br/><br/><br/>
+	            <label>TIPOS DE PAGAMENTOS DE COMANDAS</label>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewComandasPaymentsTypes" class="form-horizontal" th:object="${addComandasPaymentsTypes}" th:action="@{/salvartipodepagamentodecomanda}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                        <!--<div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> -->    
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>   
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Tipo de Pagamento</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{payment_type}"/>
+	                            </div>
+	                        </div>	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="tax_percentage" >Taxa de Transação (%)</label>
+	                                <input id="tax_percentage" type="number" step="0.01" class="form-control input-sm" th:field="*{tax_percentage}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="compensation_days" >Dias para Recebimento</label>
+	                                <input id="compensation_days" type="number" step="1" class="form-control input-sm" th:field="*{compensation_days}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                                      
+	                                                	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/tiposdepagamentosdecomandas}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div>             	 
+    	</div>  
+    	
+    	<br/><br/> 
+     </div>
+    
+		 
+    
+	    <div th:fragment="editComandasPaymentsTypes">
+			<div class="panel panel-default">
+		        <div class="panel-heading">
+		            <br/><br/><br/>
+	            	<label>TIPOS DE PAGAMENTOS</label>
+		        </div>
+		        <div class="panel-body">
+		            <form class="form-horizontal" th:object="${editComandasPaymentsTypes}" th:action="@{/salvartipodepagamentodecomanda}" method="POST" style="margin: 10px">
+		                <div class="form-group">
+		                    <fieldset>
+		                        <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label>ID</label> 
+		                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+		                            </div>
+		                        </div>   	                      
+		                            
+		                       <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${companySubsidiarySelection.id==editComandasPaymentsTypes.companySubsidiaries.id}"> </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>   
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Tipo de Pagamento</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{payment_type}"/>
+	                            </div>
+	                        </div>	                       
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="tax_percentage" >Taxa de Transação (%)</label>
+	                                <input id="tax_percentage" type="number" step="0.01" class="form-control input-sm" th:field="*{tax_percentage}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="compensation_days" >Dias para Recebimento</label>
+	                                <input id="compensation_days" type="number" step="1" class="form-control input-sm" th:field="*{compensation_days}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+		                    </fieldset>
+		                </div>
+		                <div class="form-group row">
+		                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+		                    <a th:href="@{/tiposdepagamentosdecomandas}" class="btn btn-sm btn-default">Cancelar</a>
+		                </div>
+		            </form>
+		        </div>
+	    	</div>   
+	    	
+	    	<br/><br/> 
+
+    </div>
+	
+
+</body>
+
+</html>

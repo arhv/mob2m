@@ -4,6 +4,8 @@ package com.mob2m.hairdressing.model.dao;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -102,8 +105,11 @@ public class User implements Serializable {
 	@JoinColumn(name = "cod_estados")
 	private States states;
 
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	//private Set<UserCompany> userCompany = new HashSet<>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Professionals> professionals = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<UserCompany> userCompany = new HashSet<>(0);
 
 	public User() {
 
@@ -128,6 +134,31 @@ public class User implements Serializable {
 		this.stateName = stateName;
 		this.cities = cities;
 		this.states = states;
+	}
+
+
+	public User(Long id, String code_pk_tbl_user, Boolean active, Date insertdate, String insertby, String username, String email, String password,
+			String name, String phonenumber, String address, String zipCode, int cityName, int stateName, Cities cities, States states,
+			Set<Professionals> professionals, Set<UserCompany> userCompany) {
+		super();
+		this.id = id;
+		this.code_pk_tbl_user = code_pk_tbl_user;
+		this.active = active;
+		this.insertdate = insertdate;
+		this.insertby = insertby;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.phonenumber = phonenumber;
+		this.address = address;
+		this.zipCode = zipCode;
+		this.cityName = cityName;
+		this.stateName = stateName;
+		this.cities = cities;
+		this.states = states;
+		this.professionals = professionals;
+		this.userCompany = userCompany;
 	}
 
 	public User(String username) {		
@@ -229,6 +260,13 @@ public class User implements Serializable {
 		} else if (!phonenumber.equals(other.phonenumber)) {
 		return false;
 		}
+		if (professionals == null) {
+		if (other.professionals != null) {
+		return false;
+		}
+		} else if (!professionals.equals(other.professionals)) {
+		return false;
+		}
 		if (stateName != other.stateName) {
 		return false;
 		}
@@ -237,6 +275,13 @@ public class User implements Serializable {
 		return false;
 		}
 		} else if (!states.equals(other.states)) {
+		return false;
+		}
+		if (userCompany == null) {
+		if (other.userCompany != null) {
+		return false;
+		}
+		} else if (!userCompany.equals(other.userCompany)) {
 		return false;
 		}
 		if (username == null) {
@@ -340,6 +385,10 @@ public class User implements Serializable {
 		return phonenumber;
 	}
 
+	public Set<Professionals> getProfessionals() {
+		return professionals;
+	}
+
 	/**
 	 * @return the stateName
 	 */
@@ -352,6 +401,13 @@ public class User implements Serializable {
 	 */
 	public States getStates() {
 		return states;
+	}
+
+	/**
+	 * @return the userCompany
+	 */
+	public Set<UserCompany> getUserCompany() {
+		return userCompany;
 	}
 
 	/**
@@ -387,8 +443,10 @@ public class User implements Serializable {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phonenumber == null) ? 0 : phonenumber.hashCode());
+		//result = prime * result + ((professionals == null) ? 0 : professionals.hashCode());
 		result = prime * result + stateName;
 		result = prime * result + ((states == null) ? 0 : states.hashCode());
+		//result = prime * result + ((userCompany == null) ? 0 : userCompany.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
 		return result;
@@ -478,6 +536,10 @@ public class User implements Serializable {
 		this.phonenumber = phonenumber;
 	}
 
+	public void setProfessionals(Set<Professionals> professionals) {
+		this.professionals = professionals;
+	}
+
 	/**
 	 * @param stateName the stateName to set
 	 */
@@ -490,6 +552,13 @@ public class User implements Serializable {
 	 */
 	public void setStates(States states) {
 		this.states = states;
+	}
+
+	/**
+	 * @param userCompany the userCompany to set
+	 */
+	public void setUserCompany(Set<UserCompany> userCompany) {
+		this.userCompany = userCompany;
 	}
 
 	/**
@@ -514,12 +583,13 @@ public class User implements Serializable {
 		return "User [id=" + id + ", code_pk_tbl_user=" + code_pk_tbl_user + ", active=" + active + ", insertdate=" + insertdate + ", insertby="
 				+ insertby + ", username=" + username + ", email=" + email + ", password=" + password + ", name=" + name + ", phonenumber="
 				+ phonenumber + ", address=" + address + ", zipCode=" + zipCode + ", cityName=" + cityName + ", stateName=" + stateName + ", cities="
-				+ cities + ", states=" + states + ", getId()=" + getId() + ", getCode_pk_tbl_user()=" + getCode_pk_tbl_user() + ", getActive()="
-				+ getActive() + ", getInsertdate()=" + getInsertdate() + ", getInsertby()=" + getInsertby() + ", getUsername()=" + getUsername()
-				+ ", getEmail()=" + getEmail() + ", getPassword()=" + getPassword() + ", getName()=" + getName() + ", getPhonenumber()="
-				+ getPhonenumber() + ", getAddress()=" + getAddress() + ", getZipCode()=" + getZipCode() + ", getCityName()=" + getCityName()
-				+ ", getStateName()=" + getStateName() + ", getCities()=" + getCities() + ", getStates()=" + getStates() + ", hashCode()="
-				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+				+ cities + ", states=" + states + ", professionals=" + professionals + ", userCompany=" + userCompany + ", getUserCompany()="
+				+ getUserCompany() + ", getActive()=" + getActive() + ", getAddress()=" + getAddress() + ", getCities()=" + getCities()
+				+ ", getCityName()=" + getCityName() + ", getCode_pk_tbl_user()=" + getCode_pk_tbl_user() + ", getEmail()=" + getEmail()
+				+ ", getId()=" + getId() + ", getInsertby()=" + getInsertby() + ", getInsertdate()=" + getInsertdate() + ", getName()=" + getName()
+				+ ", getPassword()=" + getPassword() + ", getPhonenumber()=" + getPhonenumber() + ", getProfessionals()=" + getProfessionals()
+				+ ", getStateName()=" + getStateName() + ", getStates()=" + getStates() + ", getUsername()=" + getUsername() + ", getZipCode()="
+				+ getZipCode() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 
 }

@@ -209,8 +209,8 @@ public class ComandasDetailsServices implements Serializable {
 		//result = prime * result + ((comandasMaster == null) ? 0 : comandasMaster.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		//result = prime * result + ((professionals == null) ? 0 : professionals.hashCode());
-		result = prime * result + ((professionals1 == null) ? 0 : professionals1.hashCode());
-		result = prime * result + ((professionals2 == null) ? 0 : professionals2.hashCode());
+		//result = prime * result + ((professionals1 == null) ? 0 : professionals1.hashCode());
+		//result = prime * result + ((professionals2 == null) ? 0 : professionals2.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(service_value);
 		result = prime * result + (int) (temp ^ (temp >>> 32));

@@ -1,0 +1,88 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="41" author="mob2m">	
+			<createTable tableName="tbl_expenses_services" remarks="Table with the name of hairdressing expenses services" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="company_subsidiary" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>				    		    			    
+			    <column name="expense_type" type="varchar (200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="comanda_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="payment_date" type="TIMESTAMP WITHOUT TIME ZONE">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="comanda_total_value" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_service_percentage" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="professional_service_total_value" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="payment_type_discount_percentage" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="payment_type_discount_value" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="total_professional_discounted" type="double precision">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="payment_type_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>			    
+			    <column name="customer_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="service_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>		
+			    		    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_expenses_services"
+            baseColumnNames="company_subsidiary"
+            constraintName="fk_company_subsidiary_id"
+            referencedTableName="tbl_company_subsidiaries"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>              
+            <addForeignKeyConstraint 
+            baseTableName="tbl_expenses_services"
+            baseColumnNames="professional_id"
+            constraintName="fk_professional_id"
+            referencedTableName="tbl_professionals"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>  
+            <addForeignKeyConstraint 
+            baseTableName="tbl_expenses_services"
+            baseColumnNames="customer_id"
+            constraintName="fk_customer_id"
+            referencedTableName="tbl_customers"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>
+            <addForeignKeyConstraint 
+            baseTableName="tbl_expenses_services"
+            baseColumnNames="service_id"
+            constraintName="fk_service_id"
+            referencedTableName="tbl_services"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>	         		  		  	          	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

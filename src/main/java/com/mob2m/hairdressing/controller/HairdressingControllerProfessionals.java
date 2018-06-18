@@ -16,9 +16,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.Professionals;
+import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.ProfessionalsService;
+import com.mob2m.hairdressing.service.UserService;
 
 @RestController
 public class HairdressingControllerProfessionals {
@@ -32,10 +34,15 @@ public class HairdressingControllerProfessionals {
 	@Autowired
 	private CompanySubsidiariesService companySubsidiariesService;
 
+	@Autowired
+	private UserService userService;
+
 	@RequestMapping(path = "/adicionarprofissional", method = RequestMethod.GET)
 	public ModelAndView addNewProfessional(Professionals professionals) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("profissionais");
 		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
+		List<User> listProfessionals = userService.findAll();
+		mv.addObject("professionalList", listProfessionals);
 		mv.addObject("companySubsidiaryList", listCompanySubsidiaries);
 		mv.addObject("addProfessionals", professionals);
 		mv.addObject("removeFindAll", "all");
@@ -49,8 +56,11 @@ public class HairdressingControllerProfessionals {
 		Professionals professionals = professionalsService.findOne(id);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("profissionais");
 		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
+		List<User> listProfessionals = userService.findAll();
+		mv.addObject("professionalList", listProfessionals);
 		mv.addObject("companySubsidiaryList", listCompanySubsidiaries);
 		mv.addObject("editProfessionals", professionals);
+		mv.addObject("editProfessionalsSelected", professionals.getUser().getId());
 		mv.addObject("removeFindAll", "all");
 		mv.addObject("removeAddProfessionals", "all");
 		mv.addObject("removeEditProfessionals", "none");

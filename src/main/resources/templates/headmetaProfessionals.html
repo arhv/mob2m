@@ -45,7 +45,7 @@
 	                    <tbody>
 	                        <tr th:each="professionals : ${professionalsList}">
 	                            <td th:text="${professionals.id}"></td>	
-	                            <td th:text="${professionals.username_code}"></td>	                            
+	                            <td th:text="${professionals.user.name}"></td>	                            
 	                            <td th:text="${professionals.companySubsidiaries.companySubsidiaryName}"></td>	                           
 	                                                                                   
 	                            <td>
@@ -81,13 +81,16 @@
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
 	                        </div> -->    
-	                        <div class="form-group row">
-	                            <div class="col-md-4">
-	                                <label for="usernameProfessional" >Nome de Usuário</label>
-	                                <input id="usernameProfessional1" type="text" class="form-control input-sm" th:field="*{username_code}" ></input>
-	                            	 
-	                            </div>
-	                        </div>	
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_name1">Nome do Profissional</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_name" class="form-control input-sm" th:field="*{user}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.name}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 	
 	                        <div class="form-group row">    
 	                           <div class="col-md-4" >
 	                                <label id="company_subsidiary">Unidade</label>
@@ -125,15 +128,18 @@
 	                                <label>ID</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
 	                            </div>
-	                        </div>   	                      
-	                            
-	                       <div class="form-group row">
-	                            <div class="col-md-4">
-	                                <label for="usernameProfessional" >Nome de Usuário</label>
-	                                <input id="usernameProfessional1" type="text" class="form-control input-sm" th:field="*{username_code}" ></input>
-	                            	 
-	                            </div>
-	                        </div>	
+	                        </div>                        
+	                       	
+	                         <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="professional_name1">Nome do Profissional</label>
+	                                 <div class="dropdown">
+	                                	<select id="professional_name" class="form-control input-sm" th:field="*{user}" >	                                		
+	                                		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.name}" th:selected="${editProfessionalsSelected}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div> 
 	                        <div class="form-group row">    
 	                           <div class="col-md-4" >
 	                                <label id="company_subsidiary">Unidade</label>

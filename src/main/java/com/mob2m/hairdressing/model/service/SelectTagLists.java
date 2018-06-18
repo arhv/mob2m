@@ -45,10 +45,27 @@ public class SelectTagLists {
 		return optionDisplay;
 	}
 
+	public List<Integer> getDisplayParcels() {
+		List<Integer> optionDisplay = new ArrayList<>();
+		optionDisplay.add(1);
+		optionDisplay.add(2);
+		optionDisplay.add(3);
+		optionDisplay.add(4);
+		optionDisplay.add(5);
+		optionDisplay.add(6);
+		optionDisplay.add(7);
+		optionDisplay.add(8);
+		optionDisplay.add(9);
+		optionDisplay.add(10);
+		return optionDisplay;
+	}
+
 	public List<String> getDisplayProductGoal() {
 		List<String> optionDisplay = new ArrayList<>();
 		optionDisplay.add("Revenda");
 		optionDisplay.add("Uso Interno");
 		return optionDisplay;
 	}
+
+	
 }

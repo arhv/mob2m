@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mob2m.hairdressing.model.dao.ComandasExpensesServices;
 
 @Repository
-public interface ExpensesRepository extends JpaRepository<ComandasExpensesServices, Long> {
+public interface ComandasExpensesServicesRepository extends JpaRepository<ComandasExpensesServices, Long> {
 
 }
-

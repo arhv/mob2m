@@ -19,6 +19,7 @@ import com.mob2m.hairdressing.model.dao.ComandasDetailsServices;
 import com.mob2m.hairdressing.model.dao.ComandasMaster;
 import com.mob2m.hairdressing.model.dao.Professionals;
 import com.mob2m.hairdressing.model.dao.Services;
+import com.mob2m.hairdressing.model.service.ComandasPayments;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.ComandasDetailsProductsUsageService;
 import com.mob2m.hairdressing.service.ComandasDetailsService;
@@ -50,6 +51,9 @@ public class HairdressingControllerComandasDetailsServices {
 
 	@Autowired
 	private ComandasMasterService comandasMasterService;
+	
+	@Autowired
+	private ComandasPayments comandasPayments;
 
 	@RequestMapping(path = "/adicionarcomandadeservicos/{comandaId}/{customerName}", method = RequestMethod.GET)
 	public ModelAndView addNewComandaDetailsServices(@PathVariable("comandaId") Long comandaId, @PathVariable("customerName") String customerName,
@@ -77,8 +81,9 @@ public class HairdressingControllerComandasDetailsServices {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
 		ComandasMaster comandasMasterCustomer = comandasMasterService.findOne(id);
 		String customerName = comandasMasterCustomer.getCustomers().getCustomer_name();
+		Long customerNameId = comandasMasterCustomer.getCustomers().getId();
 		Long comandaId = comandasMasterCustomer.getId();
-		List<ComandasDetailsServices> comandasDetailsServicesListById = comandasDetailsService.listAllComandasDetailsServicesById(id);
+		/*List<ComandasDetailsServices> comandasDetailsServicesListById = comandasDetailsService.listAllComandasDetailsServicesById(id);
 		List<ComandasDetailsProductsUsage> comandasDetailsProductsUsageListById = comandasDetailsProductsUsageService
 				.listAllComandasDetailsProductsUsagesById(id);
 		double sumDetailsServicesListById = 0;
@@ -89,17 +94,18 @@ public class HairdressingControllerComandasDetailsServices {
 		double sumDetailsProductsUsageListById = 0;
 		for (int i = 0; i < comandasDetailsProductsUsageListById.size(); i++) {
 		sumDetailsProductsUsageListById = sumDetailsProductsUsageListById + comandasDetailsProductsUsageListById.get(i).getProduct_usage_cost();
-		}
+		}*/
 		//int sumDetailsServicesListById = comandasDetailsService.sumAllComandasDetailsServicesById(id);
 		mv.addObject("customerName", customerName);
+		mv.addObject("customerNameId", customerNameId);
 		mv.addObject("comandaId", comandaId);
-		mv.addObject("sumAllcomandaId", sumDetailsServicesListById);
-		mv.addObject("sumAllcomandaIdProductUsage", sumDetailsProductsUsageListById);
+		mv.addObject("sumAllcomandaId", comandasPayments.getSumDetailsServices(id));
+		mv.addObject("sumAllcomandaIdProductUsage", comandasPayments.getSumDetailsProductsUsage(id));
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddComandasDetailsServices", "all");
 		mv.addObject("removeEditComandasDetailsServices", "all");
-		mv.addObject("comandasDetailsServicesList", comandasDetailsServicesListById);
-		mv.addObject("comandasDetailsProductsUsageList", comandasDetailsProductsUsageListById);
+		mv.addObject("comandasDetailsServicesList", comandasPayments.getComandasDetailsServicesListById(id));
+		mv.addObject("comandasDetailsProductsUsageList", comandasPayments.getComandasDetailsProductsUsageListById(id));
 		return mv;
 	}
 
@@ -152,7 +158,8 @@ public class HairdressingControllerComandasDetailsServices {
 		System.out.println(error.getObjectName() + " - " + error.getDefaultMessage());
 		}
 
-		}
+		}		
+		
 
 		comandasDetailsService.save(comandasDetailsServices);
 		RedirectView rv = new RedirectView();

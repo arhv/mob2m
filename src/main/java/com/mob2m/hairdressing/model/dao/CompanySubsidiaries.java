@@ -91,18 +91,27 @@ public class CompanySubsidiaries implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<ProductsWarehouse> productsWarehouse = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<ComandasPaymentsTypes> paymentsTypes = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<Customers> customers = new HashSet<>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<ComandasExpensesServices> comandasExpenses = new HashSet<>(0);
+
 	public CompanySubsidiaries() {
 
 	}
 
-
-
-
-	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType, String companySubsidiaryCnpj,
-			String companySubsidiaryAddress, String companySubsidiaryCep, int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId,
-			Cities cities, States states, Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles,
-			Set<Professionals> professionals, Set<Suppliers> suppliers, Set<ComandasMaster> comandasMaster, Set<ProductsReselling> productsReselling,
-			Set<ProductsWarehouse> productsWarehouse) {
+	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType,
+			String companySubsidiaryCnpj, String companySubsidiaryAddress, String companySubsidiaryCep,
+			int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId, Cities cities, States states,
+			Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles,
+			Set<Professionals> professionals, Set<Suppliers> suppliers, Set<ComandasMaster> comandasMaster,
+			Set<ProductsReselling> productsReselling, Set<ProductsWarehouse> productsWarehouse,
+			Set<ComandasPaymentsTypes> paymentsTypes, Set<Customers> customers,
+			Set<ComandasExpensesServices> comandasExpenses) {
 		super();
 		this.id = id;
 		this.companySubsidiaryName = companySubsidiaryName;
@@ -124,11 +133,15 @@ public class CompanySubsidiaries implements Serializable {
 		this.comandasMaster = comandasMaster;
 		this.productsReselling = productsReselling;
 		this.productsWarehouse = productsWarehouse;
+		this.paymentsTypes = paymentsTypes;
+		this.customers = customers;
+		this.comandasExpenses = comandasExpenses;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -137,7 +150,7 @@ public class CompanySubsidiaries implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (!(obj instanceof CompanySubsidiaries)) {
+		if (getClass() != obj.getClass()) {
 		return false;
 		}
 		CompanySubsidiaries other = (CompanySubsidiaries) obj;
@@ -146,6 +159,13 @@ public class CompanySubsidiaries implements Serializable {
 		return false;
 		}
 		} else if (!cities.equals(other.cities)) {
+		return false;
+		}
+		if (comandasExpenses == null) {
+		if (other.comandasExpenses != null) {
+		return false;
+		}
+		} else if (!comandasExpenses.equals(other.comandasExpenses)) {
 		return false;
 		}
 		if (comandasMaster == null) {
@@ -203,11 +223,25 @@ public class CompanySubsidiaries implements Serializable {
 		} else if (!companySubsidiaryType.equals(other.companySubsidiaryType)) {
 		return false;
 		}
+		if (customers == null) {
+		if (other.customers != null) {
+		return false;
+		}
+		} else if (!customers.equals(other.customers)) {
+		return false;
+		}
 		if (id == null) {
 		if (other.id != null) {
 		return false;
 		}
 		} else if (!id.equals(other.id)) {
+		return false;
+		}
+		if (paymentsTypes == null) {
+		if (other.paymentsTypes != null) {
+		return false;
+		}
+		} else if (!paymentsTypes.equals(other.paymentsTypes)) {
 		return false;
 		}
 		if (products == null) {
@@ -283,6 +317,10 @@ public class CompanySubsidiaries implements Serializable {
 		return cities;
 	}
 
+	public Set<ComandasExpensesServices> getComandasExpenses() {
+		return comandasExpenses;
+	}
+
 	/**
 	 * @return the comandasMaster
 	 */
@@ -296,8 +334,6 @@ public class CompanySubsidiaries implements Serializable {
 	public Long getCompanyNameId() {
 		return companyNameId;
 	}
-
-
 
 	/**
 	 * @return the companySubsidiaryAddress
@@ -335,6 +371,7 @@ public class CompanySubsidiaries implements Serializable {
 	}
 
 
+
 	/**
 	 * @return the companySubsidiaryState
 	 */
@@ -349,12 +386,21 @@ public class CompanySubsidiaries implements Serializable {
 		return companySubsidiaryType;
 	}
 
+	public Set<Customers> getCustomers() {
+		return customers;
+	}
+
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
+
+	public Set<ComandasPaymentsTypes> getPaymentsTypes() {
+		return paymentsTypes;
+	}
+
 
 	/**
 	 * @return the products
@@ -419,14 +465,12 @@ public class CompanySubsidiaries implements Serializable {
 		return userRoles;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cities == null) ? 0 : cities.hashCode());
+		//result = prime * result + ((comandasExpenses == null) ? 0 : comandasExpenses.hashCode());
 		result = prime * result + ((comandasMaster == null) ? 0 : comandasMaster.hashCode());
 		result = prime * result + ((companyNameId == null) ? 0 : companyNameId.hashCode());
 		result = prime * result + ((companySubsidiaryAddress == null) ? 0 : companySubsidiaryAddress.hashCode());
@@ -436,7 +480,9 @@ public class CompanySubsidiaries implements Serializable {
 		result = prime * result + ((companySubsidiaryName == null) ? 0 : companySubsidiaryName.hashCode());
 		result = prime * result + companySubsidiaryState;
 		result = prime * result + ((companySubsidiaryType == null) ? 0 : companySubsidiaryType.hashCode());
+		result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		//result = prime * result + ((paymentsTypes == null) ? 0 : paymentsTypes.hashCode());
 		result = prime * result + ((products == null) ? 0 : products.hashCode());
 		//result = prime * result + ((productsReselling == null) ? 0 : productsReselling.hashCode());
 		//result = prime * result + ((productsWarehouse == null) ? 0 : productsWarehouse.hashCode());
@@ -454,6 +500,10 @@ public class CompanySubsidiaries implements Serializable {
 	 */
 	public void setCities(Cities cities) {
 		this.cities = cities;
+	}
+
+	public void setComandasExpenses(Set<ComandasExpensesServices> comandasExpenses) {
+		this.comandasExpenses = comandasExpenses;
 	}
 
 	/**
@@ -519,11 +569,19 @@ public class CompanySubsidiaries implements Serializable {
 		this.companySubsidiaryType = companySubsidiaryType;
 	}
 
+	public void setCustomers(Set<Customers> customers) {
+		this.customers = customers;
+	}
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setPaymentsTypes(Set<ComandasPaymentsTypes> paymentsTypes) {
+		this.paymentsTypes = paymentsTypes;
 	}
 
 	/**

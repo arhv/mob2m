@@ -55,11 +55,12 @@ public class ComandasMaster implements Serializable {
 	private CompanySubsidiaries companySubsidiaries;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "comandasMaster")
-	private Set<ComandasDetailsServices> comandasDetails = new HashSet<>(0);
+	private Set<ComandasDetailsServices> comandasDetails = new HashSet<>(0);	
 
 	public ComandasMaster() {
 
 	}
+
 
 
 	public ComandasMaster(Long id, Date date_comanda, String status, String comanda_type, Customers customers,
@@ -72,11 +73,11 @@ public class ComandasMaster implements Serializable {
 		this.customers = customers;
 		this.companySubsidiaries = companySubsidiaries;
 		this.comandasDetails = comandasDetails;
+
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -85,7 +86,7 @@ public class ComandasMaster implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (!(obj instanceof ComandasMaster)) {
+		if (getClass() != obj.getClass()) {
 		return false;
 		}
 		ComandasMaster other = (ComandasMaster) obj;
@@ -103,6 +104,7 @@ public class ComandasMaster implements Serializable {
 		} else if (!comandasDetails.equals(other.comandasDetails)) {
 		return false;
 		}
+
 		if (companySubsidiaries == null) {
 		if (other.companySubsidiaries != null) {
 		return false;
@@ -190,15 +192,12 @@ public class ComandasMaster implements Serializable {
 		return status;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((comanda_type == null) ? 0 : comanda_type.hashCode());
-		result = prime * result + ((comandasDetails == null) ? 0 : comandasDetails.hashCode());
+		//result = prime * result + ((comandasDetails == null) ? 0 : comandasDetails.hashCode());		
 		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		//result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		result = prime * result + ((date_comanda == null) ? 0 : date_comanda.hashCode());

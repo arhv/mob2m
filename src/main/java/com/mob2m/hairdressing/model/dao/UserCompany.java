@@ -29,8 +29,12 @@ public class UserCompany implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "username")
-	private String username;
+	/*@Column(name = "username")
+	private String username;*/
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "username")
+	private User user;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_role")
@@ -46,10 +50,10 @@ public class UserCompany implements Serializable {
 
 	}
 
-	public UserCompany(Long id, String username, UserRoles userRoles, CompanySubsidiaries companySubsidiaries) {
+	public UserCompany(Long id, User user, UserRoles userRoles, CompanySubsidiaries companySubsidiaries) {
 		super();
 		this.id = id;
-		this.username = username;
+		this.user = user;
 		this.userRoles = userRoles;
 		this.companySubsidiaries = companySubsidiaries;
 	}
@@ -83,18 +87,18 @@ public class UserCompany implements Serializable {
 		} else if (!id.equals(other.id)) {
 		return false;
 		}
+		if (user == null) {
+		if (other.user != null) {
+		return false;
+		}
+		} else if (!user.equals(other.user)) {
+		return false;
+		}
 		if (userRoles == null) {
 		if (other.userRoles != null) {
 		return false;
 		}
 		} else if (!userRoles.equals(other.userRoles)) {
-		return false;
-		}
-		if (username == null) {
-		if (other.username != null) {
-		return false;
-		}
-		} else if (!username.equals(other.username)) {
 		return false;
 		}
 		return true;
@@ -115,10 +119,10 @@ public class UserCompany implements Serializable {
 	}
 
 	/**
-	 * @return the username
+	 * @return the user
 	 */
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
 	/**
@@ -137,8 +141,8 @@ public class UserCompany implements Serializable {
 		int result = 1;
 		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		//result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -157,10 +161,10 @@ public class UserCompany implements Serializable {
 	}
 
 	/**
-	 * @param username the username to set
+	 * @param user the user to set
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	/**
@@ -169,6 +173,7 @@ public class UserCompany implements Serializable {
 	public void setUserRoles(UserRoles userRoles) {
 		this.userRoles = userRoles;
 	}
+
 
 
 
