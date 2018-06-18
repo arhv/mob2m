@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.mob2m.hairdressing.model.dao.ComandasDetailsProductsUsage;
 import com.mob2m.hairdressing.model.dao.ComandasDetailsServices;
 import com.mob2m.hairdressing.model.dao.ComandasMaster;
-import com.mob2m.hairdressing.model.dao.Professionals;
 import com.mob2m.hairdressing.model.dao.Services;
+import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.model.service.ComandasPayments;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.ComandasDetailsProductsUsageService;
@@ -27,6 +26,7 @@ import com.mob2m.hairdressing.service.ComandasMasterService;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.ProfessionalsService;
 import com.mob2m.hairdressing.service.ServicesService;
+import com.mob2m.hairdressing.service.UserService;
 
 @RestController
 public class HairdressingControllerComandasDetailsServices {
@@ -51,16 +51,19 @@ public class HairdressingControllerComandasDetailsServices {
 
 	@Autowired
 	private ComandasMasterService comandasMasterService;
-	
+
 	@Autowired
 	private ComandasPayments comandasPayments;
+
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping(path = "/adicionarcomandadeservicos/{comandaId}/{customerName}", method = RequestMethod.GET)
 	public ModelAndView addNewComandaDetailsServices(@PathVariable("comandaId") Long comandaId, @PathVariable("customerName") String customerName,
 			ComandasDetailsServices comandasDetailsServices) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
 		List<Services> listServices = servicesService.findAll();
-		List<Professionals> listProfessionals = professionalsService.findAll();
+		List<User> listProfessionals = userService.findAll();
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		ComandasMaster comandasMasterComandaId = comandasMasterService.findOne(comandaId);
 		comandasDetailsServices.setComandasMaster(comandasMasterComandaId);
@@ -83,19 +86,6 @@ public class HairdressingControllerComandasDetailsServices {
 		String customerName = comandasMasterCustomer.getCustomers().getCustomer_name();
 		Long customerNameId = comandasMasterCustomer.getCustomers().getId();
 		Long comandaId = comandasMasterCustomer.getId();
-		/*List<ComandasDetailsServices> comandasDetailsServicesListById = comandasDetailsService.listAllComandasDetailsServicesById(id);
-		List<ComandasDetailsProductsUsage> comandasDetailsProductsUsageListById = comandasDetailsProductsUsageService
-				.listAllComandasDetailsProductsUsagesById(id);
-		double sumDetailsServicesListById = 0;
-		for (int i = 0; i < comandasDetailsServicesListById.size(); i++) {
-		sumDetailsServicesListById = sumDetailsServicesListById + comandasDetailsServicesListById.get(i).getService_value();
-		}
-
-		double sumDetailsProductsUsageListById = 0;
-		for (int i = 0; i < comandasDetailsProductsUsageListById.size(); i++) {
-		sumDetailsProductsUsageListById = sumDetailsProductsUsageListById + comandasDetailsProductsUsageListById.get(i).getProduct_usage_cost();
-		}*/
-		//int sumDetailsServicesListById = comandasDetailsService.sumAllComandasDetailsServicesById(id);
 		mv.addObject("customerName", customerName);
 		mv.addObject("customerNameId", customerNameId);
 		mv.addObject("comandaId", comandaId);
@@ -109,29 +99,14 @@ public class HairdressingControllerComandasDetailsServices {
 		return mv;
 	}
 
-	/*@RequestMapping(path = "/comandasdeservicos", method = RequestMethod.GET)
-	public ModelAndView goComandasDetailsServices() {
-		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
-		mv.addObject("removeFindAll", "none");
-		mv.addObject("removeAddComandasDetailsServices", "all");
-		mv.addObject("removeEditComandasDetailsServices", "all");
-		mv.addObject("comandasDetailsServicesList", comandasDetailsService.findAll());
-		return mv;
-
-	}*/
-
 	@RequestMapping(path = "/editarcomandadeservicos/{id}/{customerName}/{comandaId}", method = RequestMethod.GET)
 	public ModelAndView goDetailsComanda(@PathVariable("id") Long id, @PathVariable("customerName") String customerName,
 			@PathVariable("comandaId") Long comandaId) {
 		ComandasDetailsServices comandasDetailsServices = comandasDetailsService.findOne(id);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
 		List<Services> listServices = servicesService.findAll();
-		List<Professionals> listProfessionals = professionalsService.findAll();
-		//ComandasMaster comandasMasterCustomer = comandasMasterService.findOne(id);
-		//String customerName = comandasMaster.getCustomers().getCustomer_name();
-		//Long comandaId = comandasMaster.getId();
-		//mv.addObject("customerName", customerName);
-		//mv.addObject("comandaId", comandaId);
+		List<User> listProfessionals = userService.findAll();
+
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		mv.addObject("customerName", customerName);
 		mv.addObject("comandaId", comandaId);
@@ -159,7 +134,7 @@ public class HairdressingControllerComandasDetailsServices {
 		}
 
 		}		
-		
+
 
 		comandasDetailsService.save(comandasDetailsServices);
 		RedirectView rv = new RedirectView();
