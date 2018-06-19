@@ -94,10 +94,10 @@
 	    
 	    <br/><br/><br/>
 	 
-	    <div class="panel panel-default">
+	   <!--  <div class="panel panel-default">
 	    
 	    	
-	        <div class="panel-heading">	        
+	      <div class="panel-heading">	        
 	            <label>PRODUTOS (USO INTERNO)</label>
 	              <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeusodeproduto/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" style="margin-left:80px;">Adicionar</a>
 	             <input id="comandasDetailsProductsUsageSearch" type="text" class="" placeholder="Procurar pelo nome do produto consumido" onkeyup="myFunctionComandasDetailsProductsUsage()" style="margin-left:50px; width:300px"></input>
@@ -128,7 +128,7 @@
 	                     	    <td>
 	                                <div class="btn-group pull-right">
 	                                    <a class="btn btn-sm btn-primary" th:href="@{/editarcomandadeusodeproduto/{id}/{customerName}/{comandaId}(id=${comandas.id}, customerName=${customerName}, comandaId=${comandaId})}">Detalhes</a>
-	                                    <!--  <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>-->
+	                                    <a class="delete btn btn-sm btn-danger" th:href="@{/apagarusuario/{id}(id=${products.id})}">Excluir</a>
 	                               </div>
 	                            </td>
 	                        </tr>
@@ -137,10 +137,10 @@
 	            </div>
 	        </div>
 	        <div class="panel-footer">
-	            <!--  <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" >Adicionar</a>-->
+	            
 	        </div>
 	       	<script type="text/javascript" th:src="@{/js/searchComandasDetailsProductsUsage.js}" src="js/searchComandasDetailsProductsUsage.js"></script>  
-	    </div>	   
+	    </div>	  -->    
 	</div>	
 	
 	<div th:fragment="addComandasDetailsServices">

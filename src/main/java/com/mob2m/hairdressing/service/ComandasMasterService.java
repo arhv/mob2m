@@ -30,6 +30,10 @@ public class ComandasMasterService {
 		return comandasMasterRepository.findOne(id);
 	}
 
+	public List<ComandasMaster> listAllComandasOpened(String status) {
+		return comandasMasterRepository.listComandasOpened(status);
+	}
+
 	public ComandasMaster save(ComandasMaster comandasMasterData) {
 		return comandasMasterRepository.saveAndFlush(comandasMasterData);
 

@@ -137,13 +137,13 @@ public class HairdressingControllerComandasReceivables {
 			rv.setContextRelative(true);
 			rv.setUrl("/pagamentodecomanda/{comandaId}");
 			return rv;*/
-		return new ModelAndView("redirect:/pagamentodecomanda/"+comandaId);
+		return new ModelAndView("redirect:/comandasabertas");
 		}
 		ComandasMaster comandasMaster = comandasMasterService.findOne(comandaId);
 		comandasMaster.setStatus(StringList.FECHARCOMANDA);
 		comandasMasterService.save(comandasMaster);
-		comandasPayments.saveProfessionalsReceivablesServices(comandasReceivables, sumAllcomandaId, comandaId);
-		return new ModelAndView("redirect:/pagamentodecomanda/" + comandaId + "/" + (comandasMaster.getCustomers().getCustomer_name()));
+		//comandasPayments.saveProfessionalsReceivablesServices(comandasReceivables, sumAllcomandaId, comandaId);
+		return new ModelAndView("redirect:/comandasabertas");
 	}
 
 

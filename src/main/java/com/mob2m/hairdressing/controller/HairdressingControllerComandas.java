@@ -20,6 +20,7 @@ import com.mob2m.hairdressing.model.dao.ComandasMaster;
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.Customers;
 import com.mob2m.hairdressing.model.service.SelectTagLists;
+import com.mob2m.hairdressing.model.service.StringList;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.model.service.UtilUsage;
 import com.mob2m.hairdressing.service.ComandasMasterService;
@@ -65,12 +66,23 @@ public class HairdressingControllerComandas {
 	}
 
 	@RequestMapping(path = "/comandasabertas", method = RequestMethod.GET)
-	public ModelAndView goComandas() {
+	public ModelAndView goComandasAbertas() {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasmaster");
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddComandasMaster", "all");
 		mv.addObject("removeEditComandasMaster", "all");
-		mv.addObject("comandasMasterList", comandasMasterService.findAll());
+		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.ABRIRCOMANDA));
+		return mv;
+
+	}
+
+	@RequestMapping(path = "/comandasfechadas", method = RequestMethod.GET)
+	public ModelAndView goComandasFechadas() {
+		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasmasterclosed");
+		mv.addObject("removeFindAll", "none");
+		mv.addObject("removeAddComandasMasterClosed", "all");
+		mv.addObject("removeEditComandasMasterClosed", "all");
+		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.FECHARCOMANDA));
 		return mv;
 
 	}

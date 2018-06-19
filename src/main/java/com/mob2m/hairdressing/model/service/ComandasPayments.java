@@ -130,7 +130,7 @@ public class ComandasPayments {
 		comandaPaymentDateAddDays = getDateCompensationDaysAdded(comandaPaymentDateAddDays,daysOfCompensation);
 		}
 
-		Long comandaReceivableId = comandasReceivablesDetails.getComandasReceivables().getComanda_id();
+		Long comandaReceivableId = comandasReceivablesDetails.getComandasReceivables().getId();
 
 		double sumRemainingComandasPaymentTmp = 0;
 		for (int i = 0; i < comandasReceivablesDetailsService.listAllRemainingComandaPayment(comandaReceivableId).size(); i++) {
