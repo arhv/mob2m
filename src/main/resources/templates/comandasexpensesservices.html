@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="headmeta::headmeta" th:remove="${removeheadmeta}"></th:block>	
+	
+</head>
+<body>
+	<th:block th:include="headmeta::menuheader"></th:block>
+	<th:block th:include="headmetaComandasExpensesServices::findAllComandasExpensesServices"  th:remove="${removeFindAll}"></th:block>
+	
+</body>
+</html>

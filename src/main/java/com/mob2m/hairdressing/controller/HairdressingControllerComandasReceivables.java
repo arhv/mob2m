@@ -140,10 +140,11 @@ public class HairdressingControllerComandasReceivables {
 		ComandasMaster comandasMaster = comandasMasterService.findOne(comandaId);
 		comandasMaster.setStatus(StringList.FECHARCOMANDA);
 		comandasMasterService.save(comandasMaster);
+		comandasPayments.saveProfessionalsReceivablesServices(comandasReceivables, sumAllcomandaId, comandaId);
 		return new ModelAndView("redirect:/comandasfechadas");
 		}
 
-		//comandasPayments.saveProfessionalsReceivablesServices(comandasReceivables, sumAllcomandaId, comandaId);
+		comandasPayments.saveProfessionalsReceivablesServices(comandasReceivables, sumAllcomandaId, comandaId);
 		return new ModelAndView("redirect:/comandasabertas");
 	}
 

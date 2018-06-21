@@ -68,7 +68,8 @@
 			        <a class="dropdown-toggle" data-toggle="dropdown"  th:href="@{${@environment.getProperty('url.comandas')}}" >Comandas<span class="caret"></span></a>
 			      	<ul class="dropdown-menu">
 			          <li th:style="${styleValueCadastroServicos}"><a id="comandas1" th:href="@{/comandasabertas}">Abertas</a></li>
-			          <li><a id="detalhes" th:style="${styleValueServicosProfissional}" th:href="@{/comandasfechadas}">Fechadas</a></li>			          
+			          <li><a id="detalhes" th:style="${styleValueServicosProfissional}" th:href="@{/comandasfechadas}">Fechadas</a></li>
+			          <li><a id="detalhes" th:style="${styleValueServicosProfissional}" th:href="@{/recebimentoporprofissional}">Comandas por Profissional</a></li>			          
 			          <!--  <li><a id="promocoes" th:style="${styleValueServicosPacotes}" th:href="@{/comandasdepacotes}">Pacotes</a></li>	 -->                  
 			        </ul>			      
 			      </li>	      

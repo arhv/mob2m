@@ -111,6 +111,16 @@ public class ComandasPayments {
 	}
 
 
+	public double professionalTotalReceivable(Long professionalId, Date startDate, Date endDate) {
+		List<ComandasExpensesServices> comandasExpensesServicesList = comandasExpensesServicesService.listAllComandasPaymentsPerProfessional(professionalId, startDate, endDate );
+
+		double sumProfessionalValue=0;
+		for (int i=0;i<comandasExpensesServicesList.size();i++) {
+		sumProfessionalValue = sumProfessionalValue + comandasExpensesServicesList.get(i).getTotal_professional_discounted();			
+		}
+		return sumProfessionalValue;
+	}
+
 	public double savePayment(ComandasReceivables comandasReceivables, double sumAllcomandaId, Long comandaId) {
 		ComandasReceivablesDetails comandasReceivablesDetails = new ComandasReceivablesDetails();
 		double totalComandaValueReceived = comandasReceivables.getTotal_receivable_value(); 
@@ -145,7 +155,7 @@ public class ComandasPayments {
 	public void saveProfessionalsReceivablesServices(ComandasReceivables comandasReceivables, double sumAllcomandaId, Long comandaId) {		
 		ComandasExpensesServices comandasExpensesServices = new ComandasExpensesServices();
 		if (getComandasDetailsServicesListById(comandaId).size()!=0) {
-		for (int i=0;i<=getComandasDetailsServicesListById(comandaId).size();i++) {	
+		for (int i=0;i<getComandasDetailsServicesListById(comandaId).size();i++) {	
 
 		setComandaExpensesServices(comandasExpensesServices, comandasReceivables, sumAllcomandaId, comandaId, i);
 
@@ -171,6 +181,7 @@ public class ComandasPayments {
 		Long paymentId = comandasReceivables.getPaymentsTypes().getId();
 		ComandasPaymentsTypes comandasPaymentsTypes = comandasPaymentsTypesService.findOne(paymentId);
 		double payment_type_discount_percentage = comandasPaymentsTypes.getTax_percentage();
+		comandasExpensesServices.setPayment_type_discount_percentage(payment_type_discount_percentage);
 		double parcialCrediDebitAmountFromComandasReceivablePayment = comandasReceivables.getTotal_receivable_value();
 		double payment_type_discount_value = parcialCrediDebitAmountFromComandasReceivablePayment*(payment_type_discount_percentage/100);
 		double total_professional_discounted = professional_service_total_value - payment_type_discount_value;
@@ -179,7 +190,7 @@ public class ComandasPayments {
 		comandasExpensesServicesService.save(comandasExpensesServices);
 
 		ProfessionalsService professionalsService = new ProfessionalsService();
-		Long professional_aux_1_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1().getId();	
+		Long professional_aux_1_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1().getId();
 		Professionals professionals1 = professionalsService.findOne(professional_aux_1_id);
 		String professional1Selection = professionals1.getUser().getUsername();
 
@@ -213,7 +224,7 @@ public class ComandasPayments {
 		}
 
 
-		Long professional_aux_2_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2().getId();	
+		Long professional_aux_2_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2().getUser().getId();
 		Professionals professionals2 = professionalsService.findOne(professional_aux_2_id);
 		String professional2Selection = professionals2.getUser().getUsername();
 		if (professional2Selection!="-") {		
@@ -289,5 +300,4 @@ public class ComandasPayments {
 		Services services = servicesService.findOne(serviceId);
 		comandasExpensesServices.setServices(services);		
 	}
-
 }

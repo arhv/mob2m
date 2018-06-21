@@ -19,13 +19,18 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.mob2m.hairdressing.model.dao.ComandasMaster;
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.Customers;
+import com.mob2m.hairdressing.model.dao.Professionals;
+import com.mob2m.hairdressing.model.service.ComandasPayments;
+import com.mob2m.hairdressing.model.service.ProfessionalSelection;
 import com.mob2m.hairdressing.model.service.SelectTagLists;
 import com.mob2m.hairdressing.model.service.StringList;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.model.service.UtilUsage;
+import com.mob2m.hairdressing.service.ComandasExpensesServicesService;
 import com.mob2m.hairdressing.service.ComandasMasterService;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.CustomersService;
+import com.mob2m.hairdressing.service.ProfessionalsService;
 
 @RestController
 public class HairdressingControllerComandas {
@@ -47,6 +52,15 @@ public class HairdressingControllerComandas {
 
 	@Autowired
 	private UtilUsage utilUsage;
+
+	@Autowired
+	private ComandasExpensesServicesService comandasExpensesServicesService;
+
+	@Autowired
+	private ProfessionalsService professionalsServices;
+
+	@Autowired
+	private ComandasPayments comandasPayments;
 
 	@RequestMapping(path = "/adicionarcomanda", method = RequestMethod.GET)
 	public ModelAndView addNewComanda(ComandasMaster comandasMaster) {
@@ -83,6 +97,33 @@ public class HairdressingControllerComandas {
 		mv.addObject("removeAddComandasMasterClosed", "all");
 		mv.addObject("removeEditComandasMasterClosed", "all");
 		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.FECHARCOMANDA));
+		return mv;
+
+	}
+
+	@RequestMapping(path = "/recebimentoporprofissional", method = RequestMethod.GET)
+	public ModelAndView goComandasProfessionalReceivable(ProfessionalSelection professionalSelection) {
+		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasprofessionalselection");
+		List<Professionals> listProfessionals = professionalsServices.findAll();
+		mv.addObject("addComandasProfessionalSelection", professionalSelection);
+		mv.addObject("listProfessionals", listProfessionals);
+		mv.addObject("removeFindAll", "none");
+		return mv;
+
+	}
+
+	@RequestMapping(path = "/comandasporprofissional/{professionalId}/{startDate}/{endDate}", method = RequestMethod.GET)
+	//public ModelAndView goComandasProfessional(@PathVariable("professionalId") Long professionalId, @PathVariable("startDate") Date startDate,
+	public ModelAndView goComandasProfessionalSelection(ProfessionalSelection professionalSelection) {
+		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasexpensesservices");
+		Long professionalId = professionalSelection.getProfessionalId();
+		Date startDate = professionalSelection.getStartDate();
+		Date endDate = professionalSelection.getEndDate();
+		Professionals professionals = professionalsServices.findOne(professionalId);
+		mv.addObject("sumAllReceivables", comandasPayments.professionalTotalReceivable(professionalId, startDate, endDate));
+		mv.addObject("professionalName", professionals.getUser().getName());
+		mv.addObject("removeFindAll", "none");		
+		mv.addObject("comandasExpensesServices", comandasExpensesServicesService.listAllComandasPaymentsPerProfessional(professionalId, startDate, endDate ));
 		return mv;
 
 	}

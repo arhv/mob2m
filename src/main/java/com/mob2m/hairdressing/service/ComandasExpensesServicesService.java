@@ -1,5 +1,6 @@
 package com.mob2m.hairdressing.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class ComandasExpensesServicesService {
 	//Query specific ID
 	public ComandasExpensesServices findOne(Long id) {
 		return comandasExpensesRepository.findOne(id);
+	}
+
+	//Query specific ID
+	public List<ComandasExpensesServices> listAllComandasPaymentsPerProfessional(Long professionalId, Date startDate, Date endDate) {
+		return comandasExpensesRepository.listComandasPaymentsPerProfessional(professionalId, startDate, endDate);
 	}
 
 	//Add new or updated

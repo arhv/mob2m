@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,62 +26,63 @@ public class ComandasExpensesServices implements Serializable {
 
 	@Id
 	@Column(name = "id")
-	private int id;		
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "company_subsidiary")
 	private CompanySubsidiaries companySubsidiaries;
-	
+
 	@Column(name = "expense_type")
 	private String expense_type;
-	
+
 	@Column(name = "comanda_id")
 	private Long comanda_id;
-	
+
 	@Column(name = "payment_date")
 	private Date payment_date;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "professional_id")
 	private Professionals professionals;
-	
+
 	@Column(name = "comanda_total_value")
 	private double comanda_total_value;
-	
+
 	@Column(name = "professional_service_percentage")
 	private double professional_service_percentage;	
-	
+
 	@Column(name = "professional_service_total_value")
 	private double professional_service_total_value;	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "payment_type_id")
 	private ComandasPaymentsTypes comandasPaymentsTypes;
 
 	@Column(name = "payment_type_discount_percentage")
 	private double payment_type_discount_percentage;
-	
+
 	@Column(name = "payment_type_discount_value")
 	private double payment_type_discount_value;
-	
+
 	@Column(name = "total_professional_discounted")
 	private double total_professional_discounted;		
-		
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id")
 	private Customers customers;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "service_id")
 	private Services services;		
-	
+
 
 	public ComandasExpensesServices() {
-		
+
 	}
 
 
-	public ComandasExpensesServices(int id, CompanySubsidiaries companySubsidiaries, String expense_type,
+	public ComandasExpensesServices(Long id, CompanySubsidiaries companySubsidiaries, String expense_type,
 			Long comanda_id, Date payment_date, Professionals professionals, double comanda_total_value,
 			double professional_service_percentage, double professional_service_total_value,
 			double payment_type_discount_percentage, double payment_type_discount_value,
@@ -104,6 +107,9 @@ public class ComandasExpensesServices implements Serializable {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -112,14 +118,14 @@ public class ComandasExpensesServices implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof ComandasExpensesServices)) {
 		return false;
 		}
 		ComandasExpensesServices other = (ComandasExpensesServices) obj;
 		if (comanda_id == null) {
-			if (other.comanda_id != null) {
-			return false;
-			}
+		if (other.comanda_id != null) {
+		return false;
+		}
 		} else if (!comanda_id.equals(other.comanda_id)) {
 		return false;
 		}
@@ -127,75 +133,74 @@ public class ComandasExpensesServices implements Serializable {
 		return false;
 		}
 		if (comandasPaymentsTypes == null) {
-			if (other.comandasPaymentsTypes != null) {
-			return false;
-			}
+		if (other.comandasPaymentsTypes != null) {
+		return false;
+		}
 		} else if (!comandasPaymentsTypes.equals(other.comandasPaymentsTypes)) {
 		return false;
 		}
 		if (companySubsidiaries == null) {
-			if (other.companySubsidiaries != null) {
-			return false;
-			}
+		if (other.companySubsidiaries != null) {
+		return false;
+		}
 		} else if (!companySubsidiaries.equals(other.companySubsidiaries)) {
 		return false;
 		}
 		if (customers == null) {
-			if (other.customers != null) {
-			return false;
-			}
+		if (other.customers != null) {
+		return false;
+		}
 		} else if (!customers.equals(other.customers)) {
 		return false;
 		}
 		if (expense_type == null) {
-			if (other.expense_type != null) {
-			return false;
-			}
+		if (other.expense_type != null) {
+		return false;
+		}
 		} else if (!expense_type.equals(other.expense_type)) {
 		return false;
 		}
-		if (id != other.id) {
+		if (id == null) {
+		if (other.id != null) {
+		return false;
+		}
+		} else if (!id.equals(other.id)) {
 		return false;
 		}
 		if (payment_date == null) {
-			if (other.payment_date != null) {
-			return false;
-			}
+		if (other.payment_date != null) {
+		return false;
+		}
 		} else if (!payment_date.equals(other.payment_date)) {
 		return false;
 		}
-		if (Double.doubleToLongBits(payment_type_discount_percentage) != Double
-				.doubleToLongBits(other.payment_type_discount_percentage)) {
+		if (Double.doubleToLongBits(payment_type_discount_percentage) != Double.doubleToLongBits(other.payment_type_discount_percentage)) {
 		return false;
 		}
-		if (Double.doubleToLongBits(payment_type_discount_value) != Double
-				.doubleToLongBits(other.payment_type_discount_value)) {
+		if (Double.doubleToLongBits(payment_type_discount_value) != Double.doubleToLongBits(other.payment_type_discount_value)) {
 		return false;
 		}
-		if (Double.doubleToLongBits(professional_service_percentage) != Double
-				.doubleToLongBits(other.professional_service_percentage)) {
+		if (Double.doubleToLongBits(professional_service_percentage) != Double.doubleToLongBits(other.professional_service_percentage)) {
 		return false;
 		}
-		if (Double.doubleToLongBits(professional_service_total_value) != Double
-				.doubleToLongBits(other.professional_service_total_value)) {
+		if (Double.doubleToLongBits(professional_service_total_value) != Double.doubleToLongBits(other.professional_service_total_value)) {
 		return false;
 		}
 		if (professionals == null) {
-			if (other.professionals != null) {
-			return false;
-			}
+		if (other.professionals != null) {
+		return false;
+		}
 		} else if (!professionals.equals(other.professionals)) {
 		return false;
 		}
 		if (services == null) {
-			if (other.services != null) {
-			return false;
-			}
+		if (other.services != null) {
+		return false;
+		}
 		} else if (!services.equals(other.services)) {
 		return false;
 		}
-		if (Double.doubleToLongBits(total_professional_discounted) != Double
-				.doubleToLongBits(other.total_professional_discounted)) {
+		if (Double.doubleToLongBits(total_professional_discounted) != Double.doubleToLongBits(other.total_professional_discounted)) {
 		return false;
 		}
 		return true;
@@ -232,7 +237,7 @@ public class ComandasExpensesServices implements Serializable {
 	}
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -277,6 +282,9 @@ public class ComandasExpensesServices implements Serializable {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -289,7 +297,7 @@ public class ComandasExpensesServices implements Serializable {
 		result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		result = prime * result + ((expense_type == null) ? 0 : expense_type.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((payment_date == null) ? 0 : payment_date.hashCode());
 		temp = Double.doubleToLongBits(payment_type_discount_percentage);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -337,7 +345,7 @@ public class ComandasExpensesServices implements Serializable {
 	}
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -382,30 +390,28 @@ public class ComandasExpensesServices implements Serializable {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "ComandasExpensesServices [id=" + id + ", companySubsidiaries=" + companySubsidiaries + ", expense_type="
-				+ expense_type + ", comanda_id=" + comanda_id + ", payment_date=" + payment_date + ", professionals="
-				+ professionals + ", comanda_total_value=" + comanda_total_value + ", professional_service_percentage="
-				+ professional_service_percentage + ", professional_service_total_value="
-				+ professional_service_total_value + ", payment_type_discount_percentage="
+		return "ComandasExpensesServices [id=" + id + ", companySubsidiaries=" + companySubsidiaries + ", expense_type=" + expense_type
+				+ ", comanda_id=" + comanda_id + ", payment_date=" + payment_date + ", professionals=" + professionals + ", comanda_total_value="
+				+ comanda_total_value + ", professional_service_percentage=" + professional_service_percentage + ", professional_service_total_value="
+				+ professional_service_total_value + ", comandasPaymentsTypes=" + comandasPaymentsTypes + ", payment_type_discount_percentage="
 				+ payment_type_discount_percentage + ", payment_type_discount_value=" + payment_type_discount_value
-				+ ", total_professional_discounted=" + total_professional_discounted + ", comandasPaymentsTypes="
-				+ comandasPaymentsTypes + ", customers=" + customers + ", services=" + services + ", hashCode()="
-				+ hashCode() + ", getId()=" + getId() + ", getCompanySubsidiaries()=" + getCompanySubsidiaries()
-				+ ", getExpense_type()=" + getExpense_type() + ", getComanda_id()=" + getComanda_id()
-				+ ", getPayment_date()=" + getPayment_date() + ", getProfessionals()=" + getProfessionals()
-				+ ", getComanda_total_value()=" + getComanda_total_value() + ", getProfessional_service_percentage()="
-				+ getProfessional_service_percentage() + ", getProfessional_service_total_value()="
-				+ getProfessional_service_total_value() + ", getPayment_type_discount_percentage()="
-				+ getPayment_type_discount_percentage() + ", getPayment_type_discount_value()="
-				+ getPayment_type_discount_value() + ", getTotal_professional_discounted()="
-				+ getTotal_professional_discounted() + ", getComandasPaymentsTypes()=" + getComandasPaymentsTypes()
-				+ ", getCustomers()=" + getCustomers() + ", getServices()=" + getServices() + ", getClass()="
-				+ getClass() + ", toString()=" + super.toString() + "]";
+				+ ", total_professional_discounted=" + total_professional_discounted + ", customers=" + customers + ", services=" + services
+				+ ", getComanda_id()=" + getComanda_id() + ", getComanda_total_value()=" + getComanda_total_value() + ", getComandasPaymentsTypes()="
+				+ getComandasPaymentsTypes() + ", getCompanySubsidiaries()=" + getCompanySubsidiaries() + ", getCustomers()=" + getCustomers()
+				+ ", getExpense_type()=" + getExpense_type() + ", getId()=" + getId() + ", getPayment_date()=" + getPayment_date()
+				+ ", getPayment_type_discount_percentage()=" + getPayment_type_discount_percentage() + ", getPayment_type_discount_value()="
+				+ getPayment_type_discount_value() + ", getProfessional_service_percentage()=" + getProfessional_service_percentage()
+				+ ", getProfessional_service_total_value()=" + getProfessional_service_total_value() + ", getProfessionals()=" + getProfessionals()
+				+ ", getServices()=" + getServices() + ", getTotal_professional_discounted()=" + getTotal_professional_discounted() + ", hashCode()="
+				+ hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
 	}
 
-	
-	
-	
+
+
+
 }

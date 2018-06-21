@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllComandasProfessionalSelection">
+		<div class="panel panel-default" >
+			<br/><br/><br/> 
+		
+	        <div class="panel-heading">	                   
+	           	 <label>SELEÇÃO DE PROFISSIONAL PARA RECEBIMENTOS TOTAIS</label>  
+	        </div>     
+	       
+	    </div>	 
+		
+	
+	
+		<div class="panel-body">
+	            <form id="formNewComandasProfessionalSelection" class="form-horizontal" th:object="${addComandasProfessionalSelection}" th:action="@{/comandasporprofissional/{professionalId}/{startDate}/{endDate}}" method="GET" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                         <div class="form-group row">    
+				                <div class="col-md-4" >
+				                     <label id="professionalName1">Selecionar Profissional</label>
+				                          <div class="dropdown">
+				                            <select id="professionalName" class="form-control input-sm" th:field="*{professionalId}" >	                                		
+				                               <option th:each="listProfessionalsSelection : ${listProfessionals}" th:value="${listProfessionalsSelection.id}" th:text="${listProfessionalsSelection.user.name}" > </option>
+				                            </select>
+				                          </div>
+				                </div>  
+				            </div>   
+							<div class="form-group row">
+					            <div class="col-md-4">
+					                <label for="date1" >Data Inicial</label>
+					                <input id="date1" type="text" class="form-control input-sm" th:field="*{startDate}" ></input>	                            	 
+					            </div>
+					       </div>	
+					       <div class="form-group row">
+					            <div class="col-md-4">
+					                <label for="date2" >Data Final</label>
+					                <input id="date2" type="text" class="form-control input-sm" th:field="*{endDate}" ></input>	                            	 
+					            </div>
+					       </div> 
+				                         	                                    
+				        </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Procurar Profissional</button>	                   
+	                </div>
+	            </form>
+	        </div>             	 
+	</div>            
+</body>
+
+</html>

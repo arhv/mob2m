@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllComandasExpensesServices">
+		<div class="panel panel-default" >
+			<br/><br/><br/> 
+		
+	        <div class="panel-heading">	                   
+	           	 <label>RECEBIMENTOS DE PROFISSIONAIS POR SERVIÇOS DE COMANDAS</label>	             
+	             <input id="paymentsComandasReceivables" type="text" class="" placeholder="Procurar pelo recebimento" onkeyup="myFunctionComandasExpenses()" style="margin-left:50px; width:500px"></input>
+	        	             
+	        </div>
+	         <div class="panel-heading">				                   
+	            <label>Profissional:</label>
+	            <strong th:text="${professionalName}" style="margin-left:5px;"></strong>	            
+	            <label style="margin-left:40px;">Valor Total dos Recebimentos:</label>
+	            <strong th:text="${#numbers.formatDecimal(sumAllReceivables, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>
+	            
+	        </div>
+	        <div class="panel-body" style="overflow-y:auto;height:200px">
+	            <div class="table-responsive">
+	                <table id="allComandasExpensesServices" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr>
+	                            <th>ID</th>	
+	                            <th>Unidade</th>
+	                            <th>Código da Comanda</th>
+	                            <th>Tipo de Pagamento</th> 
+	                            <th>Data</th>
+	                            <th>Cliente</th>                       	                                          
+	                            <th>Profissional</th>
+	                            <th>Serviço</th>  
+	                            <th>Valor do Serviço</th>  
+	                            <th>Percentual do Profissional</th> 
+	                            <th>Valor do Profissional</th>
+	                            <th>Tipo de Pagamento</th>  
+	                            <th>Desconto (%)</th> 
+	                            <th>Valor descontado</th>  
+	                            <th>Valor final do Profissional</th>                                                                                                                               
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="comandasExpensesServices : ${comandasExpensesServices}">
+	                            <td th:text="${comandasExpensesServices.id}"></td>	
+	                            <td th:text="${comandasExpensesServices.companySubsidiaries.companySubsidiaryName}"></td>	
+	                            <td th:text="${comandasExpensesServices.comanda_id}"></td>
+	                            <td th:text="${comandasExpensesServices.expense_type}"></td>	                            	                            
+	                            <td th:text="${#dates.format(comandasExpensesServices.payment_date, 'dd/MM/yyyy HH:mm')}"></td>
+	                            <td th:text="${comandasExpensesServices.customers.customer_name}"></td>
+	                            <td th:text="${comandasExpensesServices.professionals.user.name}"></td>
+	                            <td th:text="${comandasExpensesServices.services.service}"></td>
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.comanda_total_value, 1, 'POINT', 2, 'COMMA')}"></td>                                                  
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.professional_service_percentage, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.professional_service_total_value, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${comandasExpensesServices.comandasPaymentsTypes.payment_type}"></td>
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.payment_type_discount_percentage, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.payment_type_discount_value, 1, 'POINT', 2, 'COMMA')}"></td>
+	                            <td th:text="${#numbers.formatDecimal(comandasExpensesServices.total_professional_discounted, 1, 'POINT', 2, 'COMMA')}"></td>	                                                    	
+	                     	    
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchComandasExpensesServices.js}" src="js/searchComandasExpensesServices.js"></script>  
+	    </div>	 
+	</div>	
+	
+</body>
+
+</html>
