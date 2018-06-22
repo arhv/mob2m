@@ -58,8 +58,8 @@ public class ComandasPayments {
 	@Autowired
 	private ComandasExpensesServicesService comandasExpensesServicesService;
 
-	/*@Autowired
-	private ProfessionalsService professionalsService;*/
+	@Autowired
+	private ProfessionalsService professionalsService;
 
 
 	public List<ComandasDetailsServices> getComandasAllDetailsServices(){
@@ -85,7 +85,7 @@ public class ComandasPayments {
 
 	public Date getDateCompensationDaysAdded(Date comandaPaymentDate, int daysAdded) {
 		LocalDateTime comandaPaymentDateAddDaysTemp = comandaPaymentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();	
-		comandaPaymentDateAddDaysTemp.plusDays(daysAdded);
+		comandaPaymentDateAddDaysTemp=comandaPaymentDateAddDaysTemp.plusDays(daysAdded);
 		Date comandaPaymentDateAddDays = Date.from(comandaPaymentDateAddDaysTemp.atZone(ZoneId.systemDefault()).toInstant());
 		return comandaPaymentDateAddDays;
 	}	
@@ -189,7 +189,7 @@ public class ComandasPayments {
 
 		comandasExpensesServicesService.save(comandasExpensesServices);
 
-		ProfessionalsService professionalsService = new ProfessionalsService();
+		//ProfessionalsService professionalsService = new ProfessionalsService();
 		Long professional_aux_1_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1().getId();
 		Professionals professionals1 = professionalsService.findOne(professional_aux_1_id);
 		String professional1Selection = professionals1.getUser().getUsername();
@@ -224,7 +224,7 @@ public class ComandasPayments {
 		}
 
 
-		Long professional_aux_2_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2().getUser().getId();
+		Long professional_aux_2_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2().getId();
 		Professionals professionals2 = professionalsService.findOne(professional_aux_2_id);
 		String professional2Selection = professionals2.getUser().getUsername();
 		if (professional2Selection!="-") {		

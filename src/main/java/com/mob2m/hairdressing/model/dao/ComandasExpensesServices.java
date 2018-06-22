@@ -294,7 +294,7 @@ public class ComandasExpensesServices implements Serializable {
 		temp = Double.doubleToLongBits(comanda_total_value);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((comandasPaymentsTypes == null) ? 0 : comandasPaymentsTypes.hashCode());
-		result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
+		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
 		result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		result = prime * result + ((expense_type == null) ? 0 : expense_type.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
