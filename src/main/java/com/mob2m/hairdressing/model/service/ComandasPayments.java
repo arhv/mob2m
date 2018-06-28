@@ -184,6 +184,7 @@ public class ComandasPayments {
 		comandasExpensesServices.setPayment_type_discount_percentage(payment_type_discount_percentage);
 		double parcialCrediDebitAmountFromComandasReceivablePayment = comandasReceivables.getTotal_receivable_value();
 		double payment_type_discount_value = parcialCrediDebitAmountFromComandasReceivablePayment*(payment_type_discount_percentage/100);
+		comandasExpensesServices.setPayment_type_discount_value(payment_type_discount_value);
 		double total_professional_discounted = professional_service_total_value - payment_type_discount_value;
 		comandasExpensesServices.setTotal_professional_discounted(total_professional_discounted);	
 
@@ -192,66 +193,69 @@ public class ComandasPayments {
 		//ProfessionalsService professionalsService = new ProfessionalsService();
 		Long professional_aux_1_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1().getId();
 		Professionals professionals1 = professionalsService.findOne(professional_aux_1_id);
-		String professional1Selection = professionals1.getUser().getUsername();
+		Long professional1Selection = professionals1.getUser().getId();
 
 
-		if (professional1Selection!="-") {		
+		if (professional1Selection != 1) {
+		ComandasExpensesServices comandasExpensesServices1 = new ComandasExpensesServices();
 
-		setComandaExpensesServices(comandasExpensesServices, comandasReceivables, sumAllcomandaId, comandaId, i);
+		setComandaExpensesServices(comandasExpensesServices1, comandasReceivables, sumAllcomandaId, comandaId, i);
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_principal_id
-		comandasExpensesServices.setProfessionals(getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1());
+		comandasExpensesServices1.setProfessionals(getComandasDetailsServicesListById(comandaId).get(i).getProfessionals1());
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_service_percentage						
 		double professionalAux1Percentage = services.getPercentage_aux_1();				
-		comandasExpensesServices.setProfessional_service_percentage(professionalAux1Percentage);
+		comandasExpensesServices1.setProfessional_service_percentage(professionalAux1Percentage);
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_service_total_value
-		double professional_service_total_value_aux_1 = professional_service_total_value_tmp*(professionalPercentage/100);
-		comandasExpensesServices.setProfessional_service_total_value(professional_service_total_value_aux_1);
+		double professional_service_total_value_aux_1 = professional_service_total_value_tmp * (professionalAux1Percentage / 100);
+		comandasExpensesServices1.setProfessional_service_total_value(professional_service_total_value_aux_1);
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set total_professional_discounted	
 		//PROFESSIONAL AUX DOES NOT HAVE PAYMENT TAX DISCOUNTED, VALUE IS 0
 		double payment_type_discount_value_aux_1 = parcialCrediDebitAmountFromComandasReceivablePayment*(0);
-		double total_professional_discounted_aux_1 = professional_service_total_value - payment_type_discount_value_aux_1;
-		comandasExpensesServices.setTotal_professional_discounted(total_professional_discounted_aux_1);	
+		comandasExpensesServices1.setPayment_type_discount_value(payment_type_discount_value_aux_1);
+		double total_professional_discounted_aux_1 = professional_service_total_value_aux_1 - payment_type_discount_value_aux_1;
+		comandasExpensesServices1.setTotal_professional_discounted(total_professional_discounted_aux_1);
 
-		comandasExpensesServicesService.save(comandasExpensesServices);					
+		comandasExpensesServicesService.save(comandasExpensesServices1);
 
 		}
 
 
 		Long professional_aux_2_id = getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2().getId();
 		Professionals professionals2 = professionalsService.findOne(professional_aux_2_id);
-		String professional2Selection = professionals2.getUser().getUsername();
-		if (professional2Selection!="-") {		
-
-		setComandaExpensesServices(comandasExpensesServices, comandasReceivables, sumAllcomandaId, comandaId, i);
+		Long professional2Selection = professionals2.getUser().getId();
+		if (professional2Selection != 1) {
+		ComandasExpensesServices comandasExpensesServices2 = new ComandasExpensesServices();
+		setComandaExpensesServices(comandasExpensesServices2, comandasReceivables, sumAllcomandaId, comandaId, i);
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_principal_id
-		comandasExpensesServices.setProfessionals(getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2());
+		comandasExpensesServices2.setProfessionals(getComandasDetailsServicesListById(comandaId).get(i).getProfessionals2());
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_service_percentage						
-		double professionalAux1Percentage = services.getPercentage_aux_2();				
-		comandasExpensesServices.setProfessional_service_percentage(professionalAux1Percentage);
+		double professionalAux2Percentage = services.getPercentage_aux_2();
+		comandasExpensesServices2.setProfessional_service_percentage(professionalAux2Percentage);
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set professional_service_total_value
-		double professional_service_total_value_aux_2 = professional_service_total_value_tmp*(professionalPercentage/100);
-		comandasExpensesServices.setProfessional_service_total_value(professional_service_total_value_aux_2);
+		double professional_service_total_value_aux_2 = professional_service_total_value_tmp * (professionalAux2Percentage / 100);
+		comandasExpensesServices2.setProfessional_service_total_value(professional_service_total_value_aux_2);
 
 		// #### NEED TO HAVE FOR EACH PROFESSIONAL ####
 		//Set total_professional_discounted	
 		//PROFESSIONAL AUX DOES NOT HAVE PAYMENT TAX DISCOUNTED, VALUE IS 0
 		double payment_type_discount_value_aux_2 = parcialCrediDebitAmountFromComandasReceivablePayment*(0);
-		double total_professional_discounted_aux_2 = professional_service_total_value - payment_type_discount_value_aux_2;
-		comandasExpensesServices.setTotal_professional_discounted(total_professional_discounted_aux_2);	
+		comandasExpensesServices2.setPayment_type_discount_value(payment_type_discount_value_aux_2);
+		double total_professional_discounted_aux_2 = professional_service_total_value_aux_2 - payment_type_discount_value_aux_2;
+		comandasExpensesServices2.setTotal_professional_discounted(total_professional_discounted_aux_2);
 
-		comandasExpensesServicesService.save(comandasExpensesServices);					
+		comandasExpensesServicesService.save(comandasExpensesServices2);
 
 		}
 		}
@@ -282,14 +286,14 @@ public class ComandasPayments {
 		comandasExpensesServices.setComandasPaymentsTypes(comandasReceivables.getPaymentsTypes());
 
 		//Set payment_type_discount_percentage
-		Long paymentId = comandasReceivables.getPaymentsTypes().getId();
-		ComandasPaymentsTypes comandasPaymentsTypes = comandasPaymentsTypesService.findOne(paymentId);
-		double payment_type_discount_percentage = comandasPaymentsTypes.getTax_percentage();
+		//Long paymentId = comandasReceivables.getPaymentsTypes().getId();
+		//ComandasPaymentsTypes comandasPaymentsTypes = comandasPaymentsTypesService.findOne(paymentId);
+		//double payment_type_discount_percentage = comandasPaymentsTypes.getTax_percentage();
 
 		//Total amount received from ComandasReceivable object may be parcial in Credit or Debit Card, this is the value that should be charged the tax from PaymentsTypes Class
-		double parcialCrediDebitAmountFromComandasReceivablePayment = comandasReceivables.getTotal_receivable_value();
-		double payment_type_discount_value = parcialCrediDebitAmountFromComandasReceivablePayment*(payment_type_discount_percentage/100);
-		comandasExpensesServices.setPayment_type_discount_value(payment_type_discount_value);				
+		//double parcialCrediDebitAmountFromComandasReceivablePayment = comandasReceivables.getTotal_receivable_value();
+		//double payment_type_discount_value = parcialCrediDebitAmountFromComandasReceivablePayment*(payment_type_discount_percentage/100);
+		//comandasExpensesServices.setPayment_type_discount_value(payment_type_discount_value);				
 
 		//Set customer_id
 		ComandasMaster comandasMasterCustomer = comandasMasterService.findOne(comandaId);				

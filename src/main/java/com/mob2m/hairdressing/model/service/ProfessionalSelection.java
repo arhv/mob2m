@@ -2,6 +2,7 @@ package com.mob2m.hairdressing.model.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,8 +10,10 @@ public class ProfessionalSelection {
 
 	private Long professionalId;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date startDate;
 
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date endDate;
 
 	/* (non-Javadoc)

@@ -54,6 +54,10 @@
 		 <include file="changelog/V1/46_add_fk_tbl_professionals.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/47_alter_column_tbl_user_company.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/48_add_fk_tbl_user_company.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/49_alter_column_tbl_expenses_services.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/50_alter_column_tbl_comandas_master.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/51_alter_column_tbl_comandas_receivables.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/52_alter_column_tbl_comandas_receivables_details.xml" relativeToChangelogFile="true"/>
 		 
 		 
 </databaseChangeLog>

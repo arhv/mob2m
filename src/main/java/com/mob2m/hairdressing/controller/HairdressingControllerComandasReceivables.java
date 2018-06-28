@@ -1,6 +1,7 @@
 package com.mob2m.hairdressing.controller;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import com.mob2m.hairdressing.model.service.ComandasPayments;
 import com.mob2m.hairdressing.model.service.SelectTagLists;
 import com.mob2m.hairdressing.model.service.StringList;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
+import com.mob2m.hairdressing.model.service.UtilUsage;
 import com.mob2m.hairdressing.service.ComandasMasterService;
 import com.mob2m.hairdressing.service.ComandasPaymentsTypesService;
 import com.mob2m.hairdressing.service.ComandasReceivablesService;
@@ -51,6 +53,9 @@ public class HairdressingControllerComandasReceivables {
 
 	@Autowired
 	private SelectTagLists selectTagLists;
+
+	@Autowired
+	private UtilUsage utilUsage;
 
 	@RequestMapping(path = "/adicionarpagamentodecomanda/{comandaId}/{customerName}", method = RequestMethod.GET)
 	public ModelAndView addNewComandasPaymentsTypes(@PathVariable("comandaId") Long comandaId, @PathVariable("customerName") String customerName,
@@ -128,7 +133,8 @@ public class HairdressingControllerComandasReceivables {
 		}		
 		//comandasReceivables.setComanda_id(comandaId);
 		//comandasReceivables.setTotal_receivable_value(sumAllcomandaId);
-
+		Date comandaDate = new Date(System.currentTimeMillis());
+		comandasReceivables.setReceivable_date(utilUsage.setCurrentDateToTimeZone(comandaDate));
 		comandasReceivablesService.save(comandasReceivables);
 		double comandaRemainingValue = comandasPayments.savePayment(comandasReceivables, sumAllcomandaId, comandaId);
 

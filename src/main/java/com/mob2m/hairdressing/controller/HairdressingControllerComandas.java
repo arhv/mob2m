@@ -114,16 +114,27 @@ public class HairdressingControllerComandas {
 
 	@RequestMapping(path = "/comandasporprofissional/{professionalId}/{startDate}/{endDate}", method = RequestMethod.GET)
 	//public ModelAndView goComandasProfessional(@PathVariable("professionalId") Long professionalId, @PathVariable("startDate") Date startDate,
-	public ModelAndView goComandasProfessionalSelection(ProfessionalSelection professionalSelection) {
+	public ModelAndView goComandasProfessionalSelection(ProfessionalSelection professionalSelection) throws ParseException {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasexpensesservices");
 		Long professionalId = professionalSelection.getProfessionalId();
-		Date startDate = professionalSelection.getStartDate();
-		Date endDate = professionalSelection.getEndDate();
+		Date startDate1 = professionalSelection.getStartDate();
+		System.out.println("startDate1: " + startDate1);
+		Date endDate1 = professionalSelection.getEndDate();
+		System.out.println("endDate1: " + endDate1);
+		Date startDate = utilUsage.getCurrentTimeUsingDate(startDate1);
+		Date endDate = utilUsage.getCurrentTimeUsingDate(endDate1);
+		System.out.println("ProfessionalId: " + professionalId);
+		System.out.println("startDate: " + startDate);
+		System.out.println("endDate: " + endDate);
+
 		Professionals professionals = professionalsServices.findOne(professionalId);
 		mv.addObject("sumAllReceivables", comandasPayments.professionalTotalReceivable(professionalId, startDate, endDate));
 		mv.addObject("professionalName", professionals.getUser().getName());
 		mv.addObject("removeFindAll", "none");		
-		mv.addObject("comandasExpensesServices", comandasExpensesServicesService.listAllComandasPaymentsPerProfessional(professionalId, startDate, endDate ));
+		mv.addObject("comandasExpensesServices",
+				comandasExpensesServicesService.listAllComandasPaymentsPerProfessional(professionalId, startDate, endDate));
+		//mv.addObject("comandasExpensesServices", comandasExpensesServicesService.findAll());
+
 		return mv;
 
 	}
@@ -163,7 +174,8 @@ public class HairdressingControllerComandas {
 
 		}
 		comandasMaster.setStatus(selectTagLists.getComandasStatus().get(0));
-		comandasMaster.setDate_comanda(new Date(System.currentTimeMillis()));
+		Date comandaDate = new Date(System.currentTimeMillis());
+		comandasMaster.setDate_comanda(utilUsage.setCurrentDateToTimeZone(comandaDate));
 		comandasMasterService.save(comandasMaster);
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);
