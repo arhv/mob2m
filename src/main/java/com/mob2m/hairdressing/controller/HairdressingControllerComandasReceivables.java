@@ -61,7 +61,9 @@ public class HairdressingControllerComandasReceivables {
 	public ModelAndView addNewComandasPaymentsTypes(@PathVariable("comandaId") Long comandaId, @PathVariable("customerName") String customerName,
 			ComandasReceivables comandasReceivables) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasreceivables");
-		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		CompanySubsidiaries listCompanySubsidiaries = companySubsidiariesService.findOne(userSubisidiaryId);
+		//List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
 		ComandasMaster comandasMaster = comandasMasterService.findOne(comandaId);
 		Long subsidiaryId = comandasMaster.getCompanySubsidiaries().getId();
 		//String customerName = comandasMaster.getCustomers().getCustomer_name();

@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1"/>
-<title>Insert title here</title>
+	<th:block th:include="headmeta::headmeta" th:remove="${removeheadmeta}"></th:block>	
+	
 </head>
 <body>
-	<h1>Erro !!!</h1>
+	<!--  <th:block th:include="headmeta::menuheader"></th:block>-->
+	<br/><br/><br/><br/>	
+		
+	<div>
+		<div class="panel panel-default">
+	        <div class="panel-heading">	  
+	        	<h3>Ocorreu um erro inesperado, favor retornar para a página principal</h3>          
+	            <a class="btn btn-sm btn-success" th:href="@{/home}" style="margin-left:20px;">Voltar para a página principal</a>                     
+	        </div>     
+	    </div>	
+	</div>	
+	
+	
 </body>
 </html>

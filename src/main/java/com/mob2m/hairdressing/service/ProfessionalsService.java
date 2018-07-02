@@ -31,9 +31,9 @@ public class ProfessionalsService {
 	}
 
 
-	/*public List<Professionals> listAllProfessionalsJoinedCityState() {
-		return professionalsRepository.listAllProfessionals();
-	}*/
+	public List<Professionals> listAllProfessionalsBySubsidiary(Long userSubisidiaryId) {
+		return professionalsRepository.listProfessionalsBySubsidiary(userSubisidiaryId);
+	}
 
 	public Professionals save(Professionals professionalsData) {
 		return professionalsRepository.saveAndFlush(professionalsData);

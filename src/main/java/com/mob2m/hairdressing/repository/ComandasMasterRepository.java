@@ -16,7 +16,7 @@ public interface ComandasMasterRepository extends JpaRepository<ComandasMaster, 
 	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(value = "SELECT cm.id, cm.date_comanda, cm.status, cm.comanda_type, cm.customer_name, cm.company_subsidiary "
-			+ " FROM tbl_comandas_master cm WHERE cm.status=:status", nativeQuery = true)
+			+ " FROM tbl_comandas_master cm WHERE cm.status=:status AND cm.company_subsidiary=:userSubisidiaryId", nativeQuery = true)
 
-	List<ComandasMaster> listComandasOpened(@Param("status") String status);
+	List<ComandasMaster> listComandasOpened(@Param("status") String status, @Param("userSubisidiaryId") Long userSubisidiaryId);
 }

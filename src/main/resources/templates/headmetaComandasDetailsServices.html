@@ -124,9 +124,9 @@
 	                        </div>
 	                        <div class="form-group row">    
 	                           <div class="col-md-4" >
-	                                <label id="company_subsidiary">Nome do Serviço</label>
+	                                <label id="service_name">Nome do Serviço</label>
 	                                 <div class="dropdown">
-	                                	<select id="service_name" class="form-control input-sm" th:field="*{services}" >	                                		
+	                                	<select id="service_name1" class="form-control input-sm" th:field="*{services}" >	                                		
 	                                		<option th:each="servicesSelection : ${serviceList}" th:value="${servicesSelection.id}" th:text="${servicesSelection.service}" > </option>
 	                                	</select>
 	                                </div>
@@ -134,8 +134,8 @@
 	                        </div>  
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
-	                                <label for="service_value1" >Valor do Serviço</label>
-	                                <input id="service_value" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
+	                                <label for="service_value" >Valor do Serviço</label>
+	                                <input id="service_value1" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
 	                            </div>
 	                        </div>	
 	                        
@@ -177,7 +177,8 @@
 	                    <a th:href="@{${detailsComanda}}" class="btn btn-sm btn-default">Cancelar</a>
 	                </div>
 	            </form>
-	        </div>             	 
+	        </div>    
+	        <script type="text/javascript" th:src="@{/js/serviceSelection.js}" src="js/serviceSelection.js"></script>          	 
     	</div>  
     	
     	<br/><br/> 
@@ -213,9 +214,9 @@
 		                        </div>
 		                        <div class="form-group row">    
 		                           <div class="col-md-4" >
-		                                <label id="company_subsidiary">Nome do Serviço</label>
+		                                <label id="service_name">Nome do Serviço</label>
 		                                 <div class="dropdown">
-		                                	<select id="service_name" class="form-control input-sm" th:field="*{services}" >	                                		
+		                                	<select id="service_name1" class="form-control input-sm" th:field="*{services}" >	                                		
 		                                		<option th:each="servicesSelection : ${serviceList}" th:value="${servicesSelection.id}" th:text="${servicesSelection.service}" th:selected="${serviceIdSelected}"> </option>
 		                                	</select>
 		                                </div>
@@ -223,8 +224,8 @@
 		                        </div>  
 		                        <div class="form-group row">
 		                            <div class="col-md-4">
-		                                <label for="service_value1" >Valor do Serviço</label>
-		                                <input id="service_value" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
+		                                <label for="service_value" >Valor do Serviço</label>
+		                                <input id="service_value1" type="number" step="0.01" class="form-control input-sm" th:field="*{service_value}" ></input>	                            	 
 		                            </div>
 		                        </div>	
 		                        
@@ -267,6 +268,7 @@
 		                </div>
 		            </form>
 		        </div>
+		        <script type="text/javascript" th:src="@{/js/serviceSelection.js}" src="js/serviceSelection.js"></script> 
 	    	</div>   
 	    	
 	    	<br/><br/> 

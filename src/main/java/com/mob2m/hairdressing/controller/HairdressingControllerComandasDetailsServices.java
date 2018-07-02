@@ -3,6 +3,7 @@ package com.mob2m.hairdressing.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.Gson;
 import com.mob2m.hairdressing.model.dao.ComandasDetailsServices;
 import com.mob2m.hairdressing.model.dao.ComandasMaster;
 import com.mob2m.hairdressing.model.dao.Professionals;
@@ -62,8 +64,9 @@ public class HairdressingControllerComandasDetailsServices {
 	public ModelAndView addNewComandaDetailsServices(@PathVariable("comandaId") Long comandaId, @PathVariable("customerName") String customerName,
 			ComandasDetailsServices comandasDetailsServices) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
 		List<Services> listServices = servicesService.findAll();
-		List<Professionals> listProfessionals = professionalsService.findAll();
+		List<Professionals> listProfessionals = professionalsService.listAllProfessionalsBySubsidiary(userSubisidiaryId);
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		ComandasMaster comandasMasterComandaId = comandasMasterService.findOne(comandaId);
 		comandasDetailsServices.setComandasMaster(comandasMasterComandaId);
@@ -99,14 +102,24 @@ public class HairdressingControllerComandasDetailsServices {
 		return mv;
 	}
 
+	@RequestMapping(path = "/servicesSelection/{serviceId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+	public String getCityList(@PathVariable("serviceId") Long serviceId) {
+		Services serviceObj = servicesService.findOne(serviceId);
+		double serviceValue = serviceObj.getValue();
+		Gson jsonConvert = new Gson();
+		String listCitiesNameJson = jsonConvert.toJson(serviceValue);
+		return listCitiesNameJson;
+	}
+
 	@RequestMapping(path = "/editarcomandadeservicos/{id}/{customerName}/{comandaId}", method = RequestMethod.GET)
 	public ModelAndView goDetailsComanda(@PathVariable("id") Long id, @PathVariable("customerName") String customerName,
 			@PathVariable("comandaId") Long comandaId) {
 		ComandasDetailsServices comandasDetailsServices = comandasDetailsService.findOne(id);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasdetailsservices");
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
 		List<Services> listServices = servicesService.findAll();
-		List<Professionals> listProfessionals = professionalsService.findAll();
-
+		//List<Professionals> listProfessionals = professionalsService.findAll();
+		List<Professionals> listProfessionals = professionalsService.listAllProfessionalsBySubsidiary(userSubisidiaryId);
 		String cancelButton = "/adicionarservicosprodutosdecomanda/" + comandaId;
 		mv.addObject("customerName", customerName);
 		mv.addObject("comandaId", comandaId);
@@ -142,6 +155,5 @@ public class HairdressingControllerComandasDetailsServices {
 		rv.setUrl("/comandasabertas");
 		return rv;
 	}
-
 
 }

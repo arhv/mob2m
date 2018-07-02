@@ -1,6 +1,7 @@
 package com.mob2m.hairdressing.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -67,5 +68,18 @@ public class SelectTagLists {
 		return optionDisplay;
 	}
 
-	
+	public HashMap<String, String> getDisplayRemove() {
+		HashMap<String, String> optionDisplay = new HashMap<>();
+		optionDisplay.put("NÃO", "all");
+		optionDisplay.put("SIM", "none");
+		return optionDisplay;
+	}
+
+	public HashMap<String, String> getDisplayRole() {
+		HashMap<String, String> optionDisplay = new HashMap<>();
+		optionDisplay.put("NÃO", "display:none");
+		optionDisplay.put("SIM", "display:inline");
+		return optionDisplay;
+	}
+
 }

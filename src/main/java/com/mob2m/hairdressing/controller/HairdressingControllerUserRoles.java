@@ -1,6 +1,6 @@
 package com.mob2m.hairdressing.controller;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.mob2m.hairdressing.model.dao.CompanySubsidiaries;
 import com.mob2m.hairdressing.model.dao.UserRoles;
+import com.mob2m.hairdressing.model.service.SelectTagLists;
 import com.mob2m.hairdressing.model.service.StringEncryption;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
@@ -44,6 +45,9 @@ public class HairdressingControllerUserRoles {
 	@Autowired
 	private UserRolesService userRolesService;
 
+	@Autowired
+	private SelectTagLists selectTagLists;
+
 
 	public HairdressingControllerUserRoles() {
 
@@ -53,7 +57,7 @@ public class HairdressingControllerUserRoles {
 	public ModelAndView addNewUserRole(UserRoles userRoles) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usersroles");
 		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
-		List<String> optionDisplayRole = getDisplayRole();
+		HashMap<String, String> optionDisplayRole = selectTagLists.getDisplayRole();
 		mv.addObject("addUserDisplayRole", optionDisplayRole);
 		mv.addObject("addUserRole", userRoles);
 		mv.addObject("userRoleList", listCompanySubsidiaries);
@@ -64,12 +68,6 @@ public class HairdressingControllerUserRoles {
 
 	}
 
-	public List <String> getDisplayRole(){
-		List<String> optionDisplay = new ArrayList<>();
-		optionDisplay.add("NÃO");
-		optionDisplay.add("SIM");
-		return optionDisplay;
-	}
 
 
 	@RequestMapping(path = "/administrativo/editarniveldepermissao/{id}", method = RequestMethod.GET)
@@ -77,7 +75,7 @@ public class HairdressingControllerUserRoles {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usersroles");
 		UserRoles listUserRolesEdit = userRolesService.findOne(id);
 		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
-		List<String> optionDisplayRole = getDisplayRole();
+		HashMap<String, String> optionDisplayRole = selectTagLists.getDisplayRole();
 		mv.addObject("editUserRole", listUserRolesEdit);
 		mv.addObject("addUserDisplayRole", optionDisplayRole);
 		mv.addObject("editListUserRole", listUserRolesEdit);
@@ -93,6 +91,7 @@ public class HairdressingControllerUserRoles {
 	public ModelAndView goUserRole(UserRoles userRoles) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("usersroles");
 		List<UserRoles> listUserRoles = userRolesService.findAll();
+		//HashMap<String, String> optionDisplayRole = selectTagLists.getDisplayRole();
 		mv.addObject("userRoleList", listUserRoles);
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddUserRole", "all");

@@ -90,7 +90,7 @@
 	                                <label id="company_subsidiary">Unidade</label>
 	                                 <div class="dropdown">
 	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
-	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${userSubisidiaryId}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>  
@@ -156,7 +156,7 @@
 	                                <label id="company_subsidiary">Unidade</label>
 	                                 <div class="dropdown">
 	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
-	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" th:selected="${companySubsidiarySelection.id==editComandasMaster.companySubsidiaries.id}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>  
@@ -166,7 +166,7 @@
 	                                <label id="tipo_comanda_id">Tipo de Comanda</label>
 	                                 <div class="dropdown">
 	                                	<select id="tipo_comanda_id_1" class="form-control input-sm" th:field="*{comanda_type}" >	                                		
-	                                		<option th:each="comandasTypeSelection : ${comandasType}" th:value="${comandasTypeSelection}" th:text="${comandasTypeSelection}" > </option>
+	                                		<option th:each="comandasTypeSelection : ${comandasType}" th:value="${comandasTypeSelection}" th:text="${comandasTypeSelection}" th:selected="${comandasTypeSelection==editComandasMaster.comanda_type}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>  
@@ -176,7 +176,7 @@
 	                                <label id="customer_id">Nome do Cliente</label>
 	                                 <div class="dropdown">
 	                                	<select id="customer_id_1" class="form-control input-sm" th:field="*{customers}" >	                                		
-	                                		<option th:each="customersListSelection : ${customersList}" th:value="${customersListSelection.id}" th:text="${customersListSelection.customer_name}" > </option>
+	                                		<option th:each="customersListSelection : ${customersList}" th:value="${customersListSelection.id}" th:text="${customersListSelection.customer_name}" th:selected="${customersListSelection.id==editComandasMaster.customers.id}"> </option>
 	                                	</select>
 	                                </div>
 	                            </div>  

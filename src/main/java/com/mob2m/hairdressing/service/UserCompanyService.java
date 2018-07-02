@@ -31,6 +31,11 @@ public class UserCompanyService {
 	}
 
 
+	public List<UserCompany> listUserCompanyByUsername(String currentUserNameData) {
+		return userCompanyRepository.listUserCompany(currentUserNameData);
+
+	}
+
 	public UserCompany save(UserCompany userCompanyData) {
 		return userCompanyRepository.saveAndFlush(userCompanyData);
 

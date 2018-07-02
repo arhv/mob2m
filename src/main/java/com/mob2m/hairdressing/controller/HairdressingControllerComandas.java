@@ -65,8 +65,10 @@ public class HairdressingControllerComandas {
 	@RequestMapping(path = "/adicionarcomanda", method = RequestMethod.GET)
 	public ModelAndView addNewComanda(ComandasMaster comandasMaster) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasmaster");
-		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		CompanySubsidiaries listCompanySubsidiaries = companySubsidiariesService.findOne(userSubisidiaryId);
 		List<Customers> listCustomers = customersService.findAll();
+		mv.addObject("userSubisidiaryId", userSubisidiaryId);
 		mv.addObject("comandasStatus", selectTagLists.getComandasStatus());
 		mv.addObject("comandasType", selectTagLists.getComandasType());
 		mv.addObject("customersList", listCustomers);
@@ -85,7 +87,8 @@ public class HairdressingControllerComandas {
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddComandasMaster", "all");
 		mv.addObject("removeEditComandasMaster", "all");
-		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.ABRIRCOMANDA));
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.ABRIRCOMANDA, userSubisidiaryId));
 		return mv;
 
 	}
@@ -96,7 +99,8 @@ public class HairdressingControllerComandas {
 		mv.addObject("removeFindAll", "none");
 		mv.addObject("removeAddComandasMasterClosed", "all");
 		mv.addObject("removeEditComandasMasterClosed", "all");
-		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.FECHARCOMANDA));
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		mv.addObject("comandasMasterList", comandasMasterService.listAllComandasOpened(StringList.FECHARCOMANDA, userSubisidiaryId));
 		return mv;
 
 	}
@@ -104,7 +108,8 @@ public class HairdressingControllerComandas {
 	@RequestMapping(path = "/recebimentoporprofissional", method = RequestMethod.GET)
 	public ModelAndView goComandasProfessionalReceivable(ProfessionalSelection professionalSelection) {
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasprofessionalselection");
-		List<Professionals> listProfessionals = professionalsServices.findAll();
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		List<Professionals> listProfessionals = professionalsServices.listAllProfessionalsBySubsidiary(userSubisidiaryId);
 		mv.addObject("addComandasProfessionalSelection", professionalSelection);
 		mv.addObject("listProfessionals", listProfessionals);
 		mv.addObject("removeFindAll", "none");
@@ -143,7 +148,9 @@ public class HairdressingControllerComandas {
 	public ModelAndView goDetailsComanda(@PathVariable("id") Long id) throws ParseException {
 		ComandasMaster comandasMaster = comandasMasterService.findOne(id);
 		ModelAndView mv = userAuthentication.getModelViewWithUser("comandasmaster");
-		List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
+		Long userSubisidiaryId = (Long) mv.getModel().get("userSubisidiaryId");
+		CompanySubsidiaries listCompanySubsidiaries = companySubsidiariesService.findOne(userSubisidiaryId);
+		//List<CompanySubsidiaries> listCompanySubsidiaries = companySubsidiariesService.findAll();
 		List<Customers> listCustomers = customersService.findAll();
 		Long companyNameId = comandasMaster.getCompanySubsidiaries().getId();
 		Long customerNameId = comandasMaster.getCustomers().getId();
@@ -153,7 +160,7 @@ public class HairdressingControllerComandas {
 		mv.addObject("comandaStatusEdit", comandasMaster.getStatus());
 		mv.addObject("comandaTypeEdit", comandasMaster.getComanda_type());
 		mv.addObject("companyId", companyNameId);
-		mv.addObject("productId", customerNameId);
+		mv.addObject("customerId", customerNameId);
 		mv.addObject("companySubsidiaryList", listCompanySubsidiaries);
 		mv.addObject("customersList", listCustomers);
 		mv.addObject("editComandasMaster", comandasMaster);

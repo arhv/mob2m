@@ -63,8 +63,8 @@
 		    <div class="collapse navbar-collapse" id="myNavbar">
 			    <ul class="nav navbar-nav">
 			      <!-- <li id="home" th:style="${styleValueHome}" class="active"><a th:href="@{${@environment.getProperty('url.home')}}">Home</a></li> -->
-			      <li id="agenda" th:style="${styleValueAgenda}"><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
-			      <li id="comandas" th:style="${styleValueComandas}">
+			      <li id="agenda" th:remove="${removeAgenda}" th:style="${styleValueAgenda}"><a th:href="@{${@environment.getProperty('url.agenda')}}">Agenda</a></li>
+			      <li id="comandas" th:remove="${removeComandas}" th:style="${styleValueComandas}">
 			        <a class="dropdown-toggle" data-toggle="dropdown"  th:href="@{${@environment.getProperty('url.comandas')}}" >Comandas<span class="caret"></span></a>
 			      	<ul class="dropdown-menu">
 			          <li th:style="${styleValueCadastroServicos}"><a id="comandas1" th:href="@{/comandasabertas}">Abertas</a></li>
@@ -73,13 +73,13 @@
 			          <!--  <li><a id="promocoes" th:style="${styleValueServicosPacotes}" th:href="@{/comandasdepacotes}">Pacotes</a></li>	 -->                  
 			        </ul>			      
 			      </li>	      
-			      <li id="cadastro" th:style="${styleValueCadastro}" class="dropdown" th:remove="${fragmentCadastro}">
+			      <li id="cadastro" th:remove="${removeCadastro}" th:style="${styleValueCadastro}" class="dropdown">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.cadastro')}}">Clientes<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
 			          <li><a id="clientes" th:style="${styleValueCadastroClientes}" th:href="@{${@environment.getProperty('url.cadastro.clientes')}}">Cadastro</a></li>	         			                   
 			        </ul>
 			      </li>	 
-			      <li id="servicos" th:style="${styleValueServicos}" class="dropdown" th:remove="${fragmentServicos}">
+			      <li id="servicos" th:remove="${removeServicos}" th:style="${styleValueServicos}" class="dropdown">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.servicos')}}">Serviços<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
 			          <li th:style="${styleValueCadastroServicos}"><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.servicos')}}">Cadastro</a></li>
@@ -87,7 +87,7 @@
 			          <li><a id="promocoes" th:style="${styleValueServicosPacotes}" th:href="@{${@environment.getProperty('url.servicos.promocoes')}}">Promoções (Pacotes)</a></li>	                   
 			        </ul>
 			      </li>	    
-			      <li id="produtos" th:style="${styleValueProdutos}" class="dropdown" th:remove="${fragmentProdutos}">
+			      <li id="produtos" th:remove="${removeProdutos}"  th:style="${styleValueProdutos}" class="dropdown">
 			        <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.produtos')}}">Produtos<span class="caret"></span></a>
 			        <ul class="dropdown-menu">			          	
 			          <li th:style="${styleValueCadastroProdutos}"><a id="fornecedores"  th:href="@{${@environment.getProperty('url.cadastro.produtos')}}">Cadastro</a></li>
@@ -96,7 +96,7 @@
 			          <li><a id="estoque" th:style="${styleValueProdutosEstoque}" th:href="@{/controledeestoque}">Estoque</a></li>	                   
 			        </ul>
 			      </li>	
-			      <li id="administrativo" th:style="${styleValueAdministrativo}" class="dropdown" th:remove="${fragmentAdministrativo}">
+			      <li id="administrativo" th:remove="${removeAdministrativo}"  th:style="${styleValueAdministrativo}" class="dropdown">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.administrativo')}}">Administrativo<span class="caret"></span></a>
 			        <ul class="dropdown-menu">			          
 			          <li th:style="${styleValueCadastroFornecedores}"><a id="fornecedores" th:href="@{${@environment.getProperty('url.cadastro.fornecedores')}}">Cadastro de Fornecedores</a></li>			          
@@ -107,7 +107,7 @@
 			          <li th:style="${styleValueAdministrativoUsuarioMaster}"><a id="usuariosmaster" th:href="@{${@environment.getProperty('url.usuarios.master')}}">Usuários Master</a></li>	                   		       	 
 			        </ul>
 			      </li>	
-			      <li id="financeiro" th:style="${styleValueFinanceiro}" class="dropdown" th:remove="${fragmentFinanceiro}">
+			      <li id="financeiro" th:remove="${removeFinanceiro}"  th:style="${styleValueFinanceiro}" class="dropdown">
 			        <a  class="dropdown-toggle" data-toggle="dropdown" th:href="@{${@environment.getProperty('url.financeiro')}}">Financeiro<span class="caret"></span></a>
 			        <ul class="dropdown-menu">
 			        	<li th:style="${styleValueFinanceiroFluxoCaixa}"><a id="fluxodecaixa" th:href="@{/tiposdepagamentosdecomandas}">Tipos de Pagamentos de Comandas</a></li>

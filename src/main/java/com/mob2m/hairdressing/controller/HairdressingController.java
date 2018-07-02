@@ -24,9 +24,13 @@ public class HairdressingController {
 		return userAuthentication.getModelViewWithUser("home");
 	}
 
+	@RequestMapping(path = "/erro", method = RequestMethod.GET)
+	public ModelAndView goError() {
+		return userAuthentication.getModelViewWithUser("erro");
+	}
+
 	@RequestMapping(path = "${url.login}", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
 		return userAuthentication.getModelViewWithUser("login");
 	}
-
 }

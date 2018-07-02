@@ -18,6 +18,7 @@ import com.mob2m.hairdressing.model.dao.User;
 import com.mob2m.hairdressing.model.dao.UserCompany;
 import com.mob2m.hairdressing.model.dao.UserRoles;
 import com.mob2m.hairdressing.model.service.StringEncryption;
+import com.mob2m.hairdressing.model.service.StringList;
 import com.mob2m.hairdressing.model.service.UserAuthentication;
 import com.mob2m.hairdressing.service.CompanySubsidiariesService;
 import com.mob2m.hairdressing.service.UserCompanyService;
@@ -44,7 +45,6 @@ public class HairdressingControllerUserCompany {
 
 	@Autowired
 	private UserRolesService userRolesService;
-
 
 	public HairdressingControllerUserCompany() {
 
@@ -105,6 +105,12 @@ public class HairdressingControllerUserCompany {
 		if (result.hasErrors()) {
 		//return addNewUserRole(userRoles);
 		}
+
+		Long usernameId = userCompany.getUser().getId();
+		User user = userService.findOne(usernameId);
+		String username_string = user.getUsername();
+		userCompany.setUsername_string(username_string);;
+		userCompany.setUser_role_string(StringList.USER_ROLE_STRING);
 		userCompanyService.save(userCompany);
 		RedirectView rv = new RedirectView();
 		rv.setContextRelative(true);

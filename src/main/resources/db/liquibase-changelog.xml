@@ -58,6 +58,8 @@
 		 <include file="changelog/V1/50_alter_column_tbl_comandas_master.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/51_alter_column_tbl_comandas_receivables.xml" relativeToChangelogFile="true"/>
 		 <include file="changelog/V1/52_alter_column_tbl_comandas_receivables_details.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/53_add_columns_tbl_user_company.xml" relativeToChangelogFile="true"/>
+		 <include file="changelog/V1/54_add_columns_tbl_user_company.xml" relativeToChangelogFile="true"/>
 		 
 		 
 </databaseChangeLog>
