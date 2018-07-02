@@ -33,7 +33,7 @@ public class MvcConfig { //extends WebMvcConfigurerAdapter {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
 		driverManagerDataSource.setUrl(
-				"postgres://ruixtascnjatoe:6280b38ebd10415ca5023949d19ce1a4159a5a29128c240fa8bc653195afcb55@ec2-54-83-59-144.compute-1.amazonaws.com:5432/d1fe7d9ifvelh4");
+				"jdbc:postgres://ruixtascnjatoe:6280b38ebd10415ca5023949d19ce1a4159a5a29128c240fa8bc653195afcb55@ec2-54-83-59-144.compute-1.amazonaws.com:5432/d1fe7d9ifvelh4");
 		driverManagerDataSource.setUsername("ruixtascnjatoe");
 		driverManagerDataSource.setPassword("6280b38ebd10415ca5023949d19ce1a4159a5a29128c240fa8bc653195afcb55");
 		return driverManagerDataSource;
