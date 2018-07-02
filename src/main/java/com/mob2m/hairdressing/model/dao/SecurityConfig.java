@@ -22,15 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login/")).and().authorizeRequests();
+		http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login")).and().authorizeRequests();
 
-		http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/home/").hasRole("Security_Allow")
+		http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/home").hasRole("Security_Allow")
 		.antMatchers("/home/").access("hasRole('Security_Allow')")
-				.anyRequest().permitAll().and().formLogin()
-		.loginPage("/login/").usernameParameter("username").passwordParameter("password").and().logout()
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout/")).logoutSuccessUrl("/login/")
+		.anyRequest().permitAll().and().formLogin()
+				.loginPage("/login").usernameParameter("username").passwordParameter("password").and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
 		.permitAll().and().exceptionHandling()
-		.accessDeniedPage("/erro/").and().csrf();
+				.accessDeniedPage("/erro").and().csrf();
 
 	}
 

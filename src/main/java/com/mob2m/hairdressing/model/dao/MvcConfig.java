@@ -18,7 +18,7 @@ public class MvcConfig { //extends WebMvcConfigurerAdapter {
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);*/
 	}
 
-	/*@Bean(name = "dataSource")
+	@Bean(name = "dataSource")
 	public DriverManagerDataSource dataSource() {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
@@ -26,9 +26,9 @@ public class MvcConfig { //extends WebMvcConfigurerAdapter {
 		driverManagerDataSource.setUsername("hairdressingmaster");
 		driverManagerDataSource.setPassword("riomam150968");
 		return driverManagerDataSource;
-	}*/
+	}
 
-	@Bean(name = "dataSource")
+	/*@Bean(name = "dataSource")
 	public DriverManagerDataSource dataSource() {
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
@@ -37,5 +37,5 @@ public class MvcConfig { //extends WebMvcConfigurerAdapter {
 		driverManagerDataSource.setUsername("ruixtascnjatoe");
 		driverManagerDataSource.setPassword("6280b38ebd10415ca5023949d19ce1a4159a5a29128c240fa8bc653195afcb55");
 		return driverManagerDataSource;
-	}
+	}*/
 }
