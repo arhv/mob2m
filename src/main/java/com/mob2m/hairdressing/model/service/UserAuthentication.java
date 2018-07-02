@@ -16,7 +16,7 @@ public class UserAuthentication {
 		ModelAndView mv = new ModelAndView(htmlPage);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentUserName = authentication.getName();
-		if (userViewPermissions.getUserLoggedin(currentUserName) == 0) {
+		if (currentUserName == null) {
 		ModelAndView mvError = new ModelAndView("/login");
 		return mvError;
 		}
