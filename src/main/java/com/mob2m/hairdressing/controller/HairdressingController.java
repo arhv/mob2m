@@ -31,6 +31,8 @@ public class HairdressingController {
 
 	@RequestMapping(path = "${url.login}", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
-		return userAuthentication.getModelViewWithUser("login");
+		ModelAndView mvLogin = new ModelAndView("login");
+		return mvLogin;
+		//return userAuthentication.getModelViewWithUser("login");
 	}
 }
