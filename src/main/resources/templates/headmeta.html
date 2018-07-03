@@ -138,8 +138,8 @@
 	                        <tr>
 	                            <th>ID</th>
 	                            <th>Ativo</th>
-	                            <th>Nome completo</th>
-	                            <th>Nome de usuário</th>
+	                            <th>Nome Completo</th>
+	                            <th>Código do Usuário</th>
 	                            <th>Email</th>	                            
 	                            <th>Telefone</th>
 	                            <!--  <th>Endereço</th>                      
@@ -193,7 +193,7 @@
 	                    <fieldset>	                        
 	                         <div class="form-group row">
 	                            <div class="col-md-4">	                            	
-		                            	<label for="usernameCheck">Nome de usuário</label>	                                
+		                            	<label for="usernameCheck">Código do Usuário</label>	                                
 		                                <input id="usernameCheck" type="text" class="form-control input-sm" th:field="*{username}" th:required="required"></input>		                                 
 		                                <button id="checkUsername" >Verificar nome de usuário </button>  		                                                  
 	                            </div>
@@ -247,7 +247,7 @@
 	                         </div>-->
 	                         <div class="form-group row">
 	                            <div class="col-md-4">	                            	
-		                            	<label for="username">Nome de usuário</label>	                                
+		                            	<label for="username">Código do Usuário</label>	                                
 		                                <input id="username" type="text" class="form-control input-sm" th:field="*{username}" th:required="required"></input>                                           
 	                            </div>
 	                         </div>
@@ -272,7 +272,7 @@
 	                        </div>   
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
-	                                <label for="fullName" >Nome completo</label> 
+	                                <label for="fullName" >Nome Completo</label> 
 	                                <input id="fullName" type="text" class="form-control input-sm" th:field="*{name}" th:required="required"></input>
 	                            </div>	                            
 	                        </div>             
@@ -363,13 +363,13 @@
 	                         </div>
 	                         <div class="form-group row">		
 	                            <div class="col-md-4">
-	                                <label>Nome completo</label> 
+	                                <label>Nome Completo</label> 
 	                                <input type="text" class="form-control input-sm" th:field="*{name}"/>
 	                            </div>
 	                        </div>                    
 	                        <div class="form-group row">
 	                            <div class="col-md-4">
-	                            	<label>Nome de usuário</label>
+	                            	<label>Código do Usuário</label>
 	                                <input type="text" class="form-control input-sm" id="username" th:field="*{username}" readOnly="readonly"/>
 	                            </div>
 	                         </div>
