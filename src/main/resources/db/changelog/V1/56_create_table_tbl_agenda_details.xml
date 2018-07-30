@@ -1,0 +1,52 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="56" author="mob2m">	
+			<createTable tableName="tbl_agenda_details" remarks="Table with the name of hairdressing agenda details" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="agenda_master_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="customer_name" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>			    	
+			    <column name="service_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>	
+			    <column name="agenda_status" type="varchar(200)">
+			      <constraints nullable="true" unique="false"/>
+			    </column>	   		    			    
+	    		    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_agenda_details"
+            baseColumnNames="agenda_master_id"
+            constraintName="fk_agenda_master_id_id"
+            referencedTableName="tbl_agenda_master"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_agenda_details"
+            baseColumnNames="customer_name"
+            constraintName="fk_customer_name_id"
+            referencedTableName="tbl_customers"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/> 
+            <addForeignKeyConstraint 
+            baseTableName="tbl_agenda_details"
+            baseColumnNames="service_id"
+            constraintName="fk_service_id_id"
+            referencedTableName="tbl_services"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>              
+            	         		  		  	          	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headmeta">
+	<title>Mob2m</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/> 
+	<link rel="icon" type="image/x-icon" href="/static/favicon.ico"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>	
+	<!-- include the jQuery validation plugin -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}" src="js/jquery.validate.min.js"></script>
+    <!-- add the required customizations for Bootstrap -->
+    <script type="text/javascript" th:src="@{/js/jquery.validate.bootstrap.js}" src="js/jquery.validate.bootstrap.js"></script>
+	<script>
+		jQuery(function($){
+		   $("#phonenumber").mask("(99)(9)9999-9999");
+		   $("#zipCode").mask("99999-999");		   	   
+		});
+	</script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script>
+	  $( function() {
+	    $( "#datepicker").datepicker();
+	  } );
+	 </script>
+	 
+	
+</head>
+
+<body>
+	
+	<div th:fragment="findAllAgendaDetails">
+		<div class="panel panel-default" >
+			<br/><br/><br/> 
+			<!--  <div class="panel-heading">	                   
+	           	 <label><h4>AGENDA</h4></label>
+	               
+	        </div>-->
+		
+	        <div class="panel-heading">	                      	 
+	           	 <label>Unidade:</label>
+	         	<label th:text="${companySubsidiary}"></label>
+	         	
+		        <label style="margin-left:200px;">Data:</label>
+		        <input id="datepicker" th:type="text" ></input>
+	           	 
+	             <!--  <a class="btn btn-sm btn-success" th:href="@{/adicionarpagamentodecomanda/{comandaId}/{customerName}/(comandaId=${comandaId}, customerName=${customerName})}" style="margin-left:80px;">Adicionar pagamento</a>
+	             <input id="paymentsAgendaMaster" type="text" class="" placeholder="Procurar pelo pagamento efetuado" onkeyup="myFunctionComandasReceivables()" style="margin-left:50px; width:300px"></input>-->
+	        	             
+	        </div>
+	         <div class="panel-heading">
+		         <div class="form-group row">    
+	             <div class="col-md-4" >
+			        <label >Profissional:</label>
+			        <div class="dropdown">
+	                 	<select id="professionalId" class="form-control input-sm" th:field="*{professionalId}" >	                                		
+	                 		<option th:each="professionalSelection : ${professionalList}" th:value="${professionalSelection.id}" th:text="${professionalSelection.user.name}" > </option>
+	                 	</select>
+	                 </div>
+	                 <br/>
+	                 <a class="btn btn-sm btn-success" th:href="@{/agenda}"><b>VERIFICAR HORÁRIOS</b></a>
+	             </div>
+	            </div>  	   
+		         			                   
+		          <!--     <label>Cliente:</label>
+		            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+		            <label style="margin-left:40px;">Comanda:</label>
+		            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+		            <label style="margin-left:40px;">Valor Total da Comanda:</label>
+		            <strong th:text="${#numbers.formatDecimal(sumAllcomandaId, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>-->
+		            
+	         </div>
+	        <div class="panel-body" style="overflow-y:auto;height:500px">
+	            <div class="table-responsive">
+	                <table id="allAgendaMaster" class="table table-sm table-striped table-hover table-bordered">
+	                    <thead>
+	                        <tr >	                            
+	                            <th>Profissional</th>
+	                            <th>8:00</th> 
+	                            <th>8:30</th>
+	                            <th>9:00</th>                       	                                          
+	                            <th>9:30</th>       
+	                            <th>10:00</th> 
+	                            <th>10:30</th>
+	                            <th>11:00</th>                       	                                          
+	                            <th>11:30</th> 
+	                            <th>12:00</th> 
+	                            <th>12:30</th>
+	                            <th>13:00</th>                       	                                          
+	                            <th>13:30</th> 
+	                            <th>14:00</th> 
+	                            <th>14:30</th> 
+	                            <th>15:00</th>
+	                            <th>15:30</th>                       	                                          
+	                            <th>16:00</th>
+	                            <th>16:30</th> 
+	                            <th>17:00</th> 
+	                            <th>17:30</th>
+	                            <th>18:00</th>                       	                                          
+	                            <th>18:30</th>
+	                            <th>19:00</th>
+	                            <th>19:30</th>  
+	                            <th>20:00</th> 
+	                            <th>20:30</th>
+	                            <th>21:00</th>                       	                                          
+	                            <th>21:30</th>
+	                                                                                                                                                             
+						     </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr th:each="agendaSchedule : ${agendaScheduleList}">
+	                        	<td th:text="${agendaSchedule.professional.id}"></td>
+	                            <td th:text="${agendaSchedule.professional.h800}"></td>	
+	                            <td th:text="${agendaSchedule.professional.h830}"></td>	
+	                            <td th:text="${agendaSchedule.professional.h900}"></td>	                            
+	                            <td th:text="${agendaSchedule.professional.h930}"></td>	                           
+	                            <td th:text="${agendaSchedule.professional.h1000}"></td>
+	                            <td th:text="${agendaSchedule.professional.h1030}"></td>	                            	
+	                     	    <td th:text="${agendaSchedule.professional.h1100}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1130}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1200}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1230}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1300}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1330}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1400}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1430}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1500}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1530}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1600}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1630}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1700}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1730}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1800}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1830}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1900}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h1930}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h2000}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h2030}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h2100}"></td>
+	                     	    <td th:text="${agendaSchedule.professional.h2130}"></td>
+	                     	    
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+	        </div>
+	        <div class="panel-footer">
+	            <!-- <a class="btn btn-sm btn-success" th:href="@{/adicionarcomandadeservicos/{comandaId}/{customerName}(comandaId=${comandaId}, customerName=${customerName})}" >Adicionar</a>-->
+	        </div>
+	       	<script type="text/javascript" th:src="@{/js/searchAgendaProfessional.js}" src="js/searchAgendaProfessional.js"></script>  
+	    </div>	 
+	</div>	
+	
+	<!--  <div th:fragment="addComandasReceivables">
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	            <br/><br/><br/>
+	            <label>PAGAMENTOS DE COMANDAS</label>	            
+	        </div>
+	        <div class="panel-heading">				                   
+	             <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Valor Total da Comanda:</label>
+	            <strong th:text="${#numbers.formatDecimal(sumAllcomandaId, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>	            
+	        </div>
+	        <div class="panel-body">
+	            <form id="formNewComandasReceivables" class="form-horizontal" th:object="${addComandasReceivables}" th:action="@{/salvarpagamentodecomanda/{sumAllcomandaId}/{comandaId}/(sumAllcomandaId=${sumAllcomandaId}, comandaId=${comandaId})}" method="POST" style="margin: 10px" >
+	                <div class="form-group">
+	                    <fieldset>
+	                       <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>ID</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+	                            </div>
+	                        </div> 
+	                       
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>   
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Código da Comanda</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{comanda_id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="comanda_value" >Valor</label>
+	                                <input id="comanda_value" type="number" step="0.01" class="form-control input-sm" th:field="*{total_receivable_value}" ></input>	                            	 
+	                            </div>
+	                        </div>	                        
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="payment_type_1">Tipo de Pagamento</label>
+	                                 <div class="dropdown">
+	                                	<select id="payment_type" class="form-control input-sm" th:field="*{paymentsTypes}" >	                                		
+	                                		<option th:each="paymentsTypes : ${paymentsTypesList}" th:value="${paymentsTypes.id}" th:text="${paymentsTypes.payment_type}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                         
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="number_parcels_1">Parcelas</label>
+	                                 <div class="dropdown">
+	                                	<select id="number_parcels" class="form-control input-sm" th:field="*{number_parcels}" >	                                		
+	                                		<option th:each="numberParcels : ${numberParcelsList}" th:value="${numberParcels}" th:text="${numberParcels}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>     
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="date_payment" >Data do Pagamento</label>
+	                                <input id="datepicker" type="text" class="form-control input-sm" th:field="*{receivable_date}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                                      
+	                                                	                                    
+	                    </fieldset>
+	                </div>
+	                <div class="form-group row">
+	                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+	                    <a th:href="@{/comandasabertas}" class="btn btn-sm btn-default">Cancelar</a>
+	                </div>
+	            </form>
+	        </div> 	        
+	        <script type="text/javascript" th:src="@{/js/datePickerSelection.js}" src="js/datePickerSelection.js"></script>            	 
+    	</div>  
+    	
+    	<br/><br/> 
+     </div>
+    
+		 
+    
+	    <div th:fragment="editComandasReceivables">
+			<div class="panel panel-default">
+		        <div class="panel-heading">
+		            <br/><br/><br/>
+	            	<label>TIPOS DE PAGAMENTOS</label>
+		        </div>
+		        <div class="panel-heading">				                   
+	             <label>Cliente:</label>
+	            <strong th:text="${customerName}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Comanda:</label>
+	            <strong th:text="${comandaId}" style="margin-left:5px;"></strong>
+	            <label style="margin-left:40px;">Valor Total da Comanda:</label>
+	            <strong th:text="${#numbers.formatDecimal(sumAllcomandaId, 1, 'POINT', 2, 'COMMA')}" style="margin-left:5px;"></strong>
+	            
+	        </div>
+		        <div class="panel-body">
+		            <form class="form-horizontal" th:object="${editComandasReceivables}" th:action="@{/salvartipodepagamento}" method="POST" style="margin: 10px">
+		                <div class="form-group">
+		                    <fieldset>
+		                        <div class="form-group row">
+		                            <div class="col-md-4">
+		                                <label>ID</label> 
+		                                <input type="text" class="form-control input-sm" th:field="*{id}" readOnly="readonly"/>
+		                            </div>
+		                        </div>   	                      
+		                            
+		                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="company_subsidiary">Unidade</label>
+	                                 <div class="dropdown">
+	                                	<select id="company_subsidiary_name" class="form-control input-sm" th:field="*{companySubsidiaries}" >	                                		
+	                                		<option th:each="companySubsidiarySelection : ${companySubsidiaryList}" th:value="${companySubsidiarySelection.id}" th:text="${companySubsidiarySelection.companySubsidiaryName}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>   
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label>Código da Comanda</label> 
+	                                <input type="text" class="form-control input-sm" th:field="*{comanda_id}" readOnly="readonly"/>
+	                            </div>
+	                        </div>
+	                         <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="comanda_value" >Valor</label>
+	                                <input id="comanda_value" type="number" step="0.01" class="form-control input-sm" th:field="*{total_receivable_value}" ></input>	                            	 
+	                            </div>
+	                        </div>	                        
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="payment_type_1">Tipo de Pagamento</label>
+	                                 <div class="dropdown">
+	                                	<select id="payment_type" class="form-control input-sm" th:field="*{paymentsTypes}" >	                                		
+	                                		<option th:each="paymentsTypes : ${paymentsTypesList}" th:value="${paymentsTypes.id}" th:text="${paymentsTypes.payment_type}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>                         
+	                        <div class="form-group row">    
+	                           <div class="col-md-4" >
+	                                <label id="number_parcels_1">Parcelas</label>
+	                                 <div class="dropdown">
+	                                	<select id="number_parcels" class="form-control input-sm" th:field="*{number_parcels}" >	                                		
+	                                		<option th:each="numberParcels : ${numberParcelsList}" th:value="${numberParcels}" th:text="${numberParcels}" > </option>
+	                                	</select>
+	                                </div>
+	                            </div>  
+	                        </div>     
+	                        <div class="form-group row">
+	                            <div class="col-md-4">
+	                                <label for="date_payment" >Data do Pagamento</label>
+	                                <input id="datepicker" type="text" class="form-control input-sm" th:field="*{receivable_date}" ></input>	                            	 
+	                            </div>
+	                        </div>	
+	                        
+		                    </fieldset>
+		                </div>
+		                <div class="form-group row">
+		                    <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
+		                    <a th:href="@{/comandasabertas}" class="btn btn-sm btn-default">Cancelar</a>
+		                </div>
+		            </form>
+		        </div>
+		        
+		        
+	    	</div>   
+	    	
+	    	<br/><br/> 
+
+    </div>-->
+	
+
+</body>
+
+</html>

@@ -11,7 +11,16 @@
 	<div>
 		<div class="panel panel-default">
 	        <div class="panel-heading">	  
-	        	<h3>Ocorreu um erro inesperado, favor retornar para a página principal</h3>          
+	        	<h3>Ocorreu um erro inesperado, favor retornar para a página principal</h3>  
+	        	 <div class="form-group row">                                                          
+                     <div class="col-md-4" >
+                         <label>Status: </label>
+                         <label th:text="${statusCodeDetail}"></label><br/>
+                         <label>Erro: </label>
+                         <label th:text="${errorDetail}"></label>                                 
+                     </div>	                          
+	             </div>          	
+	        	       
 	            <a class="btn btn-sm btn-success" th:href="@{/home}" style="margin-left:20px;">Voltar para a página principal</a>                     
 	        </div>     
 	    </div>	

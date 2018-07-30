@@ -73,15 +73,18 @@ public class Customers implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customers")
 	private Set<ComandasExpensesServices> comandasExepenses = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customers")
+	private Set<AgendaDetails> agendaDetails = new HashSet<>(0);
+
 	public Customers() {
 
 	}
 
 
 
-	public Customers(Long id, CompanySubsidiaries companySubsidiaries, String customer_name, String phone_number,
-			String email, String address, String zip_code, int state_name_id, int city_name_id, Cities cities1,
-			States states1, Set<ComandasMaster> comandasMaster, Set<ComandasExpensesServices> comandasExepenses) {
+	public Customers(Long id, CompanySubsidiaries companySubsidiaries, String customer_name, String phone_number, String email, String address,
+			String zip_code, int state_name_id, int city_name_id, Cities cities1, States states1, Set<ComandasMaster> comandasMaster,
+			Set<ComandasExpensesServices> comandasExepenses, Set<AgendaDetails> agendaDetails) {
 		super();
 		this.id = id;
 		this.companySubsidiaries = companySubsidiaries;
@@ -96,10 +99,12 @@ public class Customers implements Serializable {
 		this.states1 = states1;
 		this.comandasMaster = comandasMaster;
 		this.comandasExepenses = comandasExepenses;
+		this.agendaDetails = agendaDetails;
 	}
 
-
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -108,7 +113,7 @@ public class Customers implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof Customers)) {
 		return false;
 		}
 		Customers other = (Customers) obj;
@@ -117,6 +122,13 @@ public class Customers implements Serializable {
 		return false;
 		}
 		} else if (!address.equals(other.address)) {
+		return false;
+		}
+		if (agendaDetails == null) {
+		if (other.agendaDetails != null) {
+		return false;
+		}
+		} else if (!agendaDetails.equals(other.agendaDetails)) {
 		return false;
 		}
 		if (cities1 == null) {
@@ -206,6 +218,13 @@ public class Customers implements Serializable {
 	}
 
 	/**
+	 * @return the agendaDetails
+	 */
+	public Set<AgendaDetails> getAgendaDetails() {
+		return agendaDetails;
+	}
+
+	/**
 	 * @return the cities
 	 */
 	public Cities getCities() {
@@ -226,11 +245,27 @@ public class Customers implements Serializable {
 		return city_name_id;
 	}
 
+
+
+	/**
+	 * @return the comandasExepenses
+	 */
+	public Set<ComandasExpensesServices> getComandasExepenses() {
+		return comandasExepenses;
+	}
+
 	/**
 	 * @return the comandasMaster
 	 */
 	public Set<ComandasMaster> getComandasMaster() {
 		return comandasMaster;
+	}
+
+	/**
+	 * @return the companySubsidiaries
+	 */
+	public CompanySubsidiaries getCompanySubsidiaries() {
+		return companySubsidiaries;
 	}
 
 	/**
@@ -246,7 +281,6 @@ public class Customers implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-
 
 	/**
 	 * @return the id
@@ -269,6 +303,7 @@ public class Customers implements Serializable {
 		return state_name_id;
 	}
 
+
 	/**
 	 * @return the states
 	 */
@@ -290,11 +325,15 @@ public class Customers implements Serializable {
 		return zip_code;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((agendaDetails == null) ? 0 : agendaDetails.hashCode());
 		//result = prime * result + ((cities1 == null) ? 0 : cities1.hashCode());
 		result = prime * result + city_name_id;
 		//result = prime * result + ((comandasExepenses == null) ? 0 : comandasExepenses.hashCode());
@@ -315,6 +354,13 @@ public class Customers implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	/**
+	 * @param agendaDetails the agendaDetails to set
+	 */
+	public void setAgendaDetails(Set<AgendaDetails> agendaDetails) {
+		this.agendaDetails = agendaDetails;
 	}
 
 	/**
@@ -339,10 +385,24 @@ public class Customers implements Serializable {
 	}
 
 	/**
+	 * @param comandasExepenses the comandasExepenses to set
+	 */
+	public void setComandasExepenses(Set<ComandasExpensesServices> comandasExepenses) {
+		this.comandasExepenses = comandasExepenses;
+	}
+
+	/**
 	 * @param comandasMaster the comandasMaster to set
 	 */
 	public void setComandasMaster(Set<ComandasMaster> comandasMaster) {
 		this.comandasMaster = comandasMaster;
+	}
+
+	/**
+	 * @param companySubsidiaries the companySubsidiaries to set
+	 */
+	public void setCompanySubsidiaries(CompanySubsidiaries companySubsidiaries) {
+		this.companySubsidiaries = companySubsidiaries;
 	}
 
 	/**

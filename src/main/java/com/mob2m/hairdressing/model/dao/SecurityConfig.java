@@ -24,13 +24,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().requireCsrfProtectionMatcher(new AntPathRequestMatcher("**/login")).and().authorizeRequests();
 
-		http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/home").hasRole("Security_Allow")
-		.antMatchers("/home/").access("hasRole('Security_Allow')")
-				.anyRequest().authenticated().and().formLogin()
+		/*http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll().antMatchers("/agenda").hasRole("Security_Allow")
+				.antMatchers("/agenda/").access("hasRole('Security_Allow')")
+		.anyRequest().authenticated().and().formLogin()
 		.loginPage("/login").usernameParameter("username").passwordParameter("password").and().logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
 		.permitAll().and().exceptionHandling()
-		.accessDeniedPage("/erro").and().csrf();
+		.accessDeniedPage("/erro").and().csrf();*/
+		http.authorizeRequests().antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll().anyRequest().authenticated().and().formLogin()
+				.loginPage("/login").usernameParameter("username").passwordParameter("password").and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll().and().exceptionHandling()
+				.accessDeniedPage("/erro").and().csrf();
 
 	}
 

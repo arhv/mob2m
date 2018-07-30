@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="57" author="mob2m">	
+			<createTable tableName="tbl_agenda_details_time" remarks="Table with the name of hairdressing agenda details time" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="agenda_details_id" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>
+			    <column name="order_time" type="int">
+			      <constraints nullable="true" unique="false"/>
+			    </column>			    	
+			    <column name="agenda_time" type="date">
+			      <constraints nullable="true" unique="false"/>
+			    </column>	
+			    <column name="agenda_time_selected" type="boolean">
+			      <constraints nullable="true" unique="false"/>
+			    </column>	   		    			    
+	    		    
+		  	</createTable>	
+		  	<addForeignKeyConstraint 
+            baseTableName="tbl_agenda_details_time"
+            baseColumnNames="agenda_details_id"
+            constraintName="fk_agenda_details_id_id"
+            referencedTableName="tbl_agenda_details"
+            referencedColumnNames="id"            
+            onDelete="RESTRICT"/>                         
+            	         		  		  	          	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

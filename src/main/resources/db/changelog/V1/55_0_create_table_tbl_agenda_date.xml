@@ -1,0 +1,20 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+		<changeSet id="55_0" author="mob2m">	
+			<createTable tableName="tbl_agenda_date" remarks="Table with the name of hairdressing agenda date" >
+			    <column name="id" type="serial" autoIncrement="true">
+			      <constraints nullable="false" unique="true" primaryKey="true" />
+			    </column>
+			    <column name="date_agenda" type="date">
+			      <constraints nullable="true" unique="false"/>
+			    </column>		     		    			        		    
+		  	</createTable>		  	                         	         		  		  	          	  
+		 <rollback/>
+		</changeSet>
+</databaseChangeLog>
+ 

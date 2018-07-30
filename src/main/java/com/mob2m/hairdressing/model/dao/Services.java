@@ -57,15 +57,19 @@ public class Services implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "services")
 	private Set<ComandasExpensesServices> comandasExpenses = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "services")
+	private Set<AgendaDetails> agendaDetails = new HashSet<>(0);
+
 	public Services() {
 
 	}
 
 
 
-	public Services(Long id, String service, double value, double percentage_professional, double percentage_aux_1,
-			double percentage_aux_2, CompanySubsidiaries companySubsidiaries,
-			Set<ComandasDetailsServices> comandasDetailsServices, Set<ComandasExpensesServices> comandasExpenses) {
+
+	public Services(Long id, String service, double value, double percentage_professional, double percentage_aux_1, double percentage_aux_2,
+			CompanySubsidiaries companySubsidiaries, Set<ComandasDetailsServices> comandasDetailsServices,
+			Set<ComandasExpensesServices> comandasExpenses, Set<AgendaDetails> agendaDetails) {
 		super();
 		this.id = id;
 		this.service = service;
@@ -76,10 +80,14 @@ public class Services implements Serializable {
 		this.companySubsidiaries = companySubsidiaries;
 		this.comandasDetailsServices = comandasDetailsServices;
 		this.comandasExpenses = comandasExpenses;
+		this.agendaDetails = agendaDetails;
 	}
 
 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -88,10 +96,17 @@ public class Services implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof Services)) {
 		return false;
 		}
 		Services other = (Services) obj;
+		if (agendaDetails == null) {
+		if (other.agendaDetails != null) {
+		return false;
+		}
+		} else if (!agendaDetails.equals(other.agendaDetails)) {
+		return false;
+		}
 		if (comandasDetailsServices == null) {
 		if (other.comandasDetailsServices != null) {
 		return false;
@@ -143,6 +158,27 @@ public class Services implements Serializable {
 	}
 
 	/**
+	 * @return the agendaDetails
+	 */
+	public Set<AgendaDetails> getAgendaDetails() {
+		return agendaDetails;
+	}
+
+	/**
+	 * @return the comandasDetailsServices
+	 */
+	public Set<ComandasDetailsServices> getComandasDetailsServices() {
+		return comandasDetailsServices;
+	}
+
+	/**
+	 * @return the comandasExpenses
+	 */
+	public Set<ComandasExpensesServices> getComandasExpenses() {
+		return comandasExpenses;
+	}
+
+	/**
 	 * @return the companySubsidiaries
 	 */
 	public CompanySubsidiaries getCompanySubsidiaries() {
@@ -191,10 +227,14 @@ public class Services implements Serializable {
 		return value;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((agendaDetails == null) ? 0 : agendaDetails.hashCode());
 		//result = prime * result + ((comandasDetailsServices == null) ? 0 : comandasDetailsServices.hashCode());
 		//result = prime * result + ((comandasExpenses == null) ? 0 : comandasExpenses.hashCode());
 		//result = prime * result + ((companySubsidiaries == null) ? 0 : companySubsidiaries.hashCode());
@@ -210,6 +250,27 @@ public class Services implements Serializable {
 		temp = Double.doubleToLongBits(value);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
+	}
+
+	/**
+	 * @param agendaDetails the agendaDetails to set
+	 */
+	public void setAgendaDetails(Set<AgendaDetails> agendaDetails) {
+		this.agendaDetails = agendaDetails;
+	}
+
+	/**
+	 * @param comandasDetailsServices the comandasDetailsServices to set
+	 */
+	public void setComandasDetailsServices(Set<ComandasDetailsServices> comandasDetailsServices) {
+		this.comandasDetailsServices = comandasDetailsServices;
+	}
+
+	/**
+	 * @param comandasExpenses the comandasExpenses to set
+	 */
+	public void setComandasExpenses(Set<ComandasExpensesServices> comandasExpenses) {
+		this.comandasExpenses = comandasExpenses;
 	}
 
 	/**

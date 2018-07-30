@@ -100,18 +100,19 @@ public class CompanySubsidiaries implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
 	private Set<ComandasExpensesServices> comandasExpenses = new HashSet<>(0);
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "companySubsidiaries")
+	private Set<AgendaSubsidiary> agendaMaster = new HashSet<>(0);
+
 	public CompanySubsidiaries() {
 
 	}
 
-	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType,
-			String companySubsidiaryCnpj, String companySubsidiaryAddress, String companySubsidiaryCep,
-			int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId, Cities cities, States states,
-			Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles,
-			Set<Professionals> professionals, Set<Suppliers> suppliers, Set<ComandasMaster> comandasMaster,
-			Set<ProductsReselling> productsReselling, Set<ProductsWarehouse> productsWarehouse,
-			Set<ComandasPaymentsTypes> paymentsTypes, Set<Customers> customers,
-			Set<ComandasExpensesServices> comandasExpenses) {
+	public CompanySubsidiaries(Long id, String companySubsidiaryName, String companySubsidiaryType, String companySubsidiaryCnpj,
+			String companySubsidiaryAddress, String companySubsidiaryCep, int companySubsidiaryState, int companySubsidiaryCity, Long companyNameId,
+			Cities cities, States states, Set<Products> products, Set<Services> services, Set<UserCompany> userCompany, Set<UserRoles> userRoles,
+			Set<Professionals> professionals, Set<Suppliers> suppliers, Set<ComandasMaster> comandasMaster, Set<ProductsReselling> productsReselling,
+			Set<ProductsWarehouse> productsWarehouse, Set<ComandasPaymentsTypes> paymentsTypes, Set<Customers> customers,
+			Set<ComandasExpensesServices> comandasExpenses, Set<AgendaSubsidiary> agendaMaster) {
 		super();
 		this.id = id;
 		this.companySubsidiaryName = companySubsidiaryName;
@@ -136,12 +137,12 @@ public class CompanySubsidiaries implements Serializable {
 		this.paymentsTypes = paymentsTypes;
 		this.customers = customers;
 		this.comandasExpenses = comandasExpenses;
+		this.agendaMaster = agendaMaster;
 	}
 
-
-
-
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -150,10 +151,17 @@ public class CompanySubsidiaries implements Serializable {
 		if (obj == null) {
 		return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof CompanySubsidiaries)) {
 		return false;
 		}
 		CompanySubsidiaries other = (CompanySubsidiaries) obj;
+		if (agendaMaster == null) {
+		if (other.agendaMaster != null) {
+		return false;
+		}
+		} else if (!agendaMaster.equals(other.agendaMaster)) {
+		return false;
+		}
 		if (cities == null) {
 		if (other.cities != null) {
 		return false;
@@ -311,12 +319,22 @@ public class CompanySubsidiaries implements Serializable {
 	}
 
 	/**
+	 * @return the agendaMaster
+	 */
+	public Set<AgendaSubsidiary> getAgendaMaster() {
+		return agendaMaster;
+	}
+
+	/**
 	 * @return the cities
 	 */
 	public Cities getCities() {
 		return cities;
 	}
 
+	/**
+	 * @return the comandasExpenses
+	 */
 	public Set<ComandasExpensesServices> getComandasExpenses() {
 		return comandasExpenses;
 	}
@@ -370,8 +388,6 @@ public class CompanySubsidiaries implements Serializable {
 		return companySubsidiaryName;
 	}
 
-
-
 	/**
 	 * @return the companySubsidiaryState
 	 */
@@ -386,6 +402,9 @@ public class CompanySubsidiaries implements Serializable {
 		return companySubsidiaryType;
 	}
 
+	/**
+	 * @return the customers
+	 */
 	public Set<Customers> getCustomers() {
 		return customers;
 	}
@@ -397,10 +416,12 @@ public class CompanySubsidiaries implements Serializable {
 		return id;
 	}
 
+	/**
+	 * @return the paymentsTypes
+	 */
 	public Set<ComandasPaymentsTypes> getPaymentsTypes() {
 		return paymentsTypes;
 	}
-
 
 	/**
 	 * @return the products
@@ -465,10 +486,14 @@ public class CompanySubsidiaries implements Serializable {
 		return userRoles;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((agendaMaster == null) ? 0 : agendaMaster.hashCode());
 		result = prime * result + ((cities == null) ? 0 : cities.hashCode());
 		//result = prime * result + ((comandasExpenses == null) ? 0 : comandasExpenses.hashCode());
 		result = prime * result + ((comandasMaster == null) ? 0 : comandasMaster.hashCode());
@@ -496,12 +521,22 @@ public class CompanySubsidiaries implements Serializable {
 	}
 
 	/**
+	 * @param agendaMaster the agendaMaster to set
+	 */
+	public void setAgendaMaster(Set<AgendaSubsidiary> agendaMaster) {
+		this.agendaMaster = agendaMaster;
+	}
+
+	/**
 	 * @param cities the cities to set
 	 */
 	public void setCities(Cities cities) {
 		this.cities = cities;
 	}
 
+	/**
+	 * @param comandasExpenses the comandasExpenses to set
+	 */
 	public void setComandasExpenses(Set<ComandasExpensesServices> comandasExpenses) {
 		this.comandasExpenses = comandasExpenses;
 	}
@@ -569,6 +604,9 @@ public class CompanySubsidiaries implements Serializable {
 		this.companySubsidiaryType = companySubsidiaryType;
 	}
 
+	/**
+	 * @param customers the customers to set
+	 */
 	public void setCustomers(Set<Customers> customers) {
 		this.customers = customers;
 	}
@@ -580,6 +618,9 @@ public class CompanySubsidiaries implements Serializable {
 		this.id = id;
 	}
 
+	/**
+	 * @param paymentsTypes the paymentsTypes to set
+	 */
 	public void setPaymentsTypes(Set<ComandasPaymentsTypes> paymentsTypes) {
 		this.paymentsTypes = paymentsTypes;
 	}
@@ -646,6 +687,7 @@ public class CompanySubsidiaries implements Serializable {
 	public void setUserRoles(Set<UserRoles> userRoles) {
 		this.userRoles = userRoles;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
